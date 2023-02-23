@@ -39,3 +39,16 @@ body {
 .site-header {
     background-color: #70AD47;
 }
+
+.btn-login {
+  background-color: #70AD47;
+  border-radius: 10px;
+  transition-duration: 0.4s;
+  width: 100%;
+}
+
+.btn-login:hover {
+  background-color: #E2F0D9;
+  border-radius: 10px;
+  border: 2px solid #70AD47;
+}
