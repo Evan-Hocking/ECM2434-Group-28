@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link rel="stylesheet" type="text/css" href="{% static 'Food_Scanner/main.css' %}" />
+
+        {% if title %}
+        <title>Food_Scanner - {{ title }}</title>
+        {% else %}
+        <title>Food_Scanner</title>
+        {% endif %}
+    </head>
+    <body>
+        <div class="topnav">
+            <a class="active" href="/">Home</a>
+            <a href="/about/">About</a>
+            <a href="/logIn/">Log-In</a>
+            <a href="/register/">Register</a>
+            <a href="/leaderboard/">Leaderboard</a>
+            <a href="/profile/">Profiles</a>
+        </div>
+
+        <div style="padding-left: 16px">{% block content%} {% endblock %}</div>
+    </body>
+</html>
