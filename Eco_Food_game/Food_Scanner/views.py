@@ -31,12 +31,12 @@ def logIn(request):
     return render(request, 'Food_Scanner/logIn.html', context)
 
 
-def register(request):
-    context = {
-        'title': "Registration Page",
-        'loggedIn': checkLogInStatus
-    }
-    return render(request, 'Food_Scanner/register.html', context)
+# def register(request):
+#     context = {
+#         'title': "Registration Page",
+#         'loggedIn': checkLogInStatus
+#     }
+#     return render(request, 'Food_Scanner/register.html', context)
 
 
 def leaderboard(request):
