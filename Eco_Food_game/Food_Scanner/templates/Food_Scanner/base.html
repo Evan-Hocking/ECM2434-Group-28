@@ -16,10 +16,12 @@
     </head>
     <body>
         <div class="topnav">
-            <a class="active" href="/">Home</a>
+            <a href="/">Home</a>
             <a href="/about/">About</a>
-            <a href="/logIn/">Log-In</a>
-            <a href="/register/">Register</a>
+            {% if loggedIn is False %}
+                <a href="/logIn/">Log-In</a>
+                <a href="/register/">Register</a>
+            {% endif %}
             <a href="/leaderboard/">Leaderboard</a>
             <a href="/profile/">Profiles</a>
         </div>
