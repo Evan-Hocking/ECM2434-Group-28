@@ -61,3 +61,7 @@ def item(request):
         'loggedIn': checkLogInStatus
     }
     return render(request, 'Food_Scanner/item.html', context)
+
+def addInfo_db(requst):
+    models.Demo.objects.create(userScore = '10',userName = 'Testbot', userPw = '12345678', userEmail = '123456',role = 'Testbot')
+    return HttpResponse('User has been added')

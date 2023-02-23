@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'crispy_forms',
     'crispy_bootstrap4',
+    'Eco_Food_game',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
