@@ -39,3 +39,21 @@ body {
 .site-header {
     background-color: #70AD47;
 }
+
+#barcodeNumEntry {
+  font-size: 14pt;
+  width: 300px;
+}
+
+#addItem {
+  height: 27px;
+  font-size: 18px;
+}
+
+#barcodeNumSubmit {
+  font-size: 18px;
+}
+
+#barcodeEntryForm {
+  text-align: center;
+}
