@@ -17,22 +17,46 @@ def getImage(foodDict):
             img = images[0]
             return img
         except:
-            return ""
+            return "https://world.openfoodfacts.org/images/icons/dist/packaging.svg"
 def getProduct(barcode=0):
     if not is_number(barcode):
         return("Err: Invalid Barcode")
 
     try:
-        product     =   openfoodfacts.products.get_product(str(barcode))
+        request     =   openfoodfacts.products.get_product(str(barcode))
+        product = request['product']
     except:
         return ("Err: Request Error")
-    if product['status']==0:
-        return ("Err: Request Error")
-    name        =   product['product']['product_name']
-    cal         =   product['product']['nutriments']['energy-kcal_100g']
-    nutriScore  =   product['product']['nutriscore_grade']
-    ecoRating   =   product['product']['ecoscore_grade']
-    processed   =   product['product']['nova_groups_tags']
+    if request['status']==0:
+        return ("Err: Product not found")
+    name = ""
+    try:
+        name        =   product['product_name']
+    except:
+        for key in product.keys():
+            if "name" in key.lower():
+                name = product[key]
+                if type(name) is str and name:
+                    break
+
+        if not name:
+            name    = "name not found"
+    try:
+        cal         =   product['nutriments']['energy-kcal_100g']
+    except:
+        cal = "n/a"
+    try:
+        nutriScore  =   product['nutriscore_grade']
+    except:
+        nutriScore  = "n/a"
+    try:
+        ecoRating   =   product['ecoscore_grade']
+    except:
+        ecoRating   = "n/a"
+    try:
+        processed   =   product['nova_groups_tags']
+    except:
+        processed   = "n/a"
     img = getImage(product)
     lib         =   {
         'barcode':barcode,
@@ -41,10 +65,10 @@ def getProduct(barcode=0):
         'nutriscore':nutriScore,
         'ecoRating':ecoRating,
         'processed':processed,
-        'image':img,
-        'error':[]}
-
+        'image':img}
     for x in range(0,len(lib)):
-        if list(lib.values())[x] == "" or list(lib.values())[x] == "unknown":
-            lib["error"].append(list(lib)[x] + " not found")
+        if str(list(lib.values())[x]) == "" or str(list(lib.values())[x]) == "unknown" or str(list(lib.values())[x]) == "['unknown']":
+            lib[list(lib.keys())[x]] = "n/a"
+
     return lib
+print (getProduct(3033710084913))
