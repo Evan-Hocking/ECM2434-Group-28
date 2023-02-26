@@ -9,7 +9,7 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 import logging
-import openFoodFactsPull
+import ../Eco_Food_game/Food_Scanner/openFoodFactsPull
 
 logging.basicConfig(level=logging.DEBUG)
 
