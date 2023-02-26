@@ -71,4 +71,3 @@ def getProduct(barcode=0):
             lib[list(lib.keys())[x]] = "n/a"
 
     return lib
-print (getProduct(3033710084913))
