@@ -55,11 +55,13 @@ def getProduct(barcode=0):
         ecoRating   = "n/a"
     try:
         processed   =   product['nova_groups_tags']
+        while type(processed) is list:
+            processed = processed[0]
     except:
         processed   = "n/a"
     img = getImage(product)
     lib         =   {
-        'barcode':barcode,
+        'barcode':str(barcode),
         'name':name,
         'energy':cal,
         'nutriscore':nutriScore,
