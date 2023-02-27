@@ -1,13 +1,3 @@
-#-------------------------------------------------------------------------------
-# Name:        module2
-# Purpose:
-#
-# Author:      evzy
-#
-# Created:     27/02/2023
-# Copyright:   (c) evzy 2023
-# Licence:     <your licence>
-#-------------------------------------------------------------------------------
 import json
 import requests
 import geopy.distance
