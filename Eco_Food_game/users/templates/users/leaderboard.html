@@ -1,0 +1,12 @@
+{% extends "Food_Scanner/base.html" %} {% block content %}
+<h1>Food_Scanner Leaderboard</h1>
+<table>
+    {% for field in data %}
+    <tr>
+        <th>{{field.userName}</th>
+        <th>{{field.userScore}}</th>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock content%}
