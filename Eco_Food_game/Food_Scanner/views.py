@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Demo
 
 # Create your views here.
 
@@ -17,11 +18,11 @@ def about(request):
     }
     return render(request, 'Food_Scanner/about.html', context)
 
-def leaderboard(request):
-    context = {
-        'title': "Leaderboard",
-    }
-    return render(request, 'Food_Scanner/leaderboard.html', context)
+# def leaderboard(request):
+#     context = {
+#         'title': "Leaderboard",
+#     }
+#     return render(request, 'Food_Scanner/leaderboard.html', context)
 
 def item(request):
     context = {
