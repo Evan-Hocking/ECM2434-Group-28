@@ -46,6 +46,28 @@ text-align: right;
     background-color: #70ad47;
 }
 
+#barcode-user-entry
+    background-color: #70AD47;
+}
+
+#barcodeNumEntry {
+  font-size: 14pt;
+  width: 300px;
+}
+
+#addItem {
+  height: 27px;
+  font-size: 18px;
+}
+
+#barcodeNumSubmit {
+  font-size: 18px;
+}
+
+#barcodeEntryForm {
+  text-align: center;
+}
+
 .btn-login {
     background-color: #70ad47;
     border-radius: 10px;
@@ -58,3 +80,4 @@ text-align: right;
     border-radius: 10px;
     border: 2px solid #70ad47;
 }
+
