@@ -1,6 +1,6 @@
 {% extends "Food_Scanner/base.html" %}{% load crispy_forms_tags%}{% block content %}
 <div class="content-section">
-    <form action="" method="POST">
+    <form action="{% url 'Food_Scanner-item' %}" method="POST">
         {% csrf_token %}
         <fieldset class="content-section">
             <legend class="border-bottom mb-4">Enter a barcode number</legend>
