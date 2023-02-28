@@ -20,3 +20,5 @@ def isOnCampus():
     dist = geopy.distance.geodesic(campus,loc).km
     if dist<0.75:
         return True
+    else:
+        return False
