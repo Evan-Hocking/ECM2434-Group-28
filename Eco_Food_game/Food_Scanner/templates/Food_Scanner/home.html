@@ -1,6 +1,4 @@
-{% extends "Food_Scanner/base.html" %} {% load crispy_forms_tags %} {% block content %}
-<form id="barcodeEntryForm" action="/item.html" method="post">
-    <br /><input type="number" id="barcodeNumEntry" name="barcodeNumber" placeholder="Enter barcode number here" /> <input type="button" id="addItem" name="addItem" value="+" /><br /><br />
-    <input type="submit" value="Submit" id="barcodeNumSubmit" />
-</form>
+{% extends "Food_Scanner/base.html" %}
+{% block content %}
+    <h1> Food_Scanner Homepage</h1>
 {% endblock content%}
