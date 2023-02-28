@@ -9,11 +9,11 @@ def is_number(value):
         return False
 def getImage(foodDict):
     try:
-        img     =   foodDict['product']['selected_images']['front']['display']['en']
+        img     =   foodDict['selected_images']['front']['display']['en']
         return img
     except (KeyError,TypeError):
         try:
-            images = foodDict['product']['selected_images']['front']['display']
+            images = foodDict['selected_images']['front']['display']
             img = images[0]
             return img
         except:
@@ -55,11 +55,13 @@ def getProduct(barcode=0):
         ecoRating   = "n/a"
     try:
         processed   =   product['nova_groups_tags']
+        while type(processed) is list:
+            processed = processed[0]
     except:
         processed   = "n/a"
     img = getImage(product)
     lib         =   {
-        'barcode':barcode,
+        'barcode':str(barcode),
         'name':name,
         'energy':cal,
         'nutriscore':nutriScore,
