@@ -34,8 +34,7 @@ def item(request):
     itemEner = itemDict['energy']
     itemNutr = (itemDict['nutriscore']).upper()
     itemImg = itemDict['image']
-    itemProcList = itemDict['processed']
-    itemProcStr = (itemProcList[0]).split(":")
+    itemProcStr = (itemDict['processed']).split(":")
     itemProcStr2 = (itemProcStr[1]).split("-")
     itemProc = itemProcStr2[0]
 
