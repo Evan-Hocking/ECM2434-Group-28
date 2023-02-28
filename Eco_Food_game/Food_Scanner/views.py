@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Demo
-import itemRequest
+from .openFoodFactsPull import getProduct
 
 # Create your views here.
 
@@ -28,9 +28,39 @@ def about(request):
 def item(request):
     url = (request.get_full_path()).split("=")
     barcode = url[1]
+    itemDict = getProduct(barcode)
+    itemName = itemDict['name']
+    itemEcoR = (itemDict['ecoRating']).upper()
+    itemEner = itemDict['energy']
+    itemNutr = (itemDict['nutriscore']).upper()
+    itemImg = itemDict['image']
+    itemProcList = itemDict['processed']
+    itemProcStr = (itemProcList[0]).split(":")
+    itemProcStr2 = (itemProcStr[1]).split("-")
+    itemProc = itemProcStr2[0]
+
+    if itemNutr == "A":
+        itemScore = 25
+    elif itemNutr == "B":
+        itemScore = 15
+    elif itemNutr == "C":
+        itemScore = 8
+    elif itemNutr == "D":
+        itemScore = 4
+    else:
+        itemScore = 1
+    
+
     context = {
         'title': "Item Page",
-        'barcode' : barcode,
+        'barcode' : itemDict,
+        'name' : itemName,
+        'ecoRating' : itemEcoR,
+        'energy' : itemEner,
+        'nutri' : itemNutr,
+        'proc' : itemProc,
+        'imageLink' : itemImg,
+        'score' : itemScore,
     }
     return render(request, 'Food_Scanner/item.html', context)
 
