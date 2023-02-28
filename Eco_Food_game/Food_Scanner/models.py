@@ -9,3 +9,6 @@ class Demo(models.Model):
     userEmail = models.CharField(max_length=32)
     userPw = models.CharField(max_length=32)
     role = models.CharField(max_length=32)
+
+    def __str__(self):
+        return self.userName
