@@ -48,6 +48,8 @@ def twoStringsMatchCheck(txtinput1, txtinput2) -> bool:
     """
     return txtinput1 == txtinput2
 
+import re
+
 def passwordComplexityCheck(username, password) -> bool:
     """
     Checks if the password:
@@ -56,14 +58,14 @@ def passwordComplexityCheck(username, password) -> bool:
     :param username: The username of the user's password that is being checked
     :param password: The password that is being checked if it is strong
     """
-    # The password does not (contains at least 1 uppercase letter, lowercase letter, digit, and special character)
+    # The password does not (contains at least 1 uppercase letter, lowercase letter, digit, special and space character)
     if not re.search("[a-z]", password):
         return False
     elif not re.search("[A-Z]", password):
         return False
     elif not re.search("[0-9]", password):
         return False
-    elif not re.search("[_@$]" , password):
+    elif not re.search("[_@£&#?$]" , password):
         return False
     elif re.search("\s" , password):
         return False
@@ -92,8 +94,8 @@ def strongPasswordCheck(username, password) -> bool:
     """
     Checks if the password passes the length and complexity standards
     :param username: The username of the user's password that is being checked
-    :param password: The password that is being checked if it is strong
+    :param password: The password that is being checked if it is strong with at least 8 characters
     :return: True if the password has passed all the checks otherwise False
     """
     # Both checks have passed
-    return passwordComplexityCheck(username, password) and lengthAtLeastCheck(password, 8)
+    return (passwordComplexityCheck(username, password) and lengthAtLeastCheck(password, 8))
