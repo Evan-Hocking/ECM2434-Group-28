@@ -20,20 +20,22 @@ class Demo(models.Model):
 
 
 class Rank(models.Model):
-    c_id = models.OneToOneField(Demo, on_delete=models.CASCADE,primary_key=True,)
-    rank = models.IntegerField(verbose_name='rank', validators=[MinValueValidator(1)])
-
-# class Score(models.Model):
-#     player = models.ForeignKey(Demo, on_delete=models.CASCADE)
-#     score = models.IntegerField(verbose_name='Score', default=0,
-#                                 validators=[MaxValueValidator(10000000), MinValueValidator(0)])
-#     rank = models.IntegerField(verbose_name='Rank', validators=[MinValueValidator(1)],default=9999)
-
-#     def __str__(self):
-#         return f'{self.score,self.rank}'
-
-#     class Meta:
-#         verbose_name = 'Score List'
-#         verbose_name_plural = verbose_name
+    c_id = models.OneToOneField(
+        Demo, on_delete=models.CASCADE, primary_key=True,)
+    rank = models.IntegerField(verbose_name='rank', validators=[
+                               MinValueValidator(1)])
 
 
+class Score(models.Model):
+    player = models.ForeignKey(Demo, on_delete=models.CASCADE)
+    score = models.IntegerField(verbose_name='Score', default=0,
+                                validators=[MaxValueValidator(10000000), MinValueValidator(0)])
+    rank = models.IntegerField(verbose_name='Rank', validators=[
+                               MinValueValidator(1)], default=9999)
+
+    def __str__(self):
+        return f'{self.score,self.rank}'
+
+    class Meta:
+        verbose_name = 'Score List'
+        verbose_name_plural = verbose_name
