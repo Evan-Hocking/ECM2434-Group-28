@@ -38,13 +38,13 @@ def item(request):
     itemProcStr2 = (itemProcStr[1]).split("-")
     itemProc = itemProcStr2[0]
 
-    if itemNutr == "A":
+    if itemEcoR == "A":
         itemScore = 25
-    elif itemNutr == "B":
+    elif itemEcoR == "B":
         itemScore = 15
-    elif itemNutr == "C":
+    elif itemEcoR == "C":
         itemScore = 8
-    elif itemNutr == "D":
+    elif itemEcoR == "D":
         itemScore = 4
     else:
         itemScore = 1
