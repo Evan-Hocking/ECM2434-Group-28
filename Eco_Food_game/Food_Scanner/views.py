@@ -28,7 +28,7 @@ def item(request):
     context = {
         'title': "Item Page",
     }
-    return render(request, 'Food_Scanner/item.html', context)
+    return render(request, 'Food_Scanner/item.php', context)
 
 def addInfo_db(requst):
     models.Demo.objects.create(userScore = '10',userName = 'Testbot', userPw = '12345678', userEmail = '123456',role = 'Testbot')
