@@ -40,7 +40,7 @@ def getProduct(barcode=0):
                     break
 
         if not name:
-            name    = "name not found"
+            name    = "n/a"
     try:
         cal         =   product['nutriments']['energy-kcal_100g']
     except:
