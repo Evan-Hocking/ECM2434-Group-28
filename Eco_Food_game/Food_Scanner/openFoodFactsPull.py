@@ -9,11 +9,11 @@ def is_number(value):
         return False
 def getImage(foodDict):
     try:
-        img     =   foodDict['product']['selected_images']['front']['display']['en']
+        img     =   foodDict['selected_images']['front']['display']['en']
         return img
     except (KeyError,TypeError):
         try:
-            images = foodDict['product']['selected_images']['front']['display']
+            images = foodDict['selected_images']['front']['display']
             img = images[0]
             return img
         except:
