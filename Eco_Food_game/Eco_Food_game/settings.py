@@ -137,11 +137,17 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'Food_Scanner-home'
 LOGIN_URL = 'auth-login'
 
-with open('config.json') as f:
-    config = json.load(f)
-
-EMAIL_HOST = config['stmpServer']
-EMAIL_HOST_USER = config['email']
-EMAIL_HOST_PASSWORD = config['emailPassword']
-EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+
+# with open('config.json') as f:
+#     config = json.load(f)
+
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = config['email']
+# EMAIL_HOST_PASSWORD = config['emailPassword']
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
