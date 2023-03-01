@@ -8,8 +8,8 @@ To install all prerequisite modules:
 `pip install -r requirements.txt`
 
 ### Config
-1. Enter in the Eco_Food_game folder.
-2. Enter in the config.json file.
+1. Enter in the **Eco_Food_game** folder.
+2. Enter in the **config.json** file.
 
 #### Location Setup
 
