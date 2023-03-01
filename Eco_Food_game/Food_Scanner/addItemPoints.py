@@ -1,4 +1,5 @@
 import sqlite3
+from users.models import Profile
 
 def isAdd(fragment):
     if fragment.startswith("Add"):
@@ -33,15 +34,4 @@ def showPts(fragment):
 
     return lib
 
-""" def addPtsDB(points):
-    # Connect to the database (create a new file if it doesn't exist)
-    conn = sqlite3.connect('example.db')
-
-    # Create a table
-
-    # Insert a record
-    conn.execute('INSERT INTO users_profile (name, email) VALUES (?, ?)', ('John', 'john@example.com'))
-
-    # Commit the changes and close the connection
-    conn.commit()
-    conn.close() """
+#def addPtsDB(points):

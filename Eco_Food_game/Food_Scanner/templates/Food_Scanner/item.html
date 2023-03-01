@@ -1,9 +1,16 @@
 {% extends "Food_Scanner/base.html" %}
 {% block content %}
     {%if isError == True %}
+        <div style="text-align: center;">
         <h1>{{ errorMsg }}</h1>
+        </div>
     {% elif isAdd == True %}
+        <div style="text-align: center;">
         <h1>Added {{ addPts }} pts</h1>
+        <a href="/">
+            <button class="btn btn-login" style="width: 100%;">Back</button>
+        </a>
+        </div>
     {% else %}
         <div style="text-align: center;">
             <h1 class="scores">{{ name }}</h1>
