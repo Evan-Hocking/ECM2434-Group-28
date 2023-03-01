@@ -16,6 +16,19 @@
             </div>
         </div>
     </div>
-    <div class="history">{% for item in historys %} {{item}} {% endfor %}</div>
+    <div class="history">
+        <table class="table table-condensed">
+            <tr>
+                <th>Name:</th>
+                <th>Date Scanned</th>
+            </tr>
+            {% for item in data %} {% if user.profile.id == item.userId_id %}
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.date_Added}}</td>
+            </tr>
+            {% endif %}{% endfor %}
+        </table>
+    </div>
 </div>
 {% endblock content %}

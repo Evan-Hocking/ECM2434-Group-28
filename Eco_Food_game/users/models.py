@@ -28,6 +28,7 @@ class Profile(models.Model):
 class History(models.Model):
     name = models.CharField(max_length=200)
     userId = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    date_Added = models.DateTimeField(auto_now_add=True)
     # image = models.CharField(max_length=9999, blank=True)
 
     def __str__(self):
