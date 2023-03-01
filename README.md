@@ -10,13 +10,13 @@ pip install -r requirements.txt
 1. Enter in the Eco_Food_game folder.
 2. Enter in the config.json file.
 
---------------------------- GEO LOCATION ---------------------------
+------------------------------------------------------ GEO LOCATION ------------------------------------------------------
 
 uni_lat - 
 uni_long - 
 Geolocation_API_Key - 
 
-------------------------------- EMAIL -------------------------------
+---------------------------------------------------------- EMAIL ----------------------------------------------------------
 
 smtp - The email domain (e.g. "smtp.gmail.com")
 email: The sender email address
