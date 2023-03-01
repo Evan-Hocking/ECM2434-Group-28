@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Demo
-from .openFoodFactsPull import getProduct
+from .itemRequest import itemAttributesDict
 
 # Create your views here.
 
@@ -28,53 +28,19 @@ def about(request):
 def item(request):
     url = (request.get_full_path()).split("=")
     barcode = url[1]
-    itemDict = getProduct(barcode)
-    errorMsg = ""
-    isError = False
-    if isinstance(itemDict, str):
-        errorMsg = "Error: Product not found"
-        isError = True
-        itemName = "N/A"
-        itemEcoR = "N/A"
-        itemEner = "N/A"
-        itemNutr = "N/A"
-        itemImg = "N/A"
-        itemProc = "N/A"
-    else:
-        itemName = itemDict['name']
-        itemEcoR = (itemDict['ecoRating']).upper()
-        itemEner = itemDict['energy']
-        itemNutr = (itemDict['nutriscore']).upper()
-        itemImg = itemDict['image']
-        itemProc = itemDict['processed']
-        if itemProc.startswith("en"):
-            itemProcStr = (itemDict['processed']).split(":")
-            itemProcStr2 = (itemProcStr[1]).split("-")
-            itemProc = itemProcStr2[0]
-
-    if itemEcoR == "A":
-        itemScore = 25
-    elif itemEcoR == "B":
-        itemScore = 15
-    elif itemEcoR == "C":
-        itemScore = 8
-    elif itemEcoR == "D":
-        itemScore = 4
-    else:
-        itemScore = 1
+    lib = itemAttributesDict(barcode)
 
     context = {
         'title': "Item Page",
-        'barcode' : itemDict,
-        'name' : itemName,
-        'ecoRating' : itemEcoR,
-        'energy' : itemEner,
-        'nutri' : itemNutr,
-        'proc' : itemProc,
-        'imageLink' : itemImg,
-        'score' : itemScore,
-        'isError' : isError,
-        'errorMsg' : errorMsg,
+        'name' : lib['itemName'],
+        'ecoRating' : lib['itemEcoR'],
+        'energy' : lib['itemEner'],
+        'nutri' : lib['itemNutr'],
+        'proc' : lib['itemProc'],
+        'imageLink' : lib['itemImg'],
+        'score' : lib['itemScore'],
+        'isError' : lib['isError'],
+        'errorMsg' : lib['errorMsg'],
     }
     return render(request, 'Food_Scanner/item.html', context)
 

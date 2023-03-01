@@ -81,12 +81,13 @@ text-align: right;
     border: 2px solid #70ad47;
 }
 
-#itemImage {
-  width: 100%;
+.itemImage {
+  width: 50%;
+  height: 10% !important;
 }
 
 .scores {
-  text-align: center;
+  text-align: left;
 }
 
 .btn-item {
