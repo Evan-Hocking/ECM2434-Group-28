@@ -9,6 +9,7 @@ urlpatterns = [
     path('logout/', authViews.LogoutView.as_view(template_name='users/logout.html'),
          name='auth-logout'),
     path('profile/', views.profile, name='user-profile'),
+    path('profile/profile_update', views.profileUpdate, name='user-profile_update'),
     path('password/', authViews.PasswordChangeView.as_view(
         template_name='users/password.html', success_url='../profile'), name='update_password'),
     path('password-reset/',
