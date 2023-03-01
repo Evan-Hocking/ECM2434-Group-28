@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from Food_Scanner import models
 from Food_Scanner.models import Demo, Score
 from .itemRequest import itemAttributesDict
-from .addItemPoints import isAdd, showPts, addPtsDB
+from .addItemPoints import isAdd, showPts#, addPtsDB
 
 # Create your views here.
 
