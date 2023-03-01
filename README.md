@@ -1,22 +1,24 @@
-# ECM2434
+# ECM2434 - Food Sustainability Application
+## About
+This application is designed to encourage Students to eat more sustainably when spending time on campus. The application asks users to scan their meals and they get scored on how sustainable they are eating.
 
-============================= INSTALL =============================
-
-To install all requirements:
+## Installation Guide 
+### Prerequisites
+To install all prerequisite modules:
 pip install -r requirements.txt
 
-============================== CONFIG ==============================
-
+###Config
 1. Enter in the Eco_Food_game folder.
 2. Enter in the config.json file.
 
------------------------------------------------------- GEO LOCATION ------------------------------------------------------
+#### Location Setup
 
-uni_lat - 
-uni_long - 
-Geolocation_API_Key - 
+uni_lat - The latitude coordinate of the chose campus
+uni_long - The longitude coordinate of the chosen campus
+Geolocation_API_Key - Google Geolocation API key 
+  Read more: https://developers.google.com/maps/documentation/geolocation/overview
 
----------------------------------------------------------- EMAIL ----------------------------------------------------------
+#### Email Setup
 
 smtp - The email domain (e.g. "smtp.gmail.com")
 email: The sender email address
