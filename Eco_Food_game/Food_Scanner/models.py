@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 
-""" class Demo(models.Model):
+class Demo(models.Model):
     userName = models.CharField(max_length=15)
     userEmail = models.CharField(max_length=32)
     userPw = models.CharField(max_length=32)
@@ -38,4 +38,4 @@ class Score(models.Model):
 
     class Meta:
         verbose_name = 'Score List'
-        verbose_name_plural = verbose_name """
+        verbose_name_plural = verbose_name
