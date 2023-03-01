@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from Food_Scanner import models
 from Food_Scanner.models import Demo, Score
 from .itemRequest import itemAttributesDict
+from .addItemPoints import isAdd, showPts, addPtsDB
 
 # Create your views here.
 
@@ -27,8 +28,12 @@ def leaderboard(request):
 
 def item(request):
     url = (request.get_full_path()).split("=")
-    barcode = url[1]
-    lib = itemAttributesDict(barcode)
+    fragment = url[1]
+    if isAdd(fragment):
+        lib = showPts(fragment)
+        # addPtsDB(lib['addPts'])
+    else:
+        lib = itemAttributesDict(fragment)
 
     context = {
         'title': "Item Page",
@@ -41,6 +46,8 @@ def item(request):
         'score' : lib['itemScore'],
         'isError' : lib['isError'],
         'errorMsg' : lib['errorMsg'],
+        'isAdd' : lib['isAdd'],
+        'addPts' : lib['addPts'],
     }
-    return render(request, 'Food_Scanner/item.html', context)
 
+    return render(request, 'Food_Scanner/item.html', context)
