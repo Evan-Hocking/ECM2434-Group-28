@@ -7,7 +7,7 @@ This application is designed to encourage Students to eat more sustainably when 
 To install all prerequisite modules:
 pip install -r requirements.txt
 
-###Config
+### Config
 1. Enter in the Eco_Food_game folder.
 2. Enter in the config.json file.
 
