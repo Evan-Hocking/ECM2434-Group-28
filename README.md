@@ -1,2 +1,4 @@
 # ECM2434
-Hello
+
+To install all requirements:
+pip install -r requirements.txt
