@@ -2,12 +2,18 @@ import json
 import openfoodfacts
 
 def is_number(value):
+    """Tests if Variable is a number"""
     try:
         int(value)
         return True
     except ValueError:
         return False
+    
+    
 def getImage(foodDict):
+    """Gets an image from the given dictionary
+    If no image is present the system will attempt to find another
+    If still unsuccessful a default is returned"""
     try:
         img     =   foodDict['selected_images']['front']['display']['en']
         return img
@@ -18,7 +24,15 @@ def getImage(foodDict):
             return img
         except:
             return "https://world.openfoodfacts.org/images/icons/dist/packaging.svg"
+        
+       
 def getProduct(barcode=0):
+    """Takes a barcode argument as either string or int
+    - Tests barcode validity
+    - Requests data from OpenFoodFacts Database
+    - Extracts required data to dictionary
+    - Return Dictionary
+    """
     if not is_number(barcode):
         return("Err: Invalid Barcode")
 
