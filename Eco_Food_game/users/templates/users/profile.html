@@ -6,20 +6,16 @@
             <h2 class="account-heading">{{ user.username }}</h2>
             <p class="text-secondary">Name: {{ user.first_name }}{{ user.last_name }}</p>
             <p class="text-secondary">Email: {{ user.email }}</p>
+            <p class="text-secondary">ID: {{ user.id }}</p>
             <p class="text-secondary">Current score: {{ user.profile.score }}</p>
             <p class="text-secondary">Current rank: {{ user.profile.rank }}</p>
+            <div class="form-group">
+                <form action="{% url 'user-profile_update' %}">
+                    <input class="btn btn-login" type="submit" value="Update profile" />
+                </form>
+            </div>
         </div>
     </div>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <fieldset class="content-section">
-            <legend class="border-bottom mb-4">Profile Info</legend>
-            {{ user_form|crispy }} {{ profile_form|crispy}}
-        </fieldset>
-
-        <div class="form-group">
-            <button class="btn btn-login" type="submit">Update</button>
-        </div>
-    </form>
+    <!-- <div class="history">{% for item in history %} {{item}} {% endfor %}</div> -->
 </div>
 {% endblock content %}

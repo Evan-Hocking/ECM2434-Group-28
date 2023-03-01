@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from Food_Scanner import models
 from Food_Scanner.models import Demo, Score
-
+from .itemRequest import itemAttributesDict
 
 # Create your views here.
 
@@ -26,9 +26,21 @@ def leaderboard(request):
     return render(request, 'Food_Scanner/leaderboard.html', locals())
 
 def item(request):
+    url = (request.get_full_path()).split("=")
+    barcode = url[1]
+    lib = itemAttributesDict(barcode)
+
     context = {
         'title': "Item Page",
+        'name' : lib['itemName'],
+        'ecoRating' : lib['itemEcoR'],
+        'energy' : lib['itemEner'],
+        'nutri' : lib['itemNutr'],
+        'proc' : lib['itemProc'],
+        'imageLink' : lib['itemImg'],
+        'score' : lib['itemScore'],
+        'isError' : lib['isError'],
+        'errorMsg' : lib['errorMsg'],
     }
     return render(request, 'Food_Scanner/item.html', context)
-
 
