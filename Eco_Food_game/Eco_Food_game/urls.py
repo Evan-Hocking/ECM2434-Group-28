@@ -3,7 +3,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-
+"""
+Define the url paths that each webpage follows
+"""
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Food_Scanner.urls')),
