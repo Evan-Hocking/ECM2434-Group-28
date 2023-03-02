@@ -32,6 +32,6 @@ def send(recipient, message):
 with open('config.json') as f:
     config = json.load(f)
 
-stmp = config['stmpServer']
+smtp = config['smtpServer']
 email = config['email']
 emailPassword = config['emailPassword']

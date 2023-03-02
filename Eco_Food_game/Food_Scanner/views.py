@@ -7,11 +7,21 @@ from .addItemPoints import isAdd, showPts#, addPtsDB
 
 # Create your views here.
 
+"""
+Parse data to the homepage and render it from the provided template
+"""
+
+
 def home(request):
     context = {
         'title': "HomePage",
     }
     return render(request, 'Food_Scanner/home.html', context)
+
+
+"""
+Parse data to the about page and render it from the provided template
+"""
 
 
 def about(request):
@@ -27,6 +37,12 @@ def leaderboard(request):
     # context = {'score': [{'ranking':scor.rank.rank , 'client': scor.userName, 'score':scor.score } for scor in Profile.objects.all().order_by('-userScore')]}
     d = Profile.objects.order_by('-score')
     return render(request, 'Food_Scanner/leaderboard.html', locals())
+
+
+"""
+Parse data to the item page and render it from the provided template
+"""
+
 
 def item(request):
     # Gets header contents and splits into 2 lists, the value of the query (fragment),

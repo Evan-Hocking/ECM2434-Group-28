@@ -3,7 +3,9 @@ from django.db import models
 
 # Create your models here.
 
-
+"""
+Create the Demo table in the data base with the defined fields of the specified type
+"""
 class Demo(models.Model):
     userName = models.CharField(max_length=15)
     userEmail = models.CharField(max_length=32)
@@ -11,6 +13,7 @@ class Demo(models.Model):
     role = models.CharField(max_length=32)
     userScore = models.IntegerField(verbose_name='Score', default=0)
 
+    #Display the table with the title of "username , score, rank"
     def __str__(self):
         return f'{self.userName, self.userScore, self.rank}'
 
@@ -18,14 +21,18 @@ class Demo(models.Model):
         verbose_name = 'Player List'
         verbose_name_plural = verbose_name
 
-
+"""
+Create the Demo table in the data base with the defined fields of the specified type
+"""
 class Rank(models.Model):
     c_id = models.OneToOneField(
         Demo, on_delete=models.CASCADE, primary_key=True,)
     rank = models.IntegerField(verbose_name='rank', validators=[
                                MinValueValidator(1)])
 
-
+"""
+Create the Demo table in the data base with the defined fields of the specified type
+"""
 class Score(models.Model):
     player = models.ForeignKey(Demo, on_delete=models.CASCADE)
     score = models.IntegerField(verbose_name='Score', default=0,
@@ -33,6 +40,7 @@ class Score(models.Model):
     rank = models.IntegerField(verbose_name='Rank', validators=[
                                MinValueValidator(1)], default=9999)
 
+    #Display the table with the title of "username , score, rank"
     def __str__(self):
         return f'{self.score,self.rank}'
 
