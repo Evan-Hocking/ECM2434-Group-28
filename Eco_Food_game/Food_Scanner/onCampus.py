@@ -9,7 +9,7 @@ def getLocation():
     URL = 'https://www.googleapis.com/geolocation/v1/geolocate?key='+ config['Geolocation_API_Key']
     r = requests.post(URL)
     data = r.json()
-
+    #pulls lat/long from api request
     lat = data['location']['lat']
     lng = data['location']['lng']
     location = (lat,lng)
