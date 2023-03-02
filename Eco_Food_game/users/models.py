@@ -28,17 +28,18 @@ class Profile(models.Model):
 class History(models.Model):
     name = models.CharField(max_length=200)
     userId = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    image = models.CharField(max_length=9999)
+    date_Added = models.DateTimeField(auto_now_add=True)
+    # image = models.CharField(max_length=9999, blank=True)
 
     def __str__(self):
-        return f'{self.user.profile.name}'
+        return f'{self.name}'
 
-    def save(self, *args, **kwargs):
-        super().save()
+    # def save(self, *args, **kwargs):
+    #     super().save()
 
-        img = Image.open(self.image.path)
+    #     img = Image.open(self.image.path)
 
-        if img.height > 300 or img.width > 300:
-            outputSize = (300, 300)
-            img.thumbnail(outputSize)
-            img.save(self.image.path)
+    #     if img.height > 300 or img.width > 300:
+    #         outputSize = (300, 300)
+    #         img.thumbnail(outputSize)
+    #         img.save(self.image.path)
