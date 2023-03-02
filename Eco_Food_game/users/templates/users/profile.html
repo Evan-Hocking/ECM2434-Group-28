@@ -8,7 +8,7 @@
             <p class="text-secondary">Email: {{ user.email }}</p>
             <p class="text-secondary">ID: {{ user.id }}</p>
             <p class="text-secondary">Current score: {{ user.profile.score }}</p>
-            <p class="text-secondary">Current rank: {{ user.profile.rank }}</p>
+            <!-- <p class="text-secondary">Current rank: {{ user.profile.rank }}</p> -->
             <div class="form-group">
                 <form action="{% url 'user-profile_update' %}">
                     <input class="btn btn-login" type="submit" value="Update profile" />
