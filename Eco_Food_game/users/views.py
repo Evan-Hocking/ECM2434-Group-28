@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .models import History
 # Create your views here.
 
 
@@ -23,7 +24,13 @@ def register(request):
 
 @login_required
 def profile(request):
-    return render(request, 'users/profile.html')
+    history = History.objects.order_by('date_Added')
+
+    context = {
+        'data': history
+    }
+
+    return render(request, 'users/profile.html', context)
 
 
 @login_required

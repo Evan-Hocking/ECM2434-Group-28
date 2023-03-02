@@ -13,9 +13,27 @@
                 <form action="{% url 'user-profile_update' %}">
                     <input class="btn btn-login" type="submit" value="Update profile" />
                 </form>
+                <br>
+                <form action="{% url 'update_password' %}">
+                    <input class="btn btn-login" type="submit" value="Update password" />
+                </form>
             </div>
         </div>
     </div>
-    <!-- <div class="history">{% for item in history %} {{item}} {% endfor %}</div> -->
+    <div class="history">
+        <h3>Scanned item history:</h3> 
+        <table class="table table-condensed">
+            <tr>
+                <th>Name:</th>
+                <th>Date Scanned</th>
+            </tr>
+            {% for item in data %} {% if user.profile.id == item.userId_id %}
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.date_Added}}</td>
+            </tr>
+            {% endif %}{% endfor %}
+        </table>
+    </div>
 </div>
 {% endblock content %}
