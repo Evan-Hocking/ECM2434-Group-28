@@ -51,12 +51,12 @@ def item(request):
         # Update rank
         # Commented out as it was causing error: profile does not 
         # exist on 'userRank = Profile.objects.get(user_id=i)'
-        """ score_li = [score_obj.id for score_obj in Profile.objects.all().order_by('-score')]
+        score_li = [score_obj.id for score_obj in Profile.objects.all().order_by('-score')]
         n = 1
         for i in score_li:
-            userRank = Profile.objects.get(user_id=i)
-            userRank.rank = n
-            n = n + 1 """
+            userRank = Profile.objects.get(id=i)
+            Profile.userRank = n
+            n = n + 1 
 
         # To use if we want to put above code in a external module and func
         # addPtsDB(int(lib['addPts']))
