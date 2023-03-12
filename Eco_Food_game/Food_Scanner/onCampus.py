@@ -1,3 +1,9 @@
+#-------------------------------------------------------------------------------
+# Name:        onCampus.py
+# Purpose:     Tests if location is on campus
+#
+# Author:      Evan Hocking
+#-------------------------------------------------------------------------------
 import json
 import requests
 import geopy.distance
@@ -13,7 +19,7 @@ def getLocation():
     Pulls the latitude and longitude data
     return - tuple of (Latitude, Longitude)
     """
-    URL = 'https://www.googleapis.com/geolocation/v1/geolocate?key='+ config['Geolocation_API_Key']
+    URL = 'https://www.googleapis.com/geolocation/v1/geolocate?key=' + config['Geolocation_API_Key']
     try:
         r = requests.post(URL)
     except requests.exceptions.RequestException as e:
