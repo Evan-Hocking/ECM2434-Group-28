@@ -6,12 +6,13 @@ import geopy.distance
 with open('../config.json') as json_config:
     config = json.load(json_config)
 
+    
+def getLocation():
     """
     Gets users location from Google geolocation API
     Pulls the latitude and longitude data
     return - tuple of (Latitude, Longitude)
     """
-def getLocation():
     URL = 'https://www.googleapis.com/geolocation/v1/geolocate?key='+ config['Geolocation_API_Key']
     try:
         r = requests.post(URL)
@@ -30,14 +31,13 @@ def getLocation():
     location = (lat,lng)
     return location
 
+    
+def isOnCampus():
     """
     Gets campus location from config and device location from getLocation()
     Uses geopy to calculate difference between the two points in km
     If less than or equal to 0.75km return True, otherwise return false
     """
-def isOnCampus():
-    """Compares user location to specified campus location
-    return true if with 0.75km"""
     try:
         campus = (config['uni_lat'],config['uni_long'])
     except:
