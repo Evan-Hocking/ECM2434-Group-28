@@ -1,3 +1,9 @@
+#-------------------------------------------------------------------------------
+# Name:        openFoodFactsPull.py
+# Purpose:     Pulls Data from the Open Food Facts database based on Barcode
+#
+# Author:      Evan Hocking
+#-------------------------------------------------------------------------------
 import json
 import openfoodfacts
 
