@@ -19,13 +19,13 @@
             <p class="scores">Energy per 100g (in kcal): {{ energy }}</p>
             <p class="scores">NutriScore: {{ nutri }}</p>
             <p class="scores">ProcessedScore: {{ proc }}</p>
-            <p class="scores">Points: {{ score }}</p>
+            <p class="scores">Points: {{ points }}</p>
             <a href="/">
                 <button class="btn btn-login" style="width: 100%;">Back</button>
             </a>
             {%if user.is_authenticated %}
                 <form id="addPoints" action="/item" method="GET">
-                    <br><input type="submit" value="Add {{ score }} pts" name="Add" class="btn btn-login" style="width: 100%;">
+                    <br><input type="submit" value="Add {{ points }} pts" name="Add" class="btn btn-login" style="width: 100%;">
                 </form>
         </div>
             {% endif %}
