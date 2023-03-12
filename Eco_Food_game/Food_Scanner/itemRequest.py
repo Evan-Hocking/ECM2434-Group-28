@@ -28,15 +28,15 @@ def itemAttributesDict(barcode):
           itemProc = itemProcStr2[0]
 
     if itemEcoR == "A":
-        itemScore = 25
+        itemPoints = 25
     elif itemEcoR == "B":
-        itemScore = 15
+        itemPoints = 15
     elif itemEcoR == "C":
-        itemScore = 8
+        itemPoints = 8
     elif itemEcoR == "D":
-        itemScore = 4
+        itemPoints = 4
     else:
-        itemScore = 1
+        itemPoints = 1
 
     lib = {
       'itemName' : itemName,
@@ -45,7 +45,7 @@ def itemAttributesDict(barcode):
       'itemNutr' : itemNutr,
       'itemProc' : itemProc,
       'itemImg' : itemImg,
-      'itemScore' : itemScore,
+      'itemPoints' : itemPoints,
       'isError' : isError,
       'errorMsg' : errorMsg,
       'isAdd' : False,

@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from Food_Scanner import models
 from users.models import Profile
 from .itemRequest import itemAttributesDict
-from .addItemPoints import isAdd, showPts#, addPtsDB
+from .addItemPoints import isAdd, showPts, addPtsDB, updateRank
 
 # Create your views here.
 
@@ -30,11 +30,13 @@ def about(request):
     }
     return render(request, 'Food_Scanner/about.html', context)
 
-# Right now just returns an empty leaderboard with only thing being 5 blank users with rank 0
+# Returns an ordered list to the leaderboard page
 def leaderboard(request):
     """ context = {'score': [{'ranking':scor.rank.rank , 'client': scor.userName, 'score':scor.score } for scor in Demo.objects.all().order_by('-userScore')]}
     d = Demo.objects.order_by('-userScore') """
     # context = {'score': [{'ranking':scor.rank.rank , 'client': scor.userName, 'score':scor.score } for scor in Profile.objects.all().order_by('-userScore')]}
+    
+    # Users profile from user.models table loaded into d and ordered DESC by score
     d = Profile.objects.order_by('-score')
     return render(request, 'Food_Scanner/leaderboard.html', locals())
 
@@ -46,7 +48,7 @@ Parse data to the item page and render it from the provided template
 
 def item(request):
     # Gets header contents and splits into 2 lists, the value of the query (fragment),
-    # and the rest of the URL
+    # and the rest of the URL, discards the rest of the url as it is not useful
     url = (request.get_full_path()).split("=")
     fragment = url[1]
 
@@ -54,34 +56,15 @@ def item(request):
     if isAdd(fragment):
         # Breaks the url fragment down and returns a library of n/a except isAdd and addPts 
         lib = showPts(fragment)
-        score = int(lib['addPts'])
-        
-        # Get data from db
-        old_scor = Profile.objects.filter(user=request.user).first()
-        if old_scor:
-            old_scor.score = old_scor.score + score
-            old_scor.save()
-        else:
-            Profile.objects.create(username=request.user, score=score)
-        
-        # Update rank
-        # Commented out as it was causing error: profile does not 
-        # exist on 'userRank = Profile.objects.get(user_id=i)'
-        score_li = [score_obj.id for score_obj in Profile.objects.all().order_by('-score')]
-        n = 1
-        for i in score_li:
-            userRank = Profile.objects.get(id=i)
-            Profile.userRank = n
-            n = n + 1 
+        points = int(lib['addPts'])
 
-        # To use if we want to put above code in a external module and func
-        # addPtsDB(int(lib['addPts']))
+        # Adds points of object to DB
+        addPtsDB(request, points)
 
-        # Just in case we need to go back to
-        """ object = Profile.objects.filter(user=request.user).first()
-        object.score = object.score + (int(lib['addPts'])) """
-        
-    # If the barcode is in URL run this func
+        # Updates users ranks according to updated scores
+        updateRank()
+
+    # If the barcode is in URL (meaning the user has not yet chosen to add points this runs
     else:
         lib = itemAttributesDict(fragment)
 
@@ -93,7 +76,7 @@ def item(request):
         'nutri' : lib['itemNutr'],
         'proc' : lib['itemProc'],
         'imageLink' : lib['itemImg'],
-        'score' : lib['itemScore'],
+        'score' : lib['itemPoints'],
         'isError' : lib['isError'],
         'errorMsg' : lib['errorMsg'],
         'isAdd' : lib['isAdd'],
