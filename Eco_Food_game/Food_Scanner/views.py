@@ -9,6 +9,8 @@ from .addItemPoints import isAdd, showPts, addPtsDB, updateRank
 
 """
 Parse data to the homepage and render it from the provided template
+@param request from html
+@return home.html
 """
 
 
@@ -21,6 +23,8 @@ def home(request):
 
 """
 Parse data to the about page and render it from the provided template
+@param request from html
+@return about.html
 """
 
 
@@ -30,19 +34,21 @@ def about(request):
     }
     return render(request, 'Food_Scanner/about.html', context)
 
-# Returns an ordered list to the leaderboard page
+"""
+Returns an ordered list to the leaderboard page
+@param request from html
+@return leaderboard.html & list variable connect with Profile database ordered DESC by score
+"""
 def leaderboard(request):
-    """ context = {'score': [{'ranking':scor.rank.rank , 'client': scor.userName, 'score':scor.score } for scor in Demo.objects.all().order_by('-userScore')]}
-    d = Demo.objects.order_by('-userScore') """
-    # context = {'score': [{'ranking':scor.rank.rank , 'client': scor.userName, 'score':scor.score } for scor in Profile.objects.all().order_by('-userScore')]}
-    
-    # Users profile from user.models table loaded into d and ordered DESC by score
+    '''Users profile from user.models table loaded into d and ordered DESC by score '''
     d = Profile.objects.order_by('-score')
     return render(request, 'Food_Scanner/leaderboard.html', locals())
 
 
 """
 Parse data to the item page and render it from the provided template
+@param request from html + barcode
+@return item.html + eco Score and add it to user socre in database + rank update
 """
 
 
