@@ -29,7 +29,7 @@
             <div class="box-header">
               <i class="fa fa-bar-chart-o"></i>
 
-              <h3 class="box-title">设备状态<small>(%)</small></h3>
+              <h3 class="box-title">My food balance<small>(%)</small></h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-default btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -44,13 +44,13 @@
                 <div class="col-xs-6 col-md-2 col-md-offset-1 text-center">
                   <input type="text" class="knob" value="{{ up_rate }}" data-width="90" data-height="90" data-fgColor="#00a65a" data-readonly="true">
 
-                  <div class="knob-label">在线</div>
+                  <div class="knob-label">Drinks</div>
                 </div>
                 <!-- ./col -->
                 <div class="col-xs-6 col-md-2 text-center">
                   <input type="text" class="knob" value="{{ o_rate }}" data-width="90" data-height="90" data-fgColor="#f56954" data-readonly="true">
 
-                  <div class="knob-label">下线</div>
+                  <div class="knob-label">Snack</div>
                 </div>
                 <!-- ./col -->
 
@@ -58,19 +58,19 @@
                 <div class="col-xs-6 col-md-2 text-center">
                   <input type="text" class="knob" value="{{ bd_rate }}" data-width="90" data-height="90" data-fgColor="#932ab6" data-readonly="true">
 
-                  <div class="knob-label">故障</div>
+                  <div class="knob-label">Protein</div>
                 </div>
                 <!-- ./col -->
                 <div class="col-xs-6 col-md-2 text-center">
                   <input type="text" class="knob" value="{{ bu_rate }}" data-width="90" data-height="90" data-fgColor="#3c8dbc" data-readonly="true">
 
-                  <div class="knob-label">备用</div>
+                  <div class="knob-label">Vegetable</div>
                 </div>
                   <!-- ./col -->
                 <div class="col-xs-6 col-md-2 text-center">
                   <input type="text" class="knob" value="{{ un_rate }}" data-width="90" data-height="90" data-fgColor="#cccccc" data-readonly="true">
 
-                  <div class="knob-label">未知</div>
+                  <div class="knob-label">Fruit</div>
                 </div>
                 <!-- ./col -->
               </div>
@@ -88,7 +88,7 @@
           <div class="box box-success">
 
             <div class="box-header with-border">
-              <h3 class="box-title">各状态资产数量统计：</h3>
+              <h3 class="box-title">Any type food count：</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -110,7 +110,7 @@
           <!-- DONUT CHART -->
           <div class="box box-danger">
             <div class="box-header with-border">
-              <h3 class="box-title">各类型资产数量统计：</h3>
+              <h3 class="box-title">ny type food count：</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -217,18 +217,18 @@
         var option = {
             color: ['#3398DB'],
             title: {
-                text: '数量'
+                text: 'Number'
             },
             tooltip: {},
             legend: { data:['']
             },
             xAxis: {
-                data: ["在线", "下线","故障","备用","未知"] },
+                data: ["Drinks", "Snack","Protein","Vegetable","Fruit"] },
             yAxis: {
             },
             series:
                 [{
-                name: '数量',
+                name: 'Number',
                 type: 'bar',
                 barWidth: '50%',
                 data: [{{ upline }}, {{ offline }}, {{ breakdown }}, {{ backup }}, {{ unknown }}]
