@@ -86,6 +86,13 @@ def item(request):
         # Adds points of object to DB
         addPtsDB(request, points)
 
+        """
+        foodName = str(lib['itemName'])    
+        profile = Profile.objects.get(user=request.user)
+        history = History.objects.create(name=foodName, userId=profile)
+        """
+
+
         # Updates users ranks according to updated scores
         updateRank()
 
