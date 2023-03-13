@@ -17,7 +17,8 @@ def getLocation():
     """
     Gets users location from Google geolocation API
     Pulls the latitude and longitude data
-    return - tuple of (Latitude, Longitude)
+    @param - No Parameters
+    @return - tuple of (Latitude, Longitude)
     """
     URL = 'https://www.googleapis.com/geolocation/v1/geolocate?key=' + config['Geolocation_API_Key']
     try:
@@ -43,6 +44,8 @@ def isOnCampus():
     Gets campus location from config and device location from getLocation()
     Uses geopy to calculate difference between the two points in km
     If less than or equal to 0.75km return True, otherwise return false
+    @param - no parameters
+    @return Boolean
     """
     try:
         campus = (config['uni_lat'],config['uni_long'])
