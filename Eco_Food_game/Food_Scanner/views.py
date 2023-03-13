@@ -9,8 +9,8 @@ from .addItemPoints import isAdd, showPts, addPtsDB, updateRank
 def home(request):
     """
     Parse data to the homepage and render it from the provided template
-    @param request - The pull request from the html
-    @return The Http response of the home page (home.html)
+    :param request: The pull request from the html
+    :return: The Http response of the home page (home.html)
         type - Http Response obj
     """
     context = {
@@ -22,8 +22,8 @@ def home(request):
 def about(request):
     """
     Parse data to the about page and render it from the provided template
-    @param request - The pull request from the html
-    @return The Http response of the about page (about.html)
+    :param request: The pull request from the html
+    :return: The Http response of the about page (about.html)
         type - Http Response obj
     """
     context = {
@@ -35,8 +35,8 @@ def about(request):
 def leaderboard(request):
     """
     Gets an ordered list to the leaderboard page by descending order by score
-    @param request - The pull request from the html
-    @return leaderboard.html & list variable connect with Profile database ordered DESC by score
+    :param request: The pull request from the html
+    :return: leaderboard.html & list variable connect with Profile database ordered DESC by score
         type - Http Response obj
     """
     '''Users profile from user.models table loaded into d and ordered DESC by score '''
@@ -47,8 +47,8 @@ def leaderboard(request):
 def item(request):
     """
     Parse data to the item page and render it from the provided template
-    @param request - The pull request from the html and barcode
-    @return item.html and eco Score and add it to user score in database and rank update
+    :param request: The pull request from the html and barcode
+    :return: item.html and eco Score and add it to user score in database and rank update
         type - Http Respone obj
     """
     # Gets header contents and splits into 2 lists, the value of the query (fragment),
