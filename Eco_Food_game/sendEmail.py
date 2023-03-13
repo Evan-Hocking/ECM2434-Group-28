@@ -3,10 +3,20 @@ import json
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+
+# Reading from the config file and assigning the config variable
+with open('config.json') as f:
+    config = json.load(f)
+
+smtp = config['smtpServer']
+email = config['email']
+emailPassword = config['emailPassword']
+
+
 def send(recipient, message):
     """
     Sends an email to the recipient with the passed message
-    :param recipient: The email-address that will receive the email
+    :param recipient: The email-address that will receive the email message
     :param message: The message that will be sent
     """
     # Create a message object
@@ -27,11 +37,3 @@ def send(recipient, message):
         smtp.starttls()
         smtp.login(email, emailPassword)
         smtp.send_message(msg)
-
-# Reading from the config file and assigning the config variable
-with open('config.json') as f:
-    config = json.load(f)
-
-smtp = config['smtpServer']
-email = config['email']
-emailPassword = config['emailPassword']
