@@ -1,11 +1,26 @@
 from .openFoodFactsPull import getProduct
 
-def itemAttributesDict(barcode):
+"""
+Finds and generates all attributes for a specified item for use on the item page
+@param - barcode
+    type - string
+    contents - value of barcode passed in url
+@return - lib
+    type - dictionary
+    contents - dictionary of all attributes of an item
+"""
+def itemAttributesDict(barcode) -> dict:
 
+    # Uses func from openFoodFactsPull.py
     itemDict = getProduct(barcode)
 
+    # Sets values for variables
     errorMsg = ""
     isError = False
+
+    # Checks whether the barcode entered corresponds to an item in the external DB
+
+    # If there isn't an item for the barcode then:
     if isinstance(itemDict, str):
         errorMsg = "Error: Product not found"
         isError = True
@@ -15,6 +30,9 @@ def itemAttributesDict(barcode):
         itemNutr = "N/A"
         itemImg = "N/A"
         itemProc = "N/A"
+    
+    # If there is an item for the barcode then its attributes/values
+    # obtained from getProduct() are parsed and formatted.
     else:
         itemName = itemDict['name']
         itemEcoR = (itemDict['ecoRating']).upper()
@@ -27,6 +45,8 @@ def itemAttributesDict(barcode):
           itemProcStr2 = (itemProcStr[1]).split("-")
           itemProc = itemProcStr2[0]
 
+    ### Will be deprecated when Evan generates points in openFoodFactsPull.py ###
+    # Generates a set number of points for each eco rating grade
     if itemEcoR == "A":
         itemPoints = 25
     elif itemEcoR == "B":
@@ -38,7 +58,9 @@ def itemAttributesDict(barcode):
     else:
         itemPoints = 1
 
+    # Library of all values used in django templates
     lib = {
+      'title' : "Item page",
       'itemName' : itemName,
       'itemEcoR' : itemEcoR,
       'itemEner' : itemEner,

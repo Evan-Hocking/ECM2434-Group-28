@@ -31,6 +31,17 @@ def about(request):
     return render(request, 'Food_Scanner/about.html', context)
 
 # Returns an ordered list to the leaderboard page
+
+"""
+Parse data to leaderboard page and render it from the provided template
+Sends a list of profiles including scores and usernames to be displayed
+@param - request
+    type - HttpRequest
+    content - data about request made to leaderboard page
+@return - render
+    type - HttpResponse
+    content - data for item page to use to render page
+"""
 def leaderboard(request):
     """ context = {'score': [{'ranking':scor.rank.rank , 'client': scor.userName, 'score':scor.score } for scor in Demo.objects.all().order_by('-userScore')]}
     d = Demo.objects.order_by('-userScore') """
@@ -40,23 +51,28 @@ def leaderboard(request):
     d = Profile.objects.order_by('-score')
     return render(request, 'Food_Scanner/leaderboard.html', locals())
 
-
 """
-Parse data to the item page and render it from the provided template
+Parse data to the item page  (which is navigated to when user enters a barcode)
+and render it from the provided template
+Sends all attributes and data of an object or adds number of points to a users score
+@param - request
+    type - HttpRequest
+    content - data about request made to item page
+@return - render
+    type - HttpResponse
+    content - data for item page to use to render page
 """
-
-
 def item(request):
     # Gets header contents and splits into 2 lists, the value of the query (fragment),
     # and the rest of the URL, discards the rest of the url as it is not useful
     url = (request.get_full_path()).split("=")
     fragment = url[1]
 
-    # Checks if the value of the fragment is an Add points request, not a barcode
+    # If the user has clicked add points button then:
     if isAdd(fragment):
         # Breaks the url fragment down and returns a library of n/a except isAdd and addPts 
-        lib = showPts(fragment)
-        points = int(lib['addPts'])
+        context = showPts(fragment)
+        points = int(context['addPts'])
 
         # Adds points of object to DB
         addPtsDB(request, points)
@@ -64,23 +80,9 @@ def item(request):
         # Updates users ranks according to updated scores
         updateRank()
 
-    # If the barcode is in URL (meaning the user has not yet chosen to add points this runs
+    # If the barcode is in URL (meaning the user has not yet chosen to add points) then:
     else:
-        lib = itemAttributesDict(fragment)
-
-    context = {
-        'title': "Item Page",
-        'name' : lib['itemName'],
-        'ecoRating' : lib['itemEcoR'],
-        'energy' : lib['itemEner'],
-        'nutri' : lib['itemNutr'],
-        'proc' : lib['itemProc'],
-        'imageLink' : lib['itemImg'],
-        'score' : lib['itemPoints'],
-        'isError' : lib['isError'],
-        'errorMsg' : lib['errorMsg'],
-        'isAdd' : lib['isAdd'],
-        'addPts' : lib['addPts'],
-    }
+        # Library of all attributes of an item
+        context = itemAttributesDict(fragment)
 
     return render(request, 'Food_Scanner/item.html', context)

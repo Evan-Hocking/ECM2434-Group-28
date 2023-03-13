@@ -3,14 +3,13 @@ from users.models import Profile
 
 """
 Checks whether the fragment is an Add request
-param - fragment
+@param - fragment
     type - string
     contents - value of fragment in URL
-return - TRUE
+@return True when the fragment is an Add request otherwise false
     type - boolean
-    contents - true signifies the user has pressed the add points button
 """
-def isAdd(fragment):
+def isAdd(fragment) -> bool:
     if fragment.startswith("Add"):
         return True
 
@@ -18,14 +17,14 @@ def isAdd(fragment):
 Generates an attributes for when a user clicks Add X Points
 Splits fragment and returns addPts as points and isAdd as True other than them 2 it returns an 
 essentially empty dictionary
-param - fragment
+@param - fragment
     type - string
     contents - value of fragment in URL
-return - lib
+@return - lib
     type - dictionary
     contents - all values passed to webpage, many are N/A and are unused
 """
-def showPts(fragment):
+def showPts(fragment) -> dict:
     fragmentPts = fragment.split("+")
     fragmentPts2 = (fragmentPts[1]).split("+")
     points = fragmentPts2[0]
@@ -38,28 +37,30 @@ def showPts(fragment):
     itemImg = "N/A"
     itemProc = "N/A"
 
+    # Library of all values used in django templates
     lib = {
-      'itemName' : itemName,
-      'itemEcoR' : itemEcoR,
-      'itemEner' : itemEner,
-      'itemNutr' : itemNutr,
-      'itemProc' : itemProc,
-      'itemImg' : itemImg,
-      'itemPoints' : '',
-      'isError' : isError,
-      'errorMsg' : errorMsg,
-      'isAdd' : True,
-      'addPts' : points
+        'title': "Item page",
+        'itemName' : itemName,
+        'itemEcoR' : itemEcoR,
+        'itemEner' : itemEner,
+        'itemNutr' : itemNutr,
+        'itemProc' : itemProc,
+        'itemImg' : itemImg,
+        'itemPoints' : '',
+        'isError' : isError,
+        'errorMsg' : errorMsg,
+        'isAdd' : True,
+        'addPts' : points
     }
 
     return lib
 
 """
 Adds new points to a users score on DB
-param1 - request
-    type - HttpRequest object
+@param1 - request
+    type - HttpRequest
     content - data about request made to webpage
-param2 - points
+@param2 - points
     type - int
     contents - points of current object to add to user's score
 """
@@ -77,8 +78,8 @@ def addPtsDB(request, points):
         Profile.objects.create(username=request.user, score=points)
 
 ### Is this still necessary / are we still using rank for profile ###
-### Also it doesn't work / doesnt show up correctly on site ###
-### Could generate rank when a profile page is loaded instead of storing on DB ###
+### Also it doesn't work ###
+### Could generate rank when a profile page is loaded instead of storing on DB - YES says Phil ###
 """
 Updates rank of users according to scores in Profiles table in users.models
 """
@@ -99,3 +100,19 @@ def updateRank():
 # Just in case we need to go back to
 """ object = Profile.objects.filter(user=request.user).first()
 object.score = object.score + (int(lib['addPts'])) """
+
+# Library of all values used in django templates
+"""context = {
+    'title': "Item Page",
+    'name' : lib['itemName'],
+    'ecoRating' : lib['itemEcoR'],
+    'energy' : lib['itemEner'],
+    'nutri' : lib['itemNutr'],
+    'proc' : lib['itemProc'],
+    'imageLink' : lib['itemImg'],
+    'score' : lib['itemPoints'],
+    'isError' : lib['isError'],
+    'errorMsg' : lib['errorMsg'],
+    'isAdd' : lib['isAdd'],
+    'addPts' : lib['addPts'],
+}"""
