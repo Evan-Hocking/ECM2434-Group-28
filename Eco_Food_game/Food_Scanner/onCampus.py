@@ -17,7 +17,7 @@ def getLocation() -> tuple:
     """
     Gets user location from Google geolocation API
     Pulls the latitude and longitude data
-    @return A tuple of the Latitude and Longitude of the user location
+    :return: A tuple of the Latitude and Longitude of the user location
         type - tuple
     """
     URL = 'https://www.googleapis.com/geolocation/v1/geolocate?key=' + config['Geolocation_API_Key']
@@ -46,7 +46,7 @@ def isOnCampus() -> bool:
     """
     Gets the campus location from config and device location from getLocation()
     Uses geopy to calculate difference between the two points in km
-    @return True if two points are less than or equal to 0.75km otherwise false
+    :return: True if two points are less than or equal to 0.75km otherwise false
         type - bool
     """
     try:
