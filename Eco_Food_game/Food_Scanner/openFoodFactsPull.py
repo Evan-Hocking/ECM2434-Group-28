@@ -11,9 +11,9 @@ import openfoodfacts
 def is_number(value) -> bool:
     """
     Tests if value is an integer
-    @param value - A value used for checking if its an integer
+    :param value: A value used for checking if its an integer
         type - any
-    @return True if the value is an integer type otherwise false
+    :return: True if the value is an integer type otherwise false
         type - bool
     """
     try:
@@ -28,11 +28,10 @@ def getImage(foodDict) -> str:
     Gets an image url from the given dictionary
     If no image is present, the system will attempt to find another
     If still unsuccessful, a default image url is returned
-    @param - foodDict
+    :param foodDict: The item's information
         type - dict
-    @return - img
+    :return: The url of the image
         type - str
-        contents - url of the image
     """
     try:
         # Gets english image
@@ -52,31 +51,30 @@ def getImage(foodDict) -> str:
 def getProduct(barcode=0):
     """
     Tests the barcode validity
-    Requests data from OpenFoodFacts Database using OpenFoodFacts Library
-        using barcode
+    Requests data from OpenFoodFacts Database using OpenFoodFacts Library using the barcode
     Extracts required data to dictionary
         Product name, calorie count, nutriscore, processed score, ecoRating, image
     Makes missing data a consistent message
-    @param barcode - The item's barcode
+    :param barcode: The item's barcode
         type - str or int
-    @return The barcode's details of the item 
+    :return: The barcode's details of the item 
         type - dict
     """
-    #tests if number
+    # Tests if number
     if not is_number(barcode):
         return("Err: Invalid Barcode")
-    #api request
+    # Api request
     try:
         request     =   openfoodfacts.products.get_product(str(barcode))
         product = request['product']
     except:
         return ("Err: Request Error")
     
-    #tests if api request was success
+    # Tests if api request was success
     if request['status']==0:
         return ("Err: Product not found")
     
-    #gets name from dictionary
+    # Gets name from dictionary
     name = ""
     try:
         name        =   product['product_name']
@@ -89,7 +87,7 @@ def getProduct(barcode=0):
         if not name:
             name    = "n/a"
             
-    #pulls other data from dictionary
+    # Pulls other data from dictionary
     try:
         cal         =   product['nutriments']['energy-kcal_100g']
     except:
@@ -110,7 +108,7 @@ def getProduct(barcode=0):
         processed   = "n/a"
     img = getImage(product)
     
-    #condenses pulled data to dictionary lib
+    # Condenses pulled data to dictionary lib
     lib         =   {
         'barcode':str(barcode),
         'name':name,
@@ -120,7 +118,7 @@ def getProduct(barcode=0):
         'processed':processed,
         'image':img}
     
-    #makes missing data appear in a consistent format
+    # Makes missing data appear in a consistent format
     for x in range(0,len(lib)):
         if str(list(lib.values())[x]) == "" or str(list(lib.values())[x]) == "unknown" or str(list(lib.values())[x]) == "['unknown']":
             lib[list(lib.keys())[x]] = "n/a"
