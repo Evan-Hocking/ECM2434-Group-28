@@ -8,12 +8,13 @@ import json
 import openfoodfacts
 
 
-def is_number(value):
+def is_number(value) -> bool:
     """
     Tests if Variable is a number
-    @param - value
+    @param value - Checks
         type - any
-    @return - Boolean
+    @return - True if the value is an integer type otherwise false
+        type - bool
     """
     try:
         int(value)
