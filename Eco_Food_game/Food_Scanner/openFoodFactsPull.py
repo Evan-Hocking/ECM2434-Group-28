@@ -10,10 +10,10 @@ import openfoodfacts
 
 def is_number(value) -> bool:
     """
-    Tests if Variable is a number
-    @param value - Checks
+    Tests if value is an integer
+    @param value - A value used for checking if its an integer
         type - any
-    @return - True if the value is an integer type otherwise false
+    @return True if the value is an integer type otherwise false
         type - bool
     """
     try:
@@ -22,46 +22,45 @@ def is_number(value) -> bool:
     except ValueError:
         return False
     
-
-def getImage(foodDict):
+    
+def getImage(foodDict) -> str:
     """
-    Gets an image from the given dictionary
-    If no image is present the system will attempt to find another
-    If still unsuccessful a default is returned
+    Gets an image url from the given dictionary
+    If no image is present, the system will attempt to find another
+    If still unsuccessful, a default image url is returned
     @param - foodDict
-        type - dictionary
+        type - dict
     @return - img
-        type - string
-        contents - url of image
+        type - str
+        contents - url of the image
     """
     try:
-        #gets english image
+        # Gets english image
         img     =   foodDict['selected_images']['front']['display']['en']
         return img
     except (KeyError,TypeError):
-        #finds alternative language image
+        # Finds alternative language image
         try:
             images = foodDict['selected_images']['front']['display']
             img = images[0]
             return img
         except:
-            #uses default image
+            # Uses default image
             return "https://world.openfoodfacts.org/images/icons/dist/packaging.svg"
         
        
 def getProduct(barcode=0):
     """
-    Takes a barcode argument as either string or int
-    Tests barcode validity
+    Tests the barcode validity
     Requests data from OpenFoodFacts Database using OpenFoodFacts Library
-        using barcode as a String in call
-        stores as a dictionary
-    Extracts requried data to dictionary
+        using barcode
+    Extracts required data to dictionary
         Product name, calorie count, nutriscore, processed score, ecoRating, image
     Makes missing data a consistent message
-    @param - barcode
-        type - String or int
-    @return - Dictionary
+    @param barcode - The item's barcode
+        type - str or int
+    @return The barcode's details of the item 
+        type - dict
     """
     #tests if number
     if not is_number(barcode):
