@@ -7,18 +7,13 @@
 import json
 import openfoodfacts
 
-"""
-Tests if Variable is a number
-param - value
-    type - any
-return - Boolean
-"""
+
 def is_number(value):
     """
     Tests if Variable is a number
-    param - value
+    @param - value
         type - any
-    return - Boolean
+    @return - Boolean
     """
     try:
         int(value)
@@ -32,9 +27,9 @@ def getImage(foodDict):
     Gets an image from the given dictionary
     If no image is present the system will attempt to find another
     If still unsuccessful a default is returned
-    param - foodDict
+    @param - foodDict
         type - dictionary
-    return - img
+    @return - img
         type - string
         contents - url of image
     """
@@ -63,7 +58,9 @@ def getProduct(barcode=0):
     Extracts requried data to dictionary
         Product name, calorie count, nutriscore, processed score, ecoRating, image
     Makes missing data a consistent message
-    Return Dictionary
+    @param - barcode
+        type - String or int
+    @return - Dictionary
     """
     #tests if number
     if not is_number(barcode):
