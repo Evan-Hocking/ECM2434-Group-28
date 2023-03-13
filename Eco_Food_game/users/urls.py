@@ -1,7 +1,15 @@
+#-------------------------------------------------------------------------------------------------------
+# Name:        urls.py
+# Purpose:     Declare the Urlpatterns so that the webpage request can be redirected to the correct page
+#
+# Author:      Tom Sturgeon
+#-------------------------------------------------------------------------------------------------------
+
 from django.urls import path
 from django.contrib.auth import views as authViews
 from . import views
 
+#Declare the paths for each html webpage
 urlpatterns = [
     path('register/', views.register, name='user-register'),
     path('login/', authViews.LoginView.as_view(template_name='users/login.html'),

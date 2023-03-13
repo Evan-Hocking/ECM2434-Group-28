@@ -8,12 +8,13 @@ import json
 import openfoodfacts
 
 
-def is_number(value):
+def is_number(value) -> bool:
     """
-    Tests if Variable is a number
-    @param - value
+    Tests if value is an integer
+    :param value: A value used for checking if its an integer
         type - any
-    @return - Boolean
+    :return: True if the value is an integer type otherwise false
+        type - bool
     """
     try:
         int(value)
@@ -21,62 +22,59 @@ def is_number(value):
     except ValueError:
         return False
     
-
-def getImage(foodDict):
+    
+def getImage(foodDict) -> str:
     """
-    Gets an image from the given dictionary
-    If no image is present the system will attempt to find another
-    If still unsuccessful a default is returned
-    @param - foodDict
-        type - dictionary
-    @return - img
-        type - string
-        contents - url of image
+    Gets an image url from the given dictionary
+    If no image is present, the system will attempt to find another
+    If still unsuccessful, a default image url is returned
+    :param foodDict: The item's information
+        type - dict
+    :return: The url of the image
+        type - str
     """
     try:
-        #gets english image
+        # Gets english image
         img     =   foodDict['selected_images']['front']['display']['en']
         return img
     except (KeyError,TypeError):
-        #finds alternative language image
+        # Finds alternative language image
         try:
             images = foodDict['selected_images']['front']['display']
             img = images[0]
             return img
         except:
-            #uses default image
+            # Uses default image
             return "https://world.openfoodfacts.org/images/icons/dist/packaging.svg"
         
        
 def getProduct(barcode=0):
     """
-    Takes a barcode argument as either string or int
-    Tests barcode validity
-    Requests data from OpenFoodFacts Database using OpenFoodFacts Library
-        using barcode as a String in call
-        stores as a dictionary
-    Extracts requried data to dictionary
+    Tests the barcode validity
+    Requests data from OpenFoodFacts Database using OpenFoodFacts Library using the barcode
+    Extracts required data to dictionary
         Product name, calorie count, nutriscore, processed score, ecoRating, image
     Makes missing data a consistent message
-    @param - barcode
-        type - String or int
-    @return - Dictionary
+    :param barcode: The item's barcode
+        type - str or int
+    :return: The barcode's details of the item 
+        type - dict
     """
-    #tests if number
+    # Tests if number
     if not is_number(barcode):
         return("Err: Invalid Barcode")
-    #api request
+    # Api request
     try:
         request     =   openfoodfacts.products.get_product(str(barcode))
         product = request['product']
     except:
         return ("Err: Request Error")
     
-    #tests if api request was success
+    # Tests if api request was success
     if request['status']==0:
         return ("Err: Product not found")
     
-    #gets name from dictionary
+    # Gets name from dictionary
     name = ""
     try:
         name        =   product['product_name']
@@ -89,7 +87,7 @@ def getProduct(barcode=0):
         if not name:
             name    = "n/a"
             
-    #pulls other data from dictionary
+    # Pulls other data from dictionary
     try:
         cal         =   product['nutriments']['energy-kcal_100g']
     except:
@@ -110,7 +108,7 @@ def getProduct(barcode=0):
         processed   = "n/a"
     img = getImage(product)
     
-    #condenses pulled data to dictionary lib
+    # Condenses pulled data to dictionary lib
     lib         =   {
         'barcode':str(barcode),
         'name':name,
@@ -120,7 +118,7 @@ def getProduct(barcode=0):
         'processed':processed,
         'image':img}
     
-    #makes missing data appear in a consistent format
+    # Makes missing data appear in a consistent format
     for x in range(0,len(lib)):
         if str(list(lib.values())[x]) == "" or str(list(lib.values())[x]) == "unknown" or str(list(lib.values())[x]) == "['unknown']":
             lib[list(lib.keys())[x]] = "n/a"

@@ -63,6 +63,7 @@ Adds new points to a users score on DB
 @param2 - points
     type - int
     contents - points of current object to add to user's score
+@return - none
 """
 def addPtsDB(request, points):
     
@@ -82,6 +83,7 @@ def addPtsDB(request, points):
 ### Could generate rank when a profile page is loaded instead of storing on DB - YES says Phil ###
 """
 Updates rank of users according to scores in Profiles table in users.models
+@return - none
 """
 def updateRank():
     # Updates rank
