@@ -1,16 +1,15 @@
 from .openFoodFactsPull import getProduct
 
-"""
-Finds and generates all attributes for a specified item for use on the item page
-@param - barcode
-    type - string
-    contents - value of barcode passed in url
-@return - lib
-    type - dictionary
-    contents - dictionary of all attributes of an item
-"""
-def itemAttributesDict(barcode) -> dict:
 
+def itemAttributesDict(barcode) -> dict:
+    """
+    Finds and generates all attributes for a specified item for use on the item page
+    :param barcode: The barcode of the specified item
+        type - str
+        contents - value of barcode passed in url
+    :return lib: The dictionary of all attributes of an item
+        type - dict
+    """
     # Uses func from openFoodFactsPull.py
     itemDict = getProduct(barcode)
 
@@ -19,7 +18,6 @@ def itemAttributesDict(barcode) -> dict:
     isError = False
 
     # Checks whether the barcode entered corresponds to an item in the external DB
-
     # If there isn't an item for the barcode then:
     if isinstance(itemDict, str):
         errorMsg = "Error: Product not found"
