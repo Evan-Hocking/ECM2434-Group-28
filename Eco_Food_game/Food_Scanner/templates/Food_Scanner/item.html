@@ -25,7 +25,7 @@
             </a>
             {%if user.is_authenticated %}
                 <form id="addPoints" action="/item" method="GET">
-                    <br><input type="submit" value="Add {{ itemPoints }} pts" name="Add" class="btn btn-login" style="width: 100%;">
+                    <br><input type="submit" value="Add {{ itemPoints }} pts for {{ itemName }}" placeholder="Add {{ itemPoints }} pts" name="Add" class="btn btn-login" style="width: 100%;">
                 </form>
         </div>
             {% endif %}

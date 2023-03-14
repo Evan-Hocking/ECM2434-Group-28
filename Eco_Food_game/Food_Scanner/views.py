@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from Food_Scanner import models
 from users.models import Profile
 from .itemRequest import itemAttributesDict
-from .addItemPoints import isAdd, showPts, addPtsDB, updateRank
+from .addItemPoints import isAdd, showPts, addPtsHistDB, updateRank
 
 
 def home(request):
@@ -65,8 +65,8 @@ def item(request):
         context = showPts(fragment)
         points = int(context['addPts'])
 
-        # Adds points of object to DB
-        addPtsDB(request, points)
+        # Adds points of object to users DB and item to history DB
+        addPtsHistDB(request, points, str(context['itemName']))
 
         # Updates users ranks according to updated scores
         updateRank()

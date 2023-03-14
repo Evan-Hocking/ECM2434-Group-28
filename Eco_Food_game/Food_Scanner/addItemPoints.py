@@ -1,5 +1,11 @@
+#---------------------------------------------------------------------------------------
+# Name: addItemPoints.py
+# Purpose: Adds an items points to the DB and provides context for confirmation page
+#
+# Author: Ryan Gascoigne-Jones
+#---------------------------------------------------------------------------------------
 import sqlite3
-from users.models import Profile
+from users.models import Profile, History
 
 
 def isAdd(fragment) -> bool:
@@ -17,8 +23,8 @@ def isAdd(fragment) -> bool:
 
 def showPts(fragment) -> dict:
     """
-    Generates an attributes for when a user clicks Add X Points
-    Splits fragment and returns addPts as points and isAdd as True other than them 2 it returns an 
+    Generates an attributes for when a user clicks Add X Points button
+    Splits fragment and returns addPts as points and isAdd as True other than them 2 it returns an
     essentially empty dictionary
     :param - fragment
         type - string
@@ -28,25 +34,19 @@ def showPts(fragment) -> dict:
         contents - all values passed to webpage, many are N/A and are unused
     """
     
-    fragmentPts = fragment.split("+")
-    fragmentPts2 = (fragmentPts[1]).split("+")
-    points = fragmentPts2[0]
-
-    # Could change if need to be output something else
-    notAppl = "N/A"
+    #Splits fragment into points and item name
+    fragment1 = fragment.split("+")
+    #fragmentPts2 = (fragmentPts[1]).split("+")
+    points = fragment1[1]
+    fragLength = len(fragment1)
+    name = ""
+    for i in range(4,fragLength):
+        name = name + " " + fragment1[i]
 
     # Library of all values used in django templates
     lib = {
         'title': "Item page",
-        'itemName' : notAppl,
-        'itemEcoR' : notAppl,
-        'itemEner' : notAppl,
-        'itemNutr' : notAppl,
-        'itemImg' : notAppl,
-        'itemCO2' : notAppl,
-        'itemPoints' : '',
-        'isError' : False,
-        'errorMsg' : "",
+        'itemName' : name,
         'isAdd' : True,
         'addPts' : points
     }
@@ -54,15 +54,13 @@ def showPts(fragment) -> dict:
     return lib
 
 
-def addPtsDB(request, points):
+def addPtsHistDB(request, points, itemName):
     """
     Adds new points to a users score on DB
-    :param1 - request
-        type - HttpRequest
-        content - data about request made to webpage
-    :param2 - points
+    :param1 request: The http request from the html
+    :param2 points: points of current object to add to user's score
         type - int
-        contents - points of current object to add to user's score
+    :param3 itemName: Item name parsed from url of item page
     :return - none
     """
 
@@ -76,6 +74,11 @@ def addPtsDB(request, points):
     # If the user doesn't have a current score, it assigns the items points as their score
     else:
         Profile.objects.create(username=request.user, score=points)
+
+    ## Should it add points for each item as well? ##
+    # Adds Item Name and date scanned to history table which is ouput on Profile page
+    profile = Profile.objects.get(user=request.user)
+    history = History.objects.create(name=itemName, userId=profile)
 
 
 ### Is this still necessary / are we still using rank for profile ###

@@ -1,3 +1,9 @@
+#--------------------------------------------------------------------------------------------
+# Name: itemRequest.py
+# Purpose: Uses barcode entered by user to find all an items attributes using getProduct()
+#
+# Author: Ryan Gascoigne-Jones
+#--------------------------------------------------------------------------------------------
 from .openFoodFactsPull import getProduct
 
 
@@ -54,8 +60,7 @@ def itemAttributesDict(barcode) -> dict:
       'itemPoints' : itemPoints,
       'isError' : isError,
       'errorMsg' : errorMsg,
-      'isAdd' : False,
-      'addPts' : ''
+      'isAdd' : False
     }
 
     return lib
