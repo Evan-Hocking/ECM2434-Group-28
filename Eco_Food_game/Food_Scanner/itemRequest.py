@@ -10,12 +10,10 @@ from .openFoodFactsPull import getProduct
 def itemAttributesDict(barcode) -> dict:
     """
     Finds and generates all attributes for a specified item for use on the item page
-    :param - barcode
+    :param barcode: value of barcode passed in url
         type - string
-        contents - value of barcode passed in url
-    :return - lib
+    :return lib: all attributes of an item
         type - dictionary
-        contents - dictionary of all attributes of an item
     """
 
     # Uses func from openFoodFactsPull.py
@@ -36,6 +34,8 @@ def itemAttributesDict(barcode) -> dict:
         itemEner = "N/A"
         itemNutr = "N/A"
         itemImg = "N/A"
+        itemCO2 = "N/A"
+        itemPoints = 0
     
     # If there is an item for the barcode then its attributes/values
     # obtained from getProduct() are parsed and formatted.

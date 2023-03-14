@@ -3,6 +3,9 @@
     {%if isError == True %}
         <div style="text-align: center;">
         <h1>{{ errorMsg }}</h1>
+        <a href="/">
+            <button class="btn btn-login" style="width: 100%;">Back</button>
+        </a>
         </div>
     {% elif isAdd == True %}
         <div style="text-align: center;">

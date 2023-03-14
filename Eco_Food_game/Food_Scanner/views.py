@@ -1,3 +1,9 @@
+#--------------------------------------------------------------------------------------------
+# Name: views.py
+# Purpose: Uses requests from web pages to generate data to populate the page with context
+#
+# Author: Ryan Gascoigne-Jones, Phil
+#--------------------------------------------------------------------------------------------
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from Food_Scanner import models
