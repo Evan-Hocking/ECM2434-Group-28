@@ -1,3 +1,10 @@
+#-------------------------------------------------------------------------------
+# Name:        views.py
+# Purpose:     
+#
+# Author:      
+#-------------------------------------------------------------------------------
+
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from Food_Scanner import models
@@ -31,46 +38,25 @@ def about(request):
     }
     return render(request, 'Food_Scanner/about.html', context)
 
-# Returns an ordered list to the leaderboard page
 
-"""
-Parse data to leaderboard page and render it from the provided template
-Sends a list of profiles including scores and usernames to be displayed
-@param - request
-    type - HttpRequest
-    content - data about request made to leaderboard page
-@return - render
-    type - HttpResponse
-    content - data for item page to use to render page
-"""
 def leaderboard(request):
     """
     Gets an ordered list to the leaderboard page by descending order by score
-    :param request: The pull request from the html
-    :return: leaderboard.html & list variable connect with Profile database ordered DESC by score
-        type - Http Response obj
+    :param request: The pull request from the html (leaderboard.html)
+    :return: The leaderboard.html & list variable connect with Profile database ordered DESC by score
+        type - HttpResponse
     """
     '''Users profile from user.models table loaded into d and ordered DESC by score '''
     d = Profile.objects.order_by('-score')
     return render(request, 'Food_Scanner/leaderboard.html', locals())
 
-"""
-Parse data to the item page  (which is navigated to when user enters a barcode)
-and render it from the provided template
-Sends all attributes and data of an object or adds number of points to a users score
-@param - request
-    type - HttpRequest
-    content - data about request made to item page
-@return - render
-    type - HttpResponse
-    content - data for item page to use to render page
-"""
+
 def item(request):
     """
-    Parse data to the item page and render it from the provided template
-    :param request: The pull request from the html and barcode
-    :return: item.html and eco Score and add it to user score in database and rank update
-        type - Http Respone obj
+    Parse data to the item page and render it from the provided template (which is navigated to when user enters a barcode)
+    :param request: The data about request made to item page
+    :return: The item.html and eco score, and add it to user score in database and rank update
+        type - HttpRespone 
     """
     # Gets header contents and splits into 2 lists, the value of the query (fragment),
     # and the rest of the URL, discards the rest of the url as it is not useful
@@ -91,7 +77,6 @@ def item(request):
         profile = Profile.objects.get(user=request.user)
         history = History.objects.create(name=foodName, userId=profile)
         """
-
 
         # Updates users ranks according to updated scores
         updateRank()
