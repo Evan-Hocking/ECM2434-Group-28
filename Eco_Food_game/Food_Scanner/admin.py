@@ -3,8 +3,6 @@ from Food_Scanner.models import Demo
 from Food_Scanner.models import Score
 
 
-# Register your models here.
-
 #Register the Demo databse table to be visible on the django admin page
 @admin.register(Demo)
 class DemoAdmin(admin.ModelAdmin):
