@@ -6,7 +6,7 @@
 #-------------------------------------------------------------------------------
 import json
 import openfoodfacts
-
+from statistics import mean
 def getData(barcode):
     """
     Validates barcode using isNumber
@@ -161,7 +161,7 @@ def getNutri(foodDict):
     return nutriScore
 
 
-def getPoints(CO2Dat):
+def getPoints(CO2Dat,foodDict):
     """
     gets points by applying the function 251.026-182.582x^(0.0473541) to CO2Dat
     rounds the result to nearest positive integer
@@ -170,12 +170,26 @@ def getPoints(CO2Dat):
     @return points
         type string
     """
+    ecoPointDict = {"A":25,
+                "B":15,
+                "C":8,
+                "D":4,
+                "E":1,
+                }
+    ecoScore = getEco(foodDict)
     try:
-        points = round(251.026 - 182.582 * int(CO2Dat) ** 0.0473541)
+        ecoPoints = ecoPointDict[ecoScore]
     except:
-        points = 1
-    if points < 1:
-        points = 1
+        ecoPoints = 1
+    try:
+        CO2points = round(251.026 - 182.582 * int(CO2Dat) ** 0.0473541)
+        if CO2points>25:
+            CO2points = 25
+    except:
+        CO2points = 1
+    if CO2points < 1:
+        CO2points = 1
+    points = mean((ecoPoints,CO2points))
     return str(points)
 
 
@@ -216,7 +230,7 @@ def getProduct(barcode=0):
     nutriScore = getNutri(product)
     img = getImage(product)
     co2 = getCO2(product)
-    points = getPoints(co2)
+    points = getPoints(co2,product)
 
     #condenses pulled data to dictionary lib
     lib         =   {
