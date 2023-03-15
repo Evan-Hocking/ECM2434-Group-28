@@ -1,3 +1,9 @@
+#-------------------------------------------------------------------------------
+# Name:        validation.py
+# Purpose:     Performs various validations mainly for login and registration pages 
+#
+# Author:      Hao Lun Lin
+#-------------------------------------------------------------------------------
 import sqlite3
 import re
 
