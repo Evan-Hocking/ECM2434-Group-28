@@ -2,7 +2,7 @@
 # Name:        urls.py
 # Purpose:     Defines the url paths that each webpage follows
 #
-# Author:      
+# Author:      Tom Sturgeon
 #-------------------------------------------------------------------------------
 from django.urls import path
 from . import views
