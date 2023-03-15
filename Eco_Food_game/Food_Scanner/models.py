@@ -1,3 +1,9 @@
+#-------------------------------------------------------------------------------
+# Name:        models.py
+# Purpose:     Creates database Demo table with defined fields (i.e. Score and Rank)
+#
+# Author:      Tom Sturgeon
+#-------------------------------------------------------------------------------
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
