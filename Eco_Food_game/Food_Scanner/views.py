@@ -4,7 +4,6 @@
 #
 # Author:      
 #-------------------------------------------------------------------------------
-
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from Food_Scanner import models
