@@ -1,3 +1,9 @@
+#-------------------------------------------------------------------------------
+# Name:        itemRequest.py
+# Purpose:     Finds and generate all attributes for a specified item for use on the item page
+#
+# Author:      Tom Sturgeon
+#-------------------------------------------------------------------------------
 from .openFoodFactsPull import getProduct
 
 
