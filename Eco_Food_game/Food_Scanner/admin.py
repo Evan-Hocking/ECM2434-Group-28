@@ -1,3 +1,9 @@
+#-------------------------------------------------------------------------------
+# Name:        addItemPoints.py
+# Purpose:     Methods to perform actions with the user's points and rank
+#
+# Author:      Thomas Sturgeon
+#-------------------------------------------------------------------------------
 from django.contrib import admin
 from Food_Scanner.models import Demo
 from Food_Scanner.models import Score
