@@ -189,7 +189,7 @@ def getPoints(CO2Dat,foodDict):
         CO2points = 1
     if CO2points < 1:
         CO2points = 1
-    points = mean((ecoPoints,CO2points))
+    points = round(mean((ecoPoints,CO2points)))
     return str(points)
 
 
