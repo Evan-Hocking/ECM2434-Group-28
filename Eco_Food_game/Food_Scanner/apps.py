@@ -1,3 +1,9 @@
+#-------------------------------------------------------------------------------
+# Name:        apps.py
+# Purpose:     Configuration for the Food_Scanner Django app
+#
+# Author:      Tom Sturgeon
+#-------------------------------------------------------------------------------
 from django.apps import AppConfig
 
 class FoodScannerConfig(AppConfig):
