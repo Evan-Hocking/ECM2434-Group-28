@@ -1,3 +1,9 @@
+#-------------------------------------------------------------------------------
+# Name:        addItemPoints.py
+# Purpose:     Methods to perform actions with the user's points and rank
+#
+# Author:      
+#-------------------------------------------------------------------------------
 import sqlite3
 from users.models import Profile
 
