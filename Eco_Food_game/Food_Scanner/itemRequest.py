@@ -1,9 +1,9 @@
-#--------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------
 # Name: itemRequest.py
-# Purpose: Uses barcode entered by user to find all an items attributes using getProduct()
+# Purpose: Uses barcode entered by user to find all an a specifc items attributes using getProduct()
 #
 # Author: Ryan Gascoigne-Jones
-#--------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------
 from .openFoodFactsPull import getProduct
 
 
