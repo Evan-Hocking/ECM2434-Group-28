@@ -21,6 +21,7 @@ def searchUser(field, searchTerm):
 	conn.close()
 	return result
 
+
 def usernameAlreadyExists(username) -> bool:
 	"""
 	Checks if the username is already in the database
@@ -28,6 +29,7 @@ def usernameAlreadyExists(username) -> bool:
 	:return: True if username is found otherwise False
 	"""
 	return not len(searchUser('userName', username)) == 0
+
 
 def presenceCheck(txtinput) -> bool:
 	"""
@@ -40,6 +42,7 @@ def presenceCheck(txtinput) -> bool:
 	else:
 		return False
 
+	
 def twoStringsMatchCheck(txtinput1, txtinput2) -> bool:
 	"""
 	Checks if the 2 strings match
