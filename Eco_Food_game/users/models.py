@@ -64,7 +64,11 @@ class History(models.Model):
     userId = models.ForeignKey(Profile, on_delete=models.CASCADE)
     date_Added = models.DateTimeField(auto_now_add=True)
     # image = models.CharField(max_length=9999, blank=True)
-   
+    """
+    When it calls itself, returns the usernames
+    @param self - The object
+    @return The usernames from the database
+    """
     def __str__(self):
         """
         When it calls itself, returns the usernames
