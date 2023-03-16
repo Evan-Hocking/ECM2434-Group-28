@@ -20,4 +20,4 @@ jobs:
       run: pip install -r Eco_Food_game/requirements.txt
 
     - name: Run Python script
-      run: python Eco_Food_game/Food_Scanner/testCustom.py
+      run: python Food_Scanner/testCustom.py
