@@ -9,6 +9,9 @@ from openFoodFactsPull import getProduct
 import onCampus 
 
 def testOpenFoodFacts():
+    """
+    test suite for openFoodFactsPull.py
+    """
     #tests Null input into getProduct() Function
     assert getProduct(),"OFFP Err: Null input Error"
 
@@ -42,7 +45,10 @@ def testOpenFoodFacts():
     print("OFFP TEST PASS")
 
 
-def testIsOnCampus():
+def testOnCampus():
+    """
+    test suite for onCampus.py
+    """
     #tests if geolocation pull was successful
     assert not(onCampus.getLocation()== "Err: Geolocation Failed"), "OC Err: Geolocation Failed"
 
@@ -58,5 +64,5 @@ def testIsOnCampus():
     print("IO TEST PASS")
 def main():
     testOpenFoodFacts()
-    testIsOnCampus()
+    testOnCampus()
 main()
