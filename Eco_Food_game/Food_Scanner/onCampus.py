@@ -8,24 +8,28 @@ import json
 import requests
 import geopy.distance
 
-#opens and assigns config file to access settings
+
+# Opens and assigns config file to access settings
 with open('../config.json') as json_config:
     config = json.load(json_config)
 
     
-def getLocation():
+def getLocation() -> tuple:
     """
-    Gets users location from Google geolocation API
+    Gets user location from Google geolocation API
     Pulls the latitude and longitude data
-    return - tuple of (Latitude, Longitude)
+    :return: A tuple of the Latitude and Longitude of the user location
+        type - tuple
     """
     URL = 'https://www.googleapis.com/geolocation/v1/geolocate?key=' + config['Geolocation_API_Key']
     try:
+        # Gets the geolocation data of the user from the Google api
         r = requests.post(URL)
     except requests.exceptions.RequestException as e:
         return "Err: Geolocation Failed"
     data = r.json()
-    #pulls lat/long from api request
+    
+    # Pulls lat/long from api request
     try:
         lat = data['location']['lat']
     except:
@@ -34,15 +38,17 @@ def getLocation():
         lng = data['location']['lng']
     except:
         return "ErrL Longitude not found"
+    
     location = (lat,lng)
     return location
 
     
-def isOnCampus():
+def isOnCampus() -> bool:
     """
-    Gets campus location from config and device location from getLocation()
+    Gets the campus location from config and device location from getLocation()
     Uses geopy to calculate difference between the two points in km
-    If less than or equal to 0.75km return True, otherwise return false
+    :return: True if two points are less than or equal to 0.75km otherwise false
+        type - bool
     """
     try:
         campus = (config['uni_lat'],config['uni_long'])
@@ -50,7 +56,9 @@ def isOnCampus():
         return "Err: campus location not found"
     loc = getLocation()
     dist = geopy.distance.geodesic(campus,loc).km
-    if dist<=0.75:
+    
+    # Returns true if the two points are less than or equal to 0.75km otherwise false
+    if dist <= 0.75:
         return True
     else:
         return False

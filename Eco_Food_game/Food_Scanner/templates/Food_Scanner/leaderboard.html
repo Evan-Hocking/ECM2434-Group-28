@@ -5,14 +5,17 @@
   <thead>
     <tr>
       <!-- <th scope="col">Rank</th> -->
+      <!-- Column headings -->
       <th scope="col">Player</th>
       <th scope="col">Score</th>
     </tr>
   </thead>
   <tbody>
+    <!-- Loops through each user -->
     {% for i in d %}
       <tr>
       <!-- <th scope="row">{{ i.rank }}</th> -->
+      <!-- Users name and score -->
       <td>{{ i.user }}</td>
       <td>{{ i.score }}</td>
       </tr>
