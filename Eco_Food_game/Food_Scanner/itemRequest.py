@@ -1,15 +1,20 @@
+#------------------------------------------------------------------------------------------------------
+# Name: itemRequest.py
+# Purpose: Uses barcode entered by user to find all an a specifc items attributes using getProduct()
+#
+# Author: Ryan Gascoigne-Jones
+#------------------------------------------------------------------------------------------------------
 from .openFoodFactsPull import getProduct
 
-"""
-Finds and generates all attributes for a specified item for use on the item page
-@param - barcode
-    type - string
-    contents - value of barcode passed in url
-@return - lib
-    type - dictionary
-    contents - dictionary of all attributes of an item
-"""
+
 def itemAttributesDict(barcode) -> dict:
+    """
+    Finds and generates all attributes for a specified item for use on the item page
+    :param barcode: value of barcode passed in url
+        type - string
+    :return lib: all attributes of an item
+        type - dictionary
+    """
 
     # Uses func from openFoodFactsPull.py
     itemDict = getProduct(barcode)
@@ -19,7 +24,6 @@ def itemAttributesDict(barcode) -> dict:
     isError = False
 
     # Checks whether the barcode entered corresponds to an item in the external DB
-
     # If there isn't an item for the barcode then:
     if isinstance(itemDict, str):
         errorMsg = "Error: Product not found"
@@ -29,7 +33,8 @@ def itemAttributesDict(barcode) -> dict:
         itemEner = "N/A"
         itemNutr = "N/A"
         itemImg = "N/A"
-        itemProc = "N/A"
+        itemCO2 = "N/A"
+        itemPoints = 0
     
     # If there is an item for the barcode then its attributes/values
     # obtained from getProduct() are parsed and formatted.
@@ -39,24 +44,8 @@ def itemAttributesDict(barcode) -> dict:
         itemEner = itemDict['energy']
         itemNutr = (itemDict['nutriscore']).upper()
         itemImg = itemDict['image']
-        itemProc = itemDict['processed']
-        if itemProc.startswith("en"):
-          itemProcStr = (itemDict['processed']).split(":")
-          itemProcStr2 = (itemProcStr[1]).split("-")
-          itemProc = itemProcStr2[0]
-
-    ### Will be deprecated when Evan generates points in openFoodFactsPull.py ###
-    # Generates a set number of points for each eco rating grade
-    if itemEcoR == "A":
-        itemPoints = 25
-    elif itemEcoR == "B":
-        itemPoints = 15
-    elif itemEcoR == "C":
-        itemPoints = 8
-    elif itemEcoR == "D":
-        itemPoints = 4
-    else:
-        itemPoints = 1
+        itemCO2 = itemDict['co2']
+        itemPoints = itemDict['points']
 
     # Library of all values used in django templates
     lib = {
@@ -65,15 +54,20 @@ def itemAttributesDict(barcode) -> dict:
       'itemEcoR' : itemEcoR,
       'itemEner' : itemEner,
       'itemNutr' : itemNutr,
-      'itemProc' : itemProc,
       'itemImg' : itemImg,
+      'itemCO2' : itemCO2,
       'itemPoints' : itemPoints,
       'isError' : isError,
       'errorMsg' : errorMsg,
-      'isAdd' : False,
-      'addPts' : ''
+      'isAdd' : False
     }
 
     return lib
 
   
+# Decided not to use
+"""itemProc = itemDict['processed']
+if itemProc.startswith("en"):
+    itemProcStr = (itemDict['processed']).split(":")
+    itemProcStr2 = (itemProcStr[1]).split("-")
+    itemProc = itemProcStr2[0]"""

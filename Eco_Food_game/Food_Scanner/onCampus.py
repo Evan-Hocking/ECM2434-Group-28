@@ -8,6 +8,7 @@ import json
 import requests
 import geopy.distance
 
+
 # Opens and assigns config file to access settings
 with open('../config.json') as json_config:
     config = json.load(json_config)
