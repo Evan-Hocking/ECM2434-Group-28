@@ -1,5 +1,12 @@
+#-------------------------------------------------------------------------------
+# Name:        testCustom.py
+# Purpose:     Tests ran by github actions
+#
+# Author:      Evan Hocking
+#-------------------------------------------------------------------------------
+
 from openFoodFactsPull import getProduct
-import logging
+import onCampus 
 
 def testOpenFoodFacts():
     #tests Null input into getProduct() Function
@@ -30,10 +37,26 @@ def testOpenFoodFacts():
     assert  getProduct(7622210713780)['image'],'OFFP Err: No Img Error'
 
     #tests when no nutriscore is present
-    assert getProduct(3033710084913)['nutriscore'],'OFFP Err: No Nutriscore'
+    assert getProduct(3033710084913)['nutriscore']== "n/a",'OFFP Err: No Nutriscore'
 
     print("OFFP TEST PASS")
 
+
+def testIsOnCampus():
+    #tests if geolocation pull was successful
+    assert not(onCampus.getLocation()== "Err: Geolocation Failed"), "OC Err: Geolocation Failed"
+
+    #tests if latitude is present
+    assert not(onCampus.getLocation() ==  "Err: latitude not found"),"OC Err: Latitude not found"
+
+    #tests if longitude is present
+    assert not(onCampus.getLocation() ==  "Err Longitude not found"),"OC Err: Longitude not found"
+
+    #tests return is bool
+    assert type(onCampus.isOnCampus()) is bool,"OC Err wrong type return"
+    
+    print("IO TEST PASS")
 def main():
     testOpenFoodFacts()
+    testIsOnCampus()
 main()
