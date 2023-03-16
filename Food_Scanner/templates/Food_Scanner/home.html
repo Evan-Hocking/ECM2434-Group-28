@@ -1,0 +1,8 @@
+{% extends "Food_Scanner/base.html" %}
+{% block content %}
+    <form id="barcodeEntryForm" action="/item" method="GET">
+        <br><input type="number" min="0" max="9999999999999" id="barcodeNumEntry" name="barcodeNumber" placeholder="Enter barcode number here">
+        <input type="button" id="addItem" name="addItem" value="+"><br><br>
+        <input type="submit" value="Submit" id="barcodeNumSubmit">
+    </form>
+{% endblock content%}

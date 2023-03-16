@@ -1,0 +1,36 @@
+{% extends "Food_Scanner/base.html" %}
+{% block content %}
+    {%if isError == True %}
+        <div style="text-align: center;">
+        <h1>{{ errorMsg }}</h1>
+        <a href="/">
+            <button class="btn btn-login" style="width: 100%;">Back</button>
+        </a>
+        </div>
+    {% elif isAdd == True %}
+        <div style="text-align: center;">
+        <h1>Added {{ addPts }} pts</h1>
+        <a href="/">
+            <button class="btn btn-login" style="width: 100%;">Home</button>
+        </a>
+        </div>
+    {% else %}
+        <div style="text-align: center;">
+            <h1 class="scores">{{ itemName }}</h1>
+            <img class="itemImage" src="{{ itemImg }}" alt="Item image" width="auto" style="align-self: center;">
+            <p class="scores">CO2 (in g) produced per 100g: {{ itemCO2 }}</p>
+            <p class="scores">EcoScore: {{ itemEcoR }}</p>
+            <p class="scores">Energy per 100g (in kcal): {{ itemEner }}</p>
+            <p class="scores">NutriScore: {{ itemNutr }}</p>
+            <p class="scores">Points: {{ itemPoints }}</p>
+            <a href="/">
+                <button class="btn btn-login" style="width: 100%;">Back</button>
+            </a>
+            {%if user.is_authenticated %}
+                <form id="addPoints" action="/item" method="GET">
+                    <br><input type="submit" value="Add {{ itemPoints }} pts for {{ itemName }}" placeholder="Add {{ itemPoints }} pts" name="Add" class="btn btn-login" style="width: 100%;">
+                </form>
+        </div>
+            {% endif %}
+    {% endif %}
+{% endblock content%}
