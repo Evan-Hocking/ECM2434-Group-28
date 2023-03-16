@@ -19,6 +19,10 @@ def home(request):
     :return: The Http response of the home page (home.html)
         type - Http Response object
     """
+
+    url = (request.get_full_path()).split("=")
+    fragment = url[1]
+
     context = {
         'title': "HomePage",
     }
@@ -73,12 +77,6 @@ def item(request):
 
         # Adds points of object to users DB and item to history DB
         addPtsHistDB(request, points, str(context['itemName']))
-
-        """
-        foodName = str(lib['itemName'])    
-        profile = Profile.objects.get(user=request.user)
-        history = History.objects.create(name=foodName, userId=profile)
-        """
 
         # Updates users ranks according to updated scores
         updateRank()
