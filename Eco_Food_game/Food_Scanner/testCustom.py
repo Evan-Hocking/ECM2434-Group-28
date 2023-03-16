@@ -1,3 +1,4 @@
+import sys
 from Food_Scanner.openFoodFactsPull import getProduct
 import logging
 logging.basicConfig(level=logging.DEBUG)
