@@ -26,11 +26,13 @@
             <tr>
                 <th>Name:</th>
                 <th>Date Scanned</th>
+                <th>Item Score</th>
             </tr>
             {% for item in data %} {% if user.profile.id == item.userId_id %}
             <tr>
                 <td>{{item.name}}</td>
                 <td>{{item.date_Added}}</td>
+                <td>{{item.score}}</td>
             </tr>
             {% endif %}{% endfor %}
         </table>
