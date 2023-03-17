@@ -1,9 +1,9 @@
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # Name:        testCustom.py
 # Purpose:     Tests ran by github actions
 #
 # Author:      Evan Hocking
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 
 from openFoodFactsPull import getProduct, getPoints
 from django.urls import reverse
@@ -11,76 +11,94 @@ from django.test import Client
 from django.contrib.auth.models import User
 from .models import History
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
-import onCampus 
+import onCampus
 import pytest
+
+# -------------------------------------------------------------------------------
+# Name:        openFoodFactsPull.py
+# -------------------------------------------------------------------------------
 
 def testOpenFoodFacts():
     """
-    test suite for openFoodFactsPull.py
+    Test suite for openFoodFactsPull.py
     """
-    #tests Null input into getProduct() Function
-    assert getProduct(),"OFFP Err: Null input Error"
+    # tests Null input into getProduct() Function
+    assert getProduct(), "OFFP Err: Null input Error"
 
-    #tests a text input into getProduct()
-    assert getProduct("hello"),"OFFP Err: text input error"
+    # tests a text input into getProduct()
+    assert getProduct("hello"), "OFFP Err: text input error"
 
-    #tests an int number into getProduct(), validity irrelevant
-    assert getProduct(80135463),"OFFP Err: int input error"
+    # tests an int number into getProduct(), validity irrelevant
+    assert getProduct(80135463), "OFFP Err: int input error"
 
-    #tests a string number input to getProduct(), validity irrelevant
-    assert getProduct("80135463"),"OFFP Err: string input error"
+    # tests a string number input to getProduct(), validity irrelevant
+    assert getProduct("80135463"), "OFFP Err: string input error"
 
-    #tests a number that is not a valid barcode
-    assert getProduct(123),"OFFP Err: non present barcode"
-    
-    #tests if a dictionary is returned
-    assert type(getProduct(80135463)) is dict,"OFFP Err: return type error"
+    # tests a number that is not a valid barcode
+    assert getProduct(123), "OFFP Err: non present barcode"
 
-    #tests when ecoscore is not present
-    assert getProduct(3017620422003)['ecoRating'],'OFFP Err: Ecoscore Error'
+    # tests if a dictionary is returned
+    assert type(getProduct(80135463)) is dict, "OFFP Err: return type error"
 
-    #tests when non english image is present
-    assert getProduct(3228857001316)['image'],'OFFP Err: Foreign Img Error'
-    
-    #tests when no image is present
-    assert  getProduct(7622210713780)['image'],'OFFP Err: No Img Error'
+    # tests when ecoscore is not present
+    assert getProduct(3017620422003)['ecoRating'], 'OFFP Err: Ecoscore Error'
 
-    #tests when no nutriscore is present
-    assert getProduct(3033710084913)['nutriscore']== "n/a",'OFFP Err: No Nutriscore'
+    # tests when non english image is present
+    assert getProduct(3228857001316)['image'], 'OFFP Err: Foreign Img Error'
 
-    #tests when no CO2 data is available
-    assert getProduct(3017620422003)['co2'],'OFFP Err: co2 Error'
+    # tests when no image is present
+    assert getProduct(7622210713780)['image'], 'OFFP Err: No Img Error'
 
-    #tests if points are type int
-    assert type(getProduct(3017620422003)['points'])is str,'OFFP Err: points type Error'
+    # tests when no nutriscore is present
+    assert getProduct(3033710084913)[
+        'nutriscore'] == "n/a", 'OFFP Err: No Nutriscore'
 
-    #tests if too high co2 used for score returns positive int
-    assert type(getPoints("10000","E"))is str and int(getPoints("10000","E"))>=1, "OFFP Err: negative points 1"
+    # tests when no CO2 data is available
+    assert getProduct(3017620422003)['co2'], 'OFFP Err: co2 Error'
 
-    #tests if n/a used for points generation
-    assert type(getPoints("100","n/a"))is str and int(getPoints("100","E"))>=1, "OFFP Err: negative points 2"
+    # tests if points are type int
+    assert type(getProduct(3017620422003)[
+                'points']) is str, 'OFFP Err: points type Error'
+
+    # tests if too high co2 used for score returns positive int
+    assert type(getPoints("10000", "E")) is str and int(
+        getPoints("10000", "E")) >= 1, "OFFP Err: negative points 1"
+
+    # tests if n/a used for points generation
+    assert type(getPoints("100", "n/a")) is str and int(getPoints("100",
+                                                                  "E")) >= 1, "OFFP Err: negative points 2"
 
     print("OFFP TEST PASS")
 
+# -------------------------------------------------------------------------------
+# Name:        onCampus.py
+# -------------------------------------------------------------------------------
 
 def testOnCampus():
     """
     test suite for onCampus.py
     """
-    #tests if geolocation pull was successful
-    assert not(onCampus.getLocation()== "Err: Geolocation Failed"), "OC Err: Geolocation Failed"
+    # tests if geolocation pull was successful
+    assert not (onCampus.getLocation() ==
+                "Err: Geolocation Failed"), "OC Err: Geolocation Failed"
 
-    #tests if latitude is present
-    assert not(onCampus.getLocation() ==  "Err: latitude not found"),"OC Err: Latitude not found"
+    # tests if latitude is present
+    assert not (onCampus.getLocation() ==
+                "Err: latitude not found"), "OC Err: Latitude not found"
 
-    #tests if longitude is present
-    assert not(onCampus.getLocation() ==  "Err Longitude not found"),"OC Err: Longitude not found"
+    # tests if longitude is present
+    assert not (onCampus.getLocation() ==
+                "Err Longitude not found"), "OC Err: Longitude not found"
 
-    #tests return is bool
-    assert type(onCampus.isOnCampus()) is bool,"OC Err wrong type return"
-    
+    # tests return is bool
+    assert type(onCampus.isOnCampus()) is bool, "OC Err wrong type return"
+
     print("OC TEST PASS")
 
+
+# -------------------------------------------------------------------------------
+# Name:        views.py
+# -------------------------------------------------------------------------------
 
 @pytest.fixture
 def client():
@@ -110,6 +128,9 @@ def user():
 
 @pytest.mark.django_db
 def testRegister(client):
+    """
+    Testing the register method from views.py
+    """
     url = reverse('users-register')
     response = client.get(url)
     assert response.status_code == 200
@@ -128,6 +149,9 @@ def testRegister(client):
 
 @pytest.mark.django_db
 def testProfile(client, user):
+    """
+    Testing the method profile method from views.py
+    """
     url = reverse('users-profile')
     response = client.get(url)
     assert response.status_code == 302
@@ -144,6 +168,9 @@ def testProfile(client, user):
 
 @pytest.mark.django_db
 def testProfileUpdate(client, user):
+    """
+    Testing the method profileUpdate method from views.py
+    """
     url = reverse('users-profile-update')
     response = client.get(url)
     assert response.status_code == 302
@@ -162,17 +189,25 @@ def testProfileUpdate(client, user):
     assert user.username == 'updateduser'
     assert user.email == 'updateduser@example.com'
 
-    
+# -------------------------------------------------------------------------------
+# END OF TESTS
+# -------------------------------------------------------------------------------
+
 def main():
+    """
+    Runs all the test methods within this module
+    """
     testOpenFoodFacts()
     testOnCampus()
-    
+
     # The pytest fixtures that provide object to be used in the following tests
     testClient = client()
     testUser = user()
-    
+
     testRegister(testClient)
     testProfile(testClient, testUser)
     testProfileUpdate(testClient, testUser)
-    
+
+
+# Run all the test methods
 main()
