@@ -32,6 +32,11 @@ class Profile(models.Model):
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     score = models.IntegerField(default=0)
     userRank = models.IntegerField(default=0)
+    Drink = models.IntegerField(default=0)
+    Snack = models.IntegerField(default=0)
+    Vegetable = models.IntegerField(default=0)
+    Protein = models.IntegerField(default=0)
+    Fruit = models.IntegerField(default=0)
 
     #Display the table with the title of "usernams profile"
     def __str__(self):
