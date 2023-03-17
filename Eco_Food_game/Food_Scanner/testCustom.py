@@ -5,7 +5,7 @@
 # Author:      Evan Hocking
 #-------------------------------------------------------------------------------
 
-from openFoodFactsPull import getProduct
+from openFoodFactsPull import getProduct, getPoints
 import onCampus 
 
 def testOpenFoodFacts():
@@ -42,6 +42,18 @@ def testOpenFoodFacts():
     #tests when no nutriscore is present
     assert getProduct(3033710084913)['nutriscore']== "n/a",'OFFP Err: No Nutriscore'
 
+    #tests when no CO2 data is available
+    assert getProduct(3017620422003)['co2'],'OFFP Err: co2 Error'
+
+    #tests if points are type int
+    assert type(getProduct(3017620422003)['points'])is str,'OFFP Err: points type Error'
+
+    #tests if too high co2 used for score returns positive int
+    assert type(getPoints("10000","E"))is str and int(getPoints("10000","E"))>=1, "OFFP Err: negative points 1"
+
+    #tests if n/a used for points generation
+    assert type(getPoints("100","n/a"))is str and int(getPoints("100","E"))>=1, "OFFP Err: negative points 2"
+
     print("OFFP TEST PASS")
 
 
@@ -61,7 +73,7 @@ def testOnCampus():
     #tests return is bool
     assert type(onCampus.isOnCampus()) is bool,"OC Err wrong type return"
     
-    print("IO TEST PASS")
+    print("OC TEST PASS")
 def main():
     testOpenFoodFacts()
     testOnCampus()
