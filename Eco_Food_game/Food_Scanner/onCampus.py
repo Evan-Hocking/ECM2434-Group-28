@@ -6,11 +6,12 @@
 #-------------------------------------------------------------------------------
 import json
 import requests
-import geopy.distance
+from geopy import distance
+#import geopy.distance
 
 
 # Opens and assigns config file to access settings
-with open('../config.json') as json_config:
+with open('Eco_Food_game/config.json') as json_config:
     config = json.load(json_config)
 
     
