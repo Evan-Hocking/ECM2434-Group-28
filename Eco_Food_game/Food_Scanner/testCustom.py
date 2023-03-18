@@ -7,7 +7,7 @@
 
 from openFoodFactsPull import getProduct, getPoints
 import onCampus
-import pytest
+
 
 
 # -------------------------------------------------------------------------------
@@ -90,13 +90,6 @@ def testOnCampus():
     assert type(onCampus.isOnCampus()) is bool, "OC Err wrong type return"
 
     print("OC TEST PASS")
-
-
-# -------------------------------------------------------------------------------
-# Name:        views.py
-# -------------------------------------------------------------------------------
-
-
 
 # -------------------------------------------------------------------------------
 # END OF TESTS
