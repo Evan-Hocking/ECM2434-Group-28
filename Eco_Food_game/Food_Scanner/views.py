@@ -10,6 +10,7 @@ from Food_Scanner import models
 from users.models import Profile
 from .itemRequest import itemAttributesDict
 from .addItemPoints import isAdd, showPts, addPtsHistDB, updateRank
+import onCampus
 
 
 def home(request):
@@ -69,7 +70,10 @@ def item(request):
     if isAdd(fragment):
         # Breaks the url fragment down and returns a library of n/a except isAdd and addPts 
         context = showPts(fragment)
-        points = int(context['addPts'])
+        if onCampus.isOnCampus():
+            points = int(context['addPts'])
+        else:
+            points = 0
 
         # Adds points of object to users DB and item to history DB
         addPtsHistDB(request, points, str(context['itemName']))
