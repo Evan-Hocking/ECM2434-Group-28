@@ -11,7 +11,7 @@ from users.models import Profile, History
 def isAdd(fragment) -> bool:
     """
     Checks whether the fragment is an Add request
-    :param fragment: value of fragment in URL
+    :param fragment: The value of fragment in URL
         type - str
     :return: True when the fragment is an Add request otherwise false
         type - bool
@@ -25,15 +25,14 @@ def showPts(fragment) -> dict:
     Generates an attributes for when a user clicks Add X Points button
     Splits fragment and returns addPts as points and isAdd as True other than them 2 it returns an
     essentially empty dictionary
-    :param - fragment
-        type - string
+    :param fragment: The value of fragment in URL
+        type - str
         contents - value of fragment in URL
-    :return - lib
-        type - dictionary
-        contents - all values passed to webpage, many are N/A and are unused
+    :return lib: All the values passed to webpage, many are N/A and are unused
+        type - dict
     """
     
-    #Splits fragment into points and item name
+    # Splits fragment into points and item name
     fragment1 = fragment.split("+")
     #fragmentPts2 = (fragmentPts[1]).split("+")
     points = fragment1[1]
@@ -56,11 +55,13 @@ def showPts(fragment) -> dict:
 def addPtsHistDB(request, points, itemName) -> None:
     """
     Adds new points to a users score on DB
-    :param1 request: The http request from the html
-    :param2 points: points of current object to add to user's score
+    :param request: The http request from the html]
+        type - obj (HttpRequest)
+    :param points: points of current object to add to user's score
         type - int
-    :param3 itemName: Item name parsed from url of item page
-    :return - none
+    :param itemName: Item name parsed from url of item page
+        type - str
+    :return: None
     """
 
     # Get data from db
@@ -83,10 +84,10 @@ def addPtsHistDB(request, points, itemName) -> None:
 ### Is this still necessary / are we still using rank for profile ###
 ### Also it doesn't work ###
 ### Could generate rank when a profile page is loaded instead of storing on DB - YES says Phil ###
-def updateRank():
+def updateRank() -> None:
     """
     Updates rank of users according to scores in Profiles table in users.models
-    :return - none
+    :return: None
     """
 
     # Updates rank
