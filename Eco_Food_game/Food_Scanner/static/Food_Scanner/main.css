@@ -43,12 +43,10 @@ body {
   }
   
   .topnav a.icon {
-    order:2;
-    float: right;
+    position: absolute;
+    right: 87.5px;
+    top: 0;
     display: block;
-  }
-  .topnav .right {
-    order: 1;
   }
   
   .topnav.responsive {
@@ -132,3 +130,4 @@ body {
   border-radius: 10px;
   border: 2px solid #70ad47;
 }
+
