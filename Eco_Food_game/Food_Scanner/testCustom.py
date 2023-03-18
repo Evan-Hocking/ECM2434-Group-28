@@ -6,8 +6,6 @@
 # -------------------------------------------------------------------------------
 
 from openFoodFactsPull import getProduct, getPoints
-from .models import History
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 import onCampus
 import pytest
 
