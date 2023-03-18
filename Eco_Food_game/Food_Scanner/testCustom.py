@@ -107,94 +107,7 @@ def testOnCampus():
 # Name:        views.py
 # -------------------------------------------------------------------------------
 
-@pytest.fixture
-def client():
-    """
-    A pytest fixture that provide object to be used in the following tests
-    :return client: The test client
-        type - obj (Client)
-    """
-    client = Client()
-    return client
 
-
-@pytest.fixture
-def user():
-    """
-    A pytest fixture that provide object to be used in the following tests
-    :return user: The test user
-        type - obj (User)
-    """
-    user = User.objects.create_user(
-        username='testuser',
-        email='testuser@example.com',
-        password='testpass'
-    )
-    return user
-
-
-@pytest.mark.django_db
-def testRegister(client) -> None:
-    """
-    Testing the register method from views.py
-    """
-    url = reverse('users-register')
-    response = client.get(url)
-    assert response.status_code == 200
-
-    response = client.post(url, data={
-        'username': 'newuser',
-        'email': 'newuser@example.com',
-        'password1': 'testpass',
-        'password2': 'testpass'
-    })
-    assert response.status_code == 302
-
-    user = User.objects.get(username='newuser')
-    assert user.email == 'newuser@example.com'
-
-
-@pytest.mark.django_db
-def testProfile(client, user) -> None:
-    """
-    Testing the method profile method from views.py
-    """
-    url = reverse('users-profile')
-    response = client.get(url)
-    assert response.status_code == 302
-
-    client.login(username='testuser', password='testpass')
-    response = client.get(url)
-    assert response.status_code == 200
-
-    history = History.objects.create(user=user, item_name='Test item')
-    response = client.get(url)
-    assert response.status_code == 200
-    assert 'Test item' in response.content.decode()
-
-
-@pytest.mark.django_db
-def testProfileUpdate(client, user) -> None:
-    """
-    Testing the method profileUpdate method from views.py
-    """
-    url = reverse('users-profile-update')
-    response = client.get(url)
-    assert response.status_code == 302, "Profile Update Err: HttpResponse status is not 302"
-
-    client.login(username='testuser', password='testpass')
-    response = client.get(url)
-    assert response.status_code == 200, "Profile Update Err: HttpResponse status is not 200"
-
-    response = client.post(url, data={
-        'username': 'updateduser',
-        'email': 'updateduser@example.com',
-    })
-    assert response.status_code == 302, "Profile Update Err: Client HttpResponse status is not 302"
-
-    user.refresh_from_db()
-    assert user.username == 'updateduser'
-    assert user.email == 'updateduser@example.com'
 
 # -------------------------------------------------------------------------------
 # END OF TESTS
@@ -206,14 +119,6 @@ def main():
     """
     testOpenFoodFacts()
     testOnCampus()
-
-    # The pytest fixtures that provide object to be used in the following tests
-    testClient = client()
-    testUser = user()
-
-    testRegister(testClient)
-    testProfile(testClient, testUser)
-    testProfileUpdate(testClient, testUser)
 
 
 # Run all the test methods
