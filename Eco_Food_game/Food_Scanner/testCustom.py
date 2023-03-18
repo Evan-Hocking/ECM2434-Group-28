@@ -13,6 +13,13 @@ from .models import History
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 import onCampus
 import pytest
+import os
+import sys
+
+sys.path.append(os.path.abspath('..'))
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Eco_Food_game.settings')
+from Eco_Food_game import settings
+
 
 # -------------------------------------------------------------------------------
 # Name:        openFoodFactsPull.py
@@ -127,7 +134,7 @@ def user():
 
 
 @pytest.mark.django_db
-def testRegister(client):
+def testRegister(client) -> None:
     """
     Testing the register method from views.py
     """
@@ -148,7 +155,7 @@ def testRegister(client):
 
 
 @pytest.mark.django_db
-def testProfile(client, user):
+def testProfile(client, user) -> None:
     """
     Testing the method profile method from views.py
     """
@@ -167,23 +174,23 @@ def testProfile(client, user):
 
 
 @pytest.mark.django_db
-def testProfileUpdate(client, user):
+def testProfileUpdate(client, user) -> None:
     """
     Testing the method profileUpdate method from views.py
     """
     url = reverse('users-profile-update')
     response = client.get(url)
-    assert response.status_code == 302
+    assert response.status_code == 302, "Profile Update Err: HttpResponse status is not 302"
 
     client.login(username='testuser', password='testpass')
     response = client.get(url)
-    assert response.status_code == 200
+    assert response.status_code == 200, "Profile Update Err: HttpResponse status is not 200"
 
     response = client.post(url, data={
         'username': 'updateduser',
         'email': 'updateduser@example.com',
     })
-    assert response.status_code == 302
+    assert response.status_code == 302, "Profile Update Err: Client HttpResponse status is not 302"
 
     user.refresh_from_db()
     assert user.username == 'updateduser'
