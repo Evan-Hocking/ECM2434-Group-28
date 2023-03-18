@@ -13,12 +13,6 @@ from .models import History
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 import onCampus
 import pytest
-import os
-import sys
-
-sys.path.append(os.path.abspath('..'))
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Eco_Food_game.settings')
-from Eco_Food_game import settings
 
 
 # -------------------------------------------------------------------------------
