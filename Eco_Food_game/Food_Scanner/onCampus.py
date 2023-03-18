@@ -10,8 +10,9 @@ import geopy.distance
 
 
 # Opens and assigns config file to access settings
-with open('../config.json') as json_config:
+with open('Eco_Food_game/config.json') as json_config:
     config = json.load(json_config)
+
 
     
 def getLocation() -> tuple:
@@ -37,7 +38,7 @@ def getLocation() -> tuple:
     try:
         lng = data['location']['lng']
     except:
-        return "ErrL Longitude not found"
+        return "Err Longitude not found"
     
     location = (lat,lng)
     return location
@@ -62,3 +63,4 @@ def isOnCampus() -> bool:
         return True
     else:
         return False
+

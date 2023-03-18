@@ -161,7 +161,7 @@ def getNutri(foodDict):
     return nutriScore
 
 
-def getPoints(CO2Dat,foodDict):
+def getPoints(CO2Dat,ecoScore):
     """
     gets points by applying the function 251.026-182.582x^(0.0473541) to CO2Dat
     rounds the result to nearest positive integer
@@ -176,7 +176,6 @@ def getPoints(CO2Dat,foodDict):
                 "D":4,
                 "E":1,
                 }
-    ecoScore = getEco(foodDict)
     try:
         ecoPoints = ecoPointDict[ecoScore]
     except:
@@ -230,7 +229,7 @@ def getProduct(barcode=0):
     nutriScore = getNutri(product)
     img = getImage(product)
     co2 = getCO2(product)
-    points = getPoints(co2,product)
+    points = getPoints(co2,ecoRating)
 
     #condenses pulled data to dictionary lib
     lib         =   {
