@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+    db:
+        image: nouchka/sqlite3:latest
+        volumes:
+            - ./Eco_Food_game/db.sqlite3:/db.sqlite3
+        environment:
+            - SQLITE_DB=db.sqlite3dock
+    app:
+        build:
+            context: .
+        ports:
+            - "8000:8000"
+        volumes:
+            - ./Eco_Food_game:/Eco_Food_game
+        command: sh -c "python manage.py runserver 0.0.0.0:8000"
+        environment:
+            - DEBUG=1
+        depends_on:
+            - db
