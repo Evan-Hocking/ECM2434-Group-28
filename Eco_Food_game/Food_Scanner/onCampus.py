@@ -56,7 +56,7 @@ def isOnCampus() -> bool:
     except:
         return "Err: campus location not found"
     loc = getLocation()
-    dist = geopy.distance.geodesic(campus,loc).km
+    dist = distance.geodesic(campus,loc).km
     
     # Returns true if the two points are less than or equal to 0.75km otherwise false
     if dist <= config['range_km']:
