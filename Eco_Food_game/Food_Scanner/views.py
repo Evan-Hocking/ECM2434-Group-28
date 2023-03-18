@@ -4,7 +4,7 @@
 #
 # Author: Ryan Gascoigne-Jones, Phil
 #--------------------------------------------------------------------------------------------
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse, JsonResponse
 from Food_Scanner import models
 from users.models import Profile
@@ -20,8 +20,8 @@ def home(request):
         type - Http Response object
     """
 
-    url = (request.get_full_path()).split("=")
-    fragment = url[1]
+    #url = (request.get_full_path()).split("=")
+    #fragment = url[1]
 
     context = {
         'title': "HomePage",
@@ -87,3 +87,10 @@ def item(request):
         context = itemAttributesDict(fragment)
 
     return render(request, 'Food_Scanner/item.html', context)
+
+def upload_barcode(request):
+
+    if request.method == 'GET':
+        barcodeImg = request.GET['barcodeImage']
+
+    return redirect(reverse('item.html' + '?barcodeNumber=5012035952808'))
