@@ -4,11 +4,73 @@
 #
 # Author:      Evan Hocking
 # -------------------------------------------------------------------------------
-
+from itemRequest import itemAttributesDict
 from openFoodFactsPull import getProduct, getPoints
 import onCampus
 
+# -------------------------------------------------------------------------------
+# Name:        itemRequest.py
+# -------------------------------------------------------------------------------
 
+def testItemAttributesDict():
+    """
+    Testing the itemAttributesDict function from the itemRequest.py
+    """
+    # tests Null input into itemAttributesDict() Function
+    assert itemAttributesDict(), "IAD Erro: OFFP Err - null input Error"
+
+    # tests a text input into itemAttributesDict()
+    assert itemAttributesDict("hello"), "IAD Erro: OFFP Err - text input error"
+
+    # tests an int number into itemAttributesDict(), validity irrelevant
+    assert itemAttributesDict(80135463), "IAD Erro: OFFP Err - integer input error"
+
+    # tests a string number input to itemAttributesDict(), validity irrelevant
+    assert itemAttributesDict("80135463"), "IAD Erro: OFFP Err - string input error"
+
+    # tests if a dictionary is returned from itemAttributesDict() Function
+    assert type(itemAttributesDict(80135463)) is dict, "IAD Err: return type error"
+
+    # tests when title is not present
+    assert getProduct(3017620422003)['title'], 'IAD Err: No title (Item page) error'
+
+    # tests when itemName is not present
+    assert getProduct(7622210713780)['itemName'], 'IAD Err: No item name error'
+
+    # tests when itemEcoR is not present
+    assert getProduct(3033710084913)['itemEcoR'], 'IAD Err: No item eco rating error'
+
+    # tests when itemEner is not present
+    assert getProduct(3033710084913)['itemEner'], 'IAD Err: No item energy error'
+
+    # tests when itemNutr, is not present
+    assert getProduct(3033710084913)['itemNutr'], 'IAD Err: No item nutrition error'
+
+    # tests when itemImg is not present
+    assert getProduct(3033710084913)['itemImg'], 'IAD Err: No item image error'
+
+    # tests when itemCO2 is not present
+    assert getProduct(3033710084913)['itemCO2'], 'IAD Err: No item CO2 error'
+
+    # tests when itemPoints is not present
+    assert getProduct(3033710084913)['itemPoints'], 'IAD Err: No item points error'
+
+    # tests when isError is not present
+    assert getProduct(3033710084913)['isError'], 'IAD Err: No isError error'
+
+    # tests if isError is an integer data type
+    assert type(getProduct(3017620422003)['isError']) is bool, 'IAD Err: isError type error'
+
+    # # tests when errorMsg is not present
+    # assert getProduct(3033710084913)['errorMsg'], 'IAD Err: No isError error'
+
+    # tests when isAdd is not present
+    assert getProduct(3033710084913)['isAdd'], 'IAD Err: No isAdd error'
+
+    # tests if isAdd is an integer data type
+    assert type(getProduct(3017620422003)['isAdd']) is bool, 'IAD Err: isAdd type error'
+
+    print("itemAttributesDict() METHOD TEST PASSED")
 
 # -------------------------------------------------------------------------------
 # Name:        openFoodFactsPull.py
