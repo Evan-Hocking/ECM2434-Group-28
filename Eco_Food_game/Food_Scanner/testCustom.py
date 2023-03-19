@@ -5,8 +5,8 @@
 # Author:      Evan Hocking
 # -------------------------------------------------------------------------------
 from openFoodFactsPull import getProduct, getPoints
-import onCampus
 from .itemRequest import itemAttributesDict
+import onCampus
 
 # -------------------------------------------------------------------------------
 # Name:        itemRequest.py
