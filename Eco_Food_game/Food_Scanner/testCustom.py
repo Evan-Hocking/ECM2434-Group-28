@@ -6,7 +6,7 @@
 # -------------------------------------------------------------------------------
 from openFoodFactsPull import getProduct, getPoints
 import onCampus
-import .itemRequest
+from .itemRequest import testItemAttributesDict
 
 # -------------------------------------------------------------------------------
 # Name:        itemRequest.py
