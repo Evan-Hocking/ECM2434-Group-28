@@ -3,7 +3,7 @@ import cv2
 from pyzbar.pyzbar import decode
 
 # Make one method to decode the barcode
-def BarcodeReader(image):
+def barcodeReader(image) -> dict:
 	
 	# read the image in numpy array using cv2
 	img = cv2.imread(image)
@@ -11,10 +11,11 @@ def BarcodeReader(image):
 	# Decode the barcode image
 	detectedBarcodes = decode(img)
 
-"""
+	isBarcode = True
+	barcodeNum = 1
 	# If not detected then print the message
 	if not detectedBarcodes:
-		print("Barcode Not Detected or your barcode is blank/corrupted!")
+		isBarcode = False
 	else:
 	
 		# Traverse through all the detected barcodes in image
@@ -30,11 +31,20 @@ def BarcodeReader(image):
 						(255, 0, 0), 2)
 			
 			if barcode.data!="":
-			
-			# Print the barcode data
-				print(barcode.data)
-				print(barcode.type)
-				
+				barcodeNum = barcode.data
+				barcodeType = barcode.type
+			else:
+				isBarcode = False
+	
+
+	lib = {
+		'isBarcode': isBarcode,
+		'barcodeNum': barcodeNum,
+	}
+
+	return lib
+
+	"""			
 	#Display the image
 	cv2.imshow("Image", img)
 	cv2.waitKey(0)

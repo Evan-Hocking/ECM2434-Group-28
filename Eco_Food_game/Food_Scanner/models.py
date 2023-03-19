@@ -68,3 +68,11 @@ class Score(models.Model):
     class Meta:
         verbose_name = 'Score List'
         verbose_name_plural = verbose_name
+
+########################### Tried this ##################################
+class Image(models.Model):
+    name = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='barcodes_scanned')
+
+    def __str__(self) -> str:
+        return self.name

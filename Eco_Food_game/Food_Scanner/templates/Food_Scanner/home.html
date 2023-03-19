@@ -6,7 +6,7 @@
         <input type="button" id="addItem" name="addItem" value="+"><br><br>
         <input type="submit" value="Submit" id="barcodeNumSubmit">
     </form>
-    <form id="barcodeEntryForm" action="/upload_barcode" method="GET" enctype="multipart/form-data">
+    <form id="barcodeEntryForm" action="/upload_barcode" method="POST" enctype="multipart/form-data">
         <br><label for="barcodeImage" class="btn" id="scanBarcodeLabel">Scan Barcode</label>
         <input type="file" name="barcodeImage" id="barcodeImage" accept="image/*" capture="environment" style="visibility: hidden; text-align: center;" onchange="form.submit()">
     </form>

@@ -6,10 +6,13 @@
 #--------------------------------------------------------------------------------------------
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from Food_Scanner import models
 from users.models import Profile
 from .itemRequest import itemAttributesDict
 from .addItemPoints import isAdd, showPts, addPtsHistDB, updateRank
+from .scanner import barcodeReader
+from PIL import Image
 
 
 def home(request):
@@ -88,9 +91,30 @@ def item(request):
 
     return render(request, 'Food_Scanner/item.html', context)
 
+@csrf_exempt
 def upload_barcode(request):
 
-    if request.method == 'GET':
-        barcodeImg = request.GET['barcodeImage']
+    if request.method == 'POST':
+        barcodeImg = request.IMAGE#POST.get('barcodeImage', 'default')
 
-    return redirect(reverse('item.html' + '?barcodeNumber=5012035952808'))
+        barcodeImgPar = Image.open(barcodeImg)
+
+        barcodeData = barcodeReader(barcodeImgPar)
+    else:
+        barcodeImg = "No-image"
+        barcodeData = {
+            'barcodeNum': 5,
+            'isBarcode': False
+        }
+        
+    ############### Send barcode num in GET request to item page ###############
+
+    context = {
+        'barcodeImg': barcodeImg,
+        'barcodeNum': barcodeData['barcodeNum'],
+        'isBarcode': barcodeData['isBarcode']
+    }
+
+    #return redirect(reverse('item.html' + '?barcodeNumber=5012035952808'))
+
+    return render(request, 'Food_Scanner/upload_barcode.html/', context)
