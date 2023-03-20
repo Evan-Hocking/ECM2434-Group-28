@@ -1,71 +1,107 @@
-from openFoodFactsPull import getProduct
-import logging
-logging.basicConfig(level=logging.DEBUG)
+# -------------------------------------------------------------------------------
+# Name:        testCustom.py
+# Purpose:     Tests ran by github actions
+#
+# Author:      Evan Hocking
+# -------------------------------------------------------------------------------
+
+from openFoodFactsPull import getProduct, getPoints
+import onCampus
+
+
+
+# -------------------------------------------------------------------------------
+# Name:        openFoodFactsPull.py
+# -------------------------------------------------------------------------------
+
 def testOpenFoodFacts():
-    #tests Null input into getProduct() Function
-    try:
-        logging.debug(getProduct())
-    except:
-        logging.error("Null input Error")
+    """
+    Test suite for openFoodFactsPull.py
+    """
+    # tests Null input into getProduct() Function
+    assert getProduct(), "OFFP Err: Null input Error"
 
-    #tests a text input into getProduct()
-    try:
-        logging.debug(getProduct('hello'))
-    except:
-        logging.error("text input error")
+    # tests a text input into getProduct()
+    assert getProduct("hello"), "OFFP Err: text input error"
 
-    #tests an int number into getProduct()
-    try:
-        logging.debug(getProduct(80135463))
-    except:
-        logging.error("int input error")
+    # tests an int number into getProduct(), validity irrelevant
+    assert getProduct(80135463), "OFFP Err: int input error"
 
-    #tests a string number input to getProduct()
-    try:
-        logging.debug(getProduct("80135463"))
-    except:
-        logging.error("string input error")
+    # tests a string number input to getProduct(), validity irrelevant
+    assert getProduct("80135463"), "OFFP Err: string input error"
 
-    #tests a number that is not a valid barcode
-    try:
-        logging.debug(getProduct(123))
-    except:
-        logging.error("non present barcode")
+    # tests a number that is not a valid barcode
+    assert getProduct(123), "OFFP Err: non present barcode"
 
-    #tests if a dictionary is returned
-    if type(getProduct(80135463)) is dict:
-        logging.debug("Correct return type")
-    else:
-        logging.debug(type(getProduct(80135463)))
-        logging.error("return type error")
+    # tests if a dictionary is returned
+    assert type(getProduct(80135463)) is dict, "OFFP Err: return type error"
 
-    #tests when ecoscore is not present
-    try:
-        lib = getProduct(3017620422003)
-        logging.debug(lib['ecoRating'])
-    except:
-        logging.error('Ecoscore Error')
+    # tests when ecoscore is not present
+    assert getProduct(3017620422003)['ecoRating'], 'OFFP Err: Ecoscore Error'
 
-    #tests when non english image is present
-    try:
-        lib = getProduct(3228857001316)
-        logging.debug(lib['image'])
-    except:
-        logging.error('Foreign Img Error')
+    # tests when non english image is present
+    assert getProduct(3228857001316)['image'], 'OFFP Err: Foreign Img Error'
 
-    #tests when no image is present
-    try:
-        lib = getProduct(7622210713780)
-        logging.debug(lib['image'])
-    except:
-        logging.error('No Img Error')
+    # tests when no image is present
+    assert getProduct(7622210713780)['image'], 'OFFP Err: No Img Error'
 
-    #tests when no nutriscore is present
-    try:
-        lib = getProduct(3033710084913)
-        logging.debug(lib['nutriscore'])
-    except:
-        logging.error('No Nutriscore Error')
+    # tests when no nutriscore is present
+    assert getProduct(3033710084913)[
+        'nutriscore'] == "n/a", 'OFFP Err: No Nutriscore'
+
+    # tests when no CO2 data is available
+    assert getProduct(3017620422003)['co2'], 'OFFP Err: co2 Error'
+
+    # tests if points are type int
+    assert type(getProduct(3017620422003)[
+                'points']) is str, 'OFFP Err: points type Error'
+
+    # tests if too high co2 used for score returns positive int
+    assert type(getPoints("10000", "E")) is str and int(
+        getPoints("10000", "E")) >= 1, "OFFP Err: negative points 1"
+
+    # tests if n/a used for points generation
+    assert type(getPoints("100", "n/a")) is str and int(getPoints("100",
+                                                                  "E")) >= 1, "OFFP Err: negative points 2"
+
+    print("OFFP TEST PASS")
+
+# -------------------------------------------------------------------------------
+# Name:        onCampus.py
+# -------------------------------------------------------------------------------
+
+def testOnCampus():
+    """
+    test suite for onCampus.py
+    """
+    # tests if geolocation pull was successful
+    assert not (onCampus.getLocation() ==
+                "Err: Geolocation Failed"), "OC Err: Geolocation Failed"
+
+    # tests if latitude is present
+    assert not (onCampus.getLocation() ==
+                "Err: latitude not found"), "OC Err: Latitude not found"
+
+    # tests if longitude is present
+    assert not (onCampus.getLocation() ==
+                "Err Longitude not found"), "OC Err: Longitude not found"
+
+    # tests return is bool
+    assert type(onCampus.isOnCampus()) is bool, "OC Err wrong type return"
+
+    print("OC TEST PASS")
+
+# -------------------------------------------------------------------------------
+# END OF TESTS
+# -------------------------------------------------------------------------------
+
 def main():
+    """
+    Runs all the test methods within this module
+    """
     testOpenFoodFacts()
+    testOnCampus()
+
+
+# Run all the test methods
 main()
