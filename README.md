@@ -9,11 +9,15 @@ To install all prerequisite modules:
 
 ### Config
 1. Enter in the **Eco_Food_game** folder.
-2. Enter in the **config.json** file.
+2. Modify the **config.json** file.
+
+#### Admin setup
+
+adminCode - Pin used to verify user is admin for zeroing score
 
 #### Location Setup
 
-uni_lat - The latitude coordinate of the chose campus
+uni_lat - The latitude coordinate of the chosen campus
 uni_long - The longitude coordinate of the chosen campus
 Geolocation_API_Key - Google Geolocation API key 
   Read more: https://developers.google.com/maps/documentation/geolocation/overview
