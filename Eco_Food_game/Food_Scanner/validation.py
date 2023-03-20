@@ -9,11 +9,11 @@ import re
 
 
 def searchUser(field, searchTerm):
-    	"""
+	"""
 	Searches for the user by their username
 	:param username: The username that is trying to be found
 	:return: A tuple of the record data of the user that matches with the record's username
-    	"""
+	"""
 	# Connecting to sqlite
 	conn = sqlite3.connect('db.sqlite3')
 	# Creating a cursor object using the cursor() method
@@ -66,25 +66,25 @@ def passwordComplexityCheck(username, password) -> bool:
 	Does not contains username
     	:param username: The username of the user's password that is being checked
     	:param password: The password that is being checked if it is strong
-    	"""
-    	# The password does not (contains at least 1 uppercase letter, lowercase letter, digit, special and space character)
-    	if not re.search("[a-z]", password):
-        	return False
-    	elif not re.search("[A-Z]", password):
-        	return False
-    	elif not re.search("[0-9]", password):
-        	return False
-    	elif not re.search("[_@£&#?$]" , password):
-        	return False
-    	elif re.search("\s" , password):
-        	return False
+	"""
+	# The password does not (contains at least 1 uppercase letter, lowercase letter, digit, special and space character)
+	if not re.search("[a-z]", password):
+		return False
+	elif not re.search("[A-Z]", password):
+		return False
+	elif not re.search("[0-9]", password):
+		return False
+	elif not re.search("[_@£&#?$]" , password):
+		return False
+	elif re.search("\s" , password):
+		return False
 
-    	# If the username is in the password
-    	if username in password:
-        	return False
-    
-    	# All checks have been passed
-    	return True
+	# If the username is in the password
+	if username in password:
+		return False
+
+	# All checks have been passed
+	return True
 
 
 def lengthAtLeastCheck(txtinput, lengthAtLeast) -> bool:

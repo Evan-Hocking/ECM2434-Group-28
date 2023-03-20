@@ -1,6 +1,6 @@
 {% extends "Food_Scanner/base.html" %}
 {% block content %}
-    {%if isError == True %}
+    {% if isError == True %}
         <div style="text-align: center;">
         <h1>{{ errorMsg }}</h1>
         <a href="/">
@@ -9,7 +9,11 @@
         </div>
     {% elif isAdd == True %}
         <div style="text-align: center;">
-        <h1>Added {{ addPts }} pts</h1>
+        {%if addPts == 0 %}
+            <h1>Added {{ addPts }} pts because you are not on campus</h1>
+        {% else %}
+            <h1>Added {{ addPts }} pts</h1>
+        {% endif %}
         <a href="/">
             <button class="btn btn-login" style="width: 100%;">Home</button>
         </a>

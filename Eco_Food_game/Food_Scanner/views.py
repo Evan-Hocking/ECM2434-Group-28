@@ -10,6 +10,7 @@ from Food_Scanner import models
 from users.models import Profile
 from .itemRequest import itemAttributesDict
 from .addItemPoints import isAdd, showPts, addPtsHistDB, updateRank
+from .onCampus import isOnCampus
 
 
 def home(request):
@@ -69,19 +70,11 @@ def item(request):
     if isAdd(fragment):
         # Breaks the url fragment down and returns a library of n/a except isAdd and addPts 
         context = showPts(fragment)
-        points = int(context['addPts'])
+        if not isOnCampus():
+            context['addPts'] = 0
 
         # Adds points of object to users DB and item to history DB
-        addPtsHistDB(request, points, str(context['itemName']))
-
-        """
-        foodName = str(lib['itemName'])    
-        profile = Profile.objects.get(user=request.user)
-        history = History.objects.create(name=foodName, userId=profile)
-        """
-
-        # Updates users ranks according to updated scores
-        updateRank()
+        addPtsHistDB(request, int(context['addPts']), str(context['itemName']))
 
     # If the barcode is in URL (meaning the user has not yet chosen to add points) then:
     else:
