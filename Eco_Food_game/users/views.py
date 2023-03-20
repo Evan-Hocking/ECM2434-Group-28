@@ -96,3 +96,11 @@ def profileUpdate(request):
         'profile_form': pForm
     }
     return render(request, 'users/profile_update.html', context)
+
+def profile_list(request):
+    if request.user.is_authenticated:
+        profiles = Profile.objects.exclude(user=request.user)
+        return render(request, 'users/profile_list.html', {'profiles': profiles})
+    else:
+        messages.warning(request, ("You must be logged in to view this page"))
+        return redirect('auth-login')
