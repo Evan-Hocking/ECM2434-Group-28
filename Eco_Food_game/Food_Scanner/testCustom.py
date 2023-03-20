@@ -4,9 +4,9 @@
 #
 # Author:      Evan Hocking, Hao Lun Lin
 # -------------------------------------------------------------------------------
-from .addItemPoints import isAdd, showPts
-from .itemRequest import itemAttributesDict
-from .openFoodFactsPull import getProduct, getPoints
+from addItemPoints import isAdd, showPts
+from itemRequest import itemAttributesDict
+from openFoodFactsPull import getProduct, getPoints
 import onCampus
 
 # -------------------------------------------------------------------------------
