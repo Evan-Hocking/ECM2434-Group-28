@@ -1,4 +1,4 @@
-name: Run Python script on push
+name: Run Tests
 
 on:
   push:
@@ -19,5 +19,5 @@ jobs:
     - name: Install dependencies
       run: pip install -r Eco_Food_game/requirements.txt
 
-    - name: Run Python script
+    - name: Run Tests
       run: python Eco_Food_game/Food_Scanner/testCustom.py

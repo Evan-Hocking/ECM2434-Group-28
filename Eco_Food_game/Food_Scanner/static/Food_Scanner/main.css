@@ -43,12 +43,10 @@ body {
   }
   
   .topnav a.icon {
-    order:2;
-    float: right;
+    position: absolute;
+    right: 87.5px;
+    top: 0;
     display: block;
-  }
-  .topnav .right {
-    order: 1;
   }
   
   .topnav.responsive {
@@ -103,6 +101,7 @@ body {
     border-radius: 10px;
     transition-duration: 0.4s;
     width: 100%;
+    border: 2px solid #70ad47;
 }
 
 .btn-login:hover {
@@ -125,6 +124,7 @@ body {
   border-radius: 10px;
   transition-duration: 0.4s;
   width: 45%;
+  border: 2px solid #70ad47;
 }
 
 .btn-item:hover {
@@ -132,3 +132,4 @@ body {
   border-radius: 10px;
   border: 2px solid #70ad47;
 }
+
