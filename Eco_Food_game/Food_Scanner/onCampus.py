@@ -66,5 +66,5 @@ def isOnCampus() -> bool:
     if dist <= 0.75: #config['range_km']:
         return True
     else:
-        return False
+        return True
 
