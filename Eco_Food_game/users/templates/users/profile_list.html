@@ -1,0 +1,27 @@
+{% extends "Food_Scanner/base.html" %} {% load static %}{% block content %}
+<div style="padding-top: 10px" class="content-section">
+    <h1>Profile List</h1>
+    <br />
+
+    {% if profiles %} {% for profile in profiles %}
+
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <img src="{{ profile.image.url }}" class="img-fluid" alt="Profile Pic">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{profile.user.username}}</h5>
+              <p class="card-text">Score: {{profile.score}}</p>
+              <p class="card-text">Id: {{profile.user_id}}</p>
+              <p class="card-text"><small class="text-muted">Last logged in: {{profile.user.last_login}}</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <br />
+    {% endfor %} {% endif %}
+</div>
+{% endblock content %}

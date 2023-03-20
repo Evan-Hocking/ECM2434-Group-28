@@ -101,6 +101,7 @@ body {
     border-radius: 10px;
     transition-duration: 0.4s;
     width: 100%;
+    border: 2px solid #70ad47;
 }
 
 .btn-login:hover {
@@ -123,6 +124,7 @@ body {
   border-radius: 10px;
   transition-duration: 0.4s;
   width: 45%;
+  border: 2px solid #70ad47;
 }
 
 .btn-item:hover {

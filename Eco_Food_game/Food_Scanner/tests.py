@@ -2,7 +2,7 @@
 # Name:        tests.py
 # Purpose:     Tests
 #
-# Author:      Tom Sturgeon
+# Author:
 #-------------------------------------------------------------------------------
 from django.test import TestCase
 

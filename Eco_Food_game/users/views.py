@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
-from .models import History
+from .models import History, Profile
 
 
 def register(request):
@@ -52,9 +52,13 @@ def profile(request):
     # Collects history from database
     history = History.objects.order_by('date_Added')
 
+    profiles = Profile.objects.order_by('-score')
+
+
     # Add data to the context
     context = {
-        'data': history
+        'data': history,
+        'profiles': profiles
     }
 
     return render(request, 'users/profile.html', context)
@@ -92,3 +96,11 @@ def profileUpdate(request):
         'profile_form': pForm
     }
     return render(request, 'users/profile_update.html', context)
+
+def profile_list(request):
+    if request.user.is_authenticated:
+        profiles = Profile.objects.exclude(user=request.user)
+        return render(request, 'users/profile_list.html', {'profiles': profiles})
+    else:
+        messages.warning(request, ("You must be logged in to view this page"))
+        return redirect('auth-login')
