@@ -9,6 +9,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from Food_Scanner import models
 from users.models import Profile
+from .forms import addImage
 from .itemRequest import itemAttributesDict
 from .addItemPoints import isAdd, showPts, addPtsHistDB, updateRank
 from .scanner import barcodeReader
@@ -26,8 +27,24 @@ def home(request):
     #url = (request.get_full_path()).split("=")
     #fragment = url[1]
 
+    # If the method of request is POST
+    if request.method == 'POST':
+        print("Test")
+        # Create a form using the UserRegistrationForm method from users/forms.py
+        form = addImage( request.POST, request.FILES)
+        if form.is_valid():
+            # If the form is valid, Save it then redirect to the login page
+            print("Form is saving and valid")
+            form.save()
+            return redirect('Food_Scanner-upload_barcode')
+    else:
+        print("Form not valid")
+        form = addImage()
+
+
     context = {
         'title': "HomePage",
+        'form': form
     }
     return render(request, 'Food_Scanner/home.html', context)
 

@@ -71,8 +71,8 @@ class Score(models.Model):
 
 ########################### Tried this ##################################
 class Image(models.Model):
-    name = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='barcodes_scanned')
+    name = models.CharField(max_length=200,default="image")
+    image = models.ImageField(upload_to='../media/')
 
     def __str__(self) -> str:
         return self.name
