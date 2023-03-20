@@ -52,7 +52,7 @@ def profile(request):
     # Collects history from database
     history = History.objects.order_by('date_Added')
 
-    profiles = Profile.objects.order_by('score')
+    profiles = Profile.objects.order_by('-score')
 
 
     # Add data to the context

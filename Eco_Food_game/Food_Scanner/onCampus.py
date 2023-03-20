@@ -69,3 +69,5 @@ def isOnCampus() -> bool:
     else:
         return False
 
+
+print(getLocation())

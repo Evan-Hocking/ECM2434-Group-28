@@ -9,7 +9,10 @@
             <p class="text-secondary">ID: {{ user.id }}</p>
             <p class="text-secondary">Current score: {{ user.profile.score }}</p>
             {% for profile in profiles %}
-            <p class="text-secondary">Current rank: {{ rank }}</p>
+            {% if user.id == profile.user.id%}
+            <p class="text-secondary">Current rank: {{ forloop.counter }}</p>
+            {% endif %}
+            {% endfor %}
             <div class="form-group">
                 <form action="{% url 'user-profile_update' %}">
                     <input class="btn btn-login" type="submit" value="Update profile" />
