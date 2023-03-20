@@ -79,12 +79,12 @@ def passwordComplexityCheck(username, password) -> bool:
     elif re.search("\s", password):
         return False
 
-    # If the username is in the password
-    if username in password:
-        return False
-
-    # All checks have been passed
-    return True
+    	# If the username is in the password
+    	if username in password:
+        	return False
+    
+    	# All checks have been passed
+    	return True
 
 
 def lengthAtLeastCheck(txtinput, lengthAtLeast) -> bool:
