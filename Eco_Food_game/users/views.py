@@ -50,7 +50,7 @@ def profile(request):
     """
     
     # Collects history from database
-    history = History.objects.order_by('date_Added')
+    history = History.objects.order_by('-date_Added')
 
     # Add data to the context
     context = {
