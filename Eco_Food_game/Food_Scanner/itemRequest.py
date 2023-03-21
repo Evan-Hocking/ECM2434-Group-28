@@ -4,7 +4,7 @@
 #
 # Author: Ryan Gascoigne-Jones
 #------------------------------------------------------------------------------------------------------
-from openFoodFactsPull import getProduct
+from .openFoodFactsPull import getProduct
 
 
 def itemAttributesDict(barcode) -> dict:
