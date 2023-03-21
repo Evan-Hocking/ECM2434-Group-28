@@ -6,110 +6,250 @@
 #-------------------------------------------------------------------------------
 import json
 import openfoodfacts
-
-
-def is_number(value) -> bool:
+from statistics import mean
+def getData(barcode):
     """
-    Tests if value is an integer
-    @param value - A value used for checking if its an integer
-        type - any
+    Validates barcode using isNumber
+    Makes request using openfoodfacts module
+    Checks status to measure return success
+    @param barcode
+        type string or int
+    @return product
+        type dictionary
+    """
+    #tests if number
+    if not isNumber(barcode):
+        return("Err: Invalid Barcode")
+    #api request
+    try:
+        request = openfoodfacts.products.get_product(str(barcode))
+        product = request['product']
+    except:
+        return ("Err: Request Error")
+
+    #tests if api request was success
+    if request['status']==0:
+        return ("Err: Product not found")
+    print(product)
+    return product
+
+
+def isNumber(value) -> bool:
+    """
+    Tests if Variable is a number
+    @param value
+        type any
     @return True if the value is an integer type otherwise false
-        type - bool
+        type bool
     """
     try:
         int(value)
         return True
     except ValueError:
         return False
-    
-    
-def getImage(foodDict) -> str:
+
+
+def getImage(foodDict):
     """
-    Gets an image url from the given dictionary
-    If no image is present, the system will attempt to find another
-    If still unsuccessful, a default image url is returned
+    Gets an image from the given dictionary
+    If no image is present the system will attempt to find another
+    If still unsuccessful a default is returned
     @param - foodDict
-        type - dict
+        type - dictionary
     @return - img
-        type - str
-        contents - url of the image
+        type - string
+        contents - url of image
     """
     try:
-        # Gets english image
+        #gets english image
         img     =   foodDict['selected_images']['front']['display']['en']
         return img
     except (KeyError,TypeError):
-        # Finds alternative language image
+        #finds alternative language image
         try:
             images = foodDict['selected_images']['front']['display']
             img = images[0]
             return img
         except:
-            # Uses default image
+            #uses default image
             return "https://world.openfoodfacts.org/images/icons/dist/packaging.svg"
-        
-       
-def getProduct(barcode=0):
+
+
+def getCO2(foodDict) -> str:
     """
-    Tests the barcode validity
-    Requests data from OpenFoodFacts Database using OpenFoodFacts Library
-        using barcode
-    Extracts required data to dictionary
-        Product name, calorie count, nutriscore, processed score, ecoRating, image
-    Makes missing data a consistent message
-    @param barcode - The item's barcode
-        type - str or int
-    @return The barcode's details of the item 
-        type - dict
+    gets CO2 data from dictionary
+    multiplies by 100 to convert to per 100g instead of per gram
+    rounds to nearest int
+    @param foodDict
+        type dictionary
+    @return co2
+        type string
     """
-    #tests if number
-    if not is_number(barcode):
-        return("Err: Invalid Barcode")
-    #api request
     try:
-        request     =   openfoodfacts.products.get_product(str(barcode))
-        product = request['product']
+        co2 = foodDict['ecoscore_data']['agribalyse']['co2_total']
+        co2 = str(round((co2)*100))
+        return co2
     except:
-        return ("Err: Request Error")
-    
-    #tests if api request was success
-    if request['status']==0:
-        return ("Err: Product not found")
-    
-    #gets name from dictionary
+        return "n/a"
+
+
+
+def getName(foodDict) -> str:
+    """
+    attempts to get name
+    if not available will try and find another name in the database
+    @param foodDict
+        type dictionary
+    @return name
+        type string
+    """
     name = ""
     try:
-        name        =   product['product_name']
+        name        =   foodDict['product_name']
     except:
-        for key in product.keys():
+        for key in foodDict.keys():
             if "name" in key.lower():
-                name = product[key]
+                name = foodDict[key]
                 if type(name) is str and name:
                     break
         if not name:
-            name    = "n/a"
-            
-    #pulls other data from dictionary
+            return "n/a"
+    return name
+
+
+def getCalroie(foodDict):
+    """
+    gets calorie data from dictionary
+    @param foodDict
+        type dictionary
+    @return cal
+        type string
+    """
     try:
-        cal         =   product['nutriments']['energy-kcal_100g']
+        cal         =   foodDict['nutriments']['energy-kcal_100g']
     except:
-        cal         =   "n/a"
+        return "n/a"
+    return cal
+
+
+def getEco(foodDict):
+    """
+    gets EcoRating from dictionary
+    @param foodDict
+        type dictionary
+    @return ecoRating
+        type string
+    """
     try:
-        nutriScore  =   product['nutriscore_grade']
+        ecoRating   =   foodDict['ecoscore_grade']
     except:
-        nutriScore  = "n/a"
+        return "n/a"
+    return ecoRating
+
+
+def getNutri(foodDict):
+    """
+    gets nutrition score from dictionary
+    @param foodDict
+        type dictionary
+    @return nutriScore
+        type string
+    """
     try:
-        ecoRating   =   product['ecoscore_grade']
+        nutriScore  =   foodDict['nutriscore_grade']
     except:
-        ecoRating   = "n/a"
+        return "n/a"
+    return nutriScore
+
+def getCategory(foodDict):
+    """
+    searches and assigns tags to the product
+    """
+    categories = foodDict['food_groups_tags']
+    tags = []
+    if any("beverage" in s for s in categories):
+        tags.append("drink")
+    elif any("fruit" in s for s in categories):
+        tags.append("fruit")
+    elif any("vegetables" in s for s in categories):
+        tags.append("vegetables")
+    elif any("snack" in s for s in categories):
+        tags.append("snack")
+    elif any("meat" in s for s in categories):
+        tags.append("protein")
+
+
+def getPoints(CO2Dat,ecoScore):
+    """
+    gets points by applying the function 251.026-182.582x^(0.0473541) to CO2Dat
+    rounds the result to nearest positive integer
+    @param CO2Dat
+        type string
+    @return points
+        type string
+    """
+    ecoPointDict = {"A":25,
+                "B":15,
+                "C":8,
+                "D":4,
+                "E":1,
+                }
     try:
-        processed   =   product['nova_groups_tags']
-        while type(processed) is list:
-            processed = processed[0]
+        ecoPoints = ecoPointDict[ecoScore]
     except:
-        processed   = "n/a"
+        ecoPoints = 1
+    try:
+        CO2points = round(251.026 - 182.582 * int(CO2Dat) ** 0.0473541)
+        if CO2points>25:
+            CO2points = 25
+    except:
+        CO2points = 1
+    if CO2points < 1:
+        CO2points = 1
+    points = round(mean((ecoPoints,CO2points)))
+    return str(points)
+
+
+def makeDictionaryConsistent(lib) ->dict:
+    """
+    takes the output dictionary and makes missing data a consistent format of n/a
+    @param lib
+        type dictionary
+    @return lib
+        type dictionary
+    """
+    for x in range(0,len(lib)):
+        if str(list(lib.values())[x]) == "" or str(list(lib.values())[x]) == "unknown" or str(list(lib.values())[x]) == "['unknown']":
+            lib[list(lib.keys())[x]] = "n/a"
+    return lib
+
+
+def getProduct(barcode=0):
+    """
+    calls getData to get product information
+    if is a string returns
+    uses get functions to pull data from dictionary
+    uses getPoints()
+    generates new dictionary with data
+    uses makemakeDictionaryConsistent()
+    @param - barcode
+        type - String or int
+    @return - Dictionary
+    """
+    product = getData(barcode)
+    if isinstance(product,str):
+        return product
+
+
+    name = getName(product)
+    cal  = getCalroie(product)
+    ecoRating = getEco(product)
+    nutriScore = getNutri(product)
     img = getImage(product)
-    
+    co2 = getCO2(product)
+    points = getPoints(co2,ecoRating)
+    tags = getCategory(product)
+
     #condenses pulled data to dictionary lib
     lib         =   {
         'barcode':str(barcode),
@@ -117,12 +257,12 @@ def getProduct(barcode=0):
         'energy':cal,
         'nutriscore':nutriScore,
         'ecoRating':ecoRating,
-        'processed':processed,
-        'image':img}
-    
-    #makes missing data appear in a consistent format
-    for x in range(0,len(lib)):
-        if str(list(lib.values())[x]) == "" or str(list(lib.values())[x]) == "unknown" or str(list(lib.values())[x]) == "['unknown']":
-            lib[list(lib.keys())[x]] = "n/a"
+        'image':img,
+        'co2':co2,
+        'points':points,
+        'tags':tags
+        }
 
+    lib = makeDictionaryConsistent(lib)
     return lib
+getProduct("3095758914010")
