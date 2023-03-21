@@ -2,10 +2,12 @@
 ## About
 This application is designed to encourage Students to eat more sustainably when spending time on campus. The application asks users to scan their meals and they get scored on how sustainable they are eating.
 
+Users can Create accounts and scan their food to see basic nutritional information and how sustainable the product is. 
+
 ## Installation Guide 
 ### Prerequisites
 To install all prerequisite modules:
-`pip install -r requirements.txt`
+`pip install -r Eco_Food_game/requirements.txt`
 
 ### Config
 1. Enter in the **Eco_Food_game** folder.
