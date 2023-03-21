@@ -34,6 +34,17 @@ emailPassword: The sign in with App Passwords
 Click the following link for the emailPassword setup instructions:
 https://support.google.com/accounts/answer/185833?visit_id=638132774297355194-3557485644&p=InvalidSecondFactor&rd=1
 
+## Launching Service
+
+From the Parent Directory (where this file is located) enter the command
+`python Eco_Food_game/manage.py runserver
+
+## Clearing Score
+
+In the event it is thought a user is breaking rules enter the command
+`python Eco_Food_game/Food_Scanner/zero.py
+
+
 ## Credits
 - [Evan Hocking](https://github.com/Evan-Hocking)
 - [Hao Lun Lin](https://github.com/TheHaoBoy)
