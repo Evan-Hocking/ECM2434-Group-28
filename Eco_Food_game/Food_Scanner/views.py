@@ -14,6 +14,7 @@ from .itemRequest import itemAttributesDict
 from .addItemPoints import isAdd, showPts, addPtsHistDB, updateRank
 from .scanner import barcodeReader
 from PIL import Image
+from pathlib import Path
 
 
 def home(request):
@@ -111,6 +112,7 @@ def item(request):
 @csrf_exempt
 def upload_barcode(request):
 
+    """
     if request.method == 'POST':
         barcodeImg = request.IMAGE#POST.get('barcodeImage', 'default')
 
@@ -123,11 +125,22 @@ def upload_barcode(request):
             'barcodeNum': 5,
             'isBarcode': False
         }
+    """
+
+    #path = Path("../media/barcode_imgs/haribo_starmix_barcode.png/")
+
+    path = Path("../media/barcode_imgs/haribo_starmix_barcode.png")
+
+    #cur_path = 
+
+    img = Image.open(path)
+
+    barcodeData = barcodeReader(path)
         
     ############### Send barcode num in GET request to item page ###############
 
     context = {
-        'barcodeImg': barcodeImg,
+        'barcodeImg': img,
         'barcodeNum': barcodeData['barcodeNum'],
         'isBarcode': barcodeData['isBarcode']
     }
