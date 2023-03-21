@@ -30,6 +30,7 @@ def getData(barcode):
     #tests if api request was success
     if request['status']==0:
         return ("Err: Product not found")
+
     return product
 
 
@@ -160,6 +161,23 @@ def getNutri(foodDict):
         return "n/a"
     return nutriScore
 
+def getCategory(foodDict):
+    """
+    searches and assigns tags to the product
+    """
+    categories = foodDict['food_groups_tags']
+    tags = []
+    if any("beverage" in s for s in categories):
+        tags.append("drink")
+    elif any("fruit" in s for s in categories):
+        tags.append("fruit")
+    elif any("vegetables" in s for s in categories):
+        tags.append("vegetables")
+    elif any("snack" in s for s in categories):
+        tags.append("snack")
+    elif any("meat" in s for s in categories):
+        tags.append("protein")
+
 
 def getPoints(CO2Dat,ecoScore):
     """
@@ -230,6 +248,7 @@ def getProduct(barcode=0):
     img = getImage(product)
     co2 = getCO2(product)
     points = getPoints(co2,ecoRating)
+    tags = getCategory(product)
 
     #condenses pulled data to dictionary lib
     lib         =   {
@@ -240,7 +259,9 @@ def getProduct(barcode=0):
         'ecoRating':ecoRating,
         'image':img,
         'co2':co2,
-        'points':points}
+        'points':points,
+        'tags':tags
+        }
 
     lib = makeDictionaryConsistent(lib)
     return lib
