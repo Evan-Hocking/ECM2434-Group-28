@@ -11,7 +11,7 @@ from geopy import distance
 
 ### Switch to use config files ###
 # Opens and assigns config file to access settings
-with open('Eco_Food_game/config.json') as json_config:
+with open('./config.json') as json_config:
     config = json.load(json_config)
 
     
@@ -66,5 +66,5 @@ def isOnCampus() -> bool:
     if dist <= 0.75: #config['range_km']:
         return True
     else:
-        return True
+        return False
 
