@@ -2,7 +2,7 @@
 ## About
 This application is designed to encourage Students to eat more sustainably when spending time on campus. The application asks users to scan their meals and they get scored on how sustainable they are eating.
 
-Users can Create accounts and scan their food to see basic nutritional information and how sustainable the product is. 
+Users can Create accounts and scan their food to see basic nutritional information and how sustainable the product is. They can then compete against others to see who is the most sustainable on campus! They may also play against themselves, working to achieve a variety of goals.
 
 ## Installation Guide 
 ### Prerequisites
@@ -21,6 +21,7 @@ adminCode - Pin used to verify user is admin for zeroing score
 
 uni_lat - The latitude coordinate of the chosen campus
 uni_long - The longitude coordinate of the chosen campus
+range_km - The radius of allowed area to gain points (it's recommended this area is greater than the campus to account for geolocation inaccuracies)
 Geolocation_API_Key - Google Geolocation API key 
   Read more: https://developers.google.com/maps/documentation/geolocation/overview
 
