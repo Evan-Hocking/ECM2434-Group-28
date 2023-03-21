@@ -49,8 +49,11 @@ def profile(request):
         type - HttpRequest
     """
     
+    curProfile = Profile.objects.get(user=request.user)
+
+
     # Collects history from database
-    history = History.objects.order_by('date_Added')
+    history = History.objects.filter(userId_id=curProfile.id).order_by('-date_Added')
 
     profiles = Profile.objects.order_by('-score')
 

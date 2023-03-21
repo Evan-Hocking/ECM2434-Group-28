@@ -9,7 +9,7 @@ from django.http import HttpResponse, JsonResponse
 from Food_Scanner import models
 from users.models import Profile
 from .itemRequest import itemAttributesDict
-from .addItemPoints import isAdd, showPts, addPtsHistDB, updateRank
+from .addItemPoints import isAdd, showPts, addPtsHistDB, updateRank, maxScans
 from .onCampus import isOnCampus
 
 
@@ -73,6 +73,10 @@ def item(request):
         if not isOnCampus():
             context['addPts'] = 0
 
+        if maxScans(request):
+            print("noPoints")
+            context['addPts'] = 0
+            context['spam'] = True
         # Adds points of object to users DB and item to history DB
         addPtsHistDB(request, int(context['addPts']), str(context['itemName']))
 

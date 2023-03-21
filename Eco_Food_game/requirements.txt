@@ -6,3 +6,4 @@ django-crispy-forms==2.0
 crispy-bootstrap4==2022.1
 Pillow==9.4.0
 pytest
+python-dateutil==2.8.2

@@ -4,7 +4,11 @@
 #
 # Author: Ryan Gascoigne-Jones
 #---------------------------------------------------------------------------------------
+
 import sqlite3
+from datetime import date, datetime, timedelta
+from dateutil import parser
+import pytz
 from users.models import Profile, History
 
 
@@ -122,3 +126,42 @@ object.score = object.score + (int(lib['addPts'])) """
     'isAdd' : lib['isAdd'],
     'addPts' : lib['addPts'],
 }"""
+
+def maxScans(request) -> bool:
+    """
+    checks you not spamming item scans by checking that only 5 items can be scanned in 5 minutes 
+    :param request: The http request from the html]
+        type - obj (HttpRequest)
+    :return: bool
+    """
+    #Get current user profile
+    curProfile = Profile.objects.get(user=request.user)
+
+    #get profile item history
+    history = History.objects.raw(f'SELECT id, date_Added FROM users_history WHERE userId_id = {curProfile.id} ORDER BY date_Added DESC')
+    
+    #converts date into string
+    nowLong = str(history[0].date_Added)
+    thenLong = str(history[4].date_Added)
+
+    #selects time in format of HH:MM:SS
+    now = nowLong[11:19]
+    then = thenLong[11:19]
+
+    #Selects date in format of YYYY-MM-DD
+    nowDay = nowLong[0:10]
+    thenDay = thenLong[0:10]
+
+    #Converts time into a number of seconds
+    nowInSec = (int(now[0:2])*60*60) + (int(now[3:5])*60) + (int(now[6:8]))
+    thenInSec = (int(then[0:2])*60*60) + (int(then[3:5])*60) + (int(then[6:8]))
+
+    #calculates the difference in seconds
+    difInSec = nowInSec - thenInSec
+
+    #converts difference in seconds to difference in minutes
+    dif = difInSec / 60
+
+    #checks if its the same day and the difference is greater than 5 min
+    if nowDay == thenDay and dif < 5:
+        return True
