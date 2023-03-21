@@ -6,7 +6,7 @@ class CronJob(CronJobBase):
     RUN_EVERY_MINS = 1440  # every 2 hours
 
     schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
-    code = 'my_app.my_cron_job'  # a unique code
+    code = 'clean_daily_foodRecord'  # a unique code
 
     def do(self):
         u = Profile.objects.all()
