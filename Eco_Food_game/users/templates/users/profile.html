@@ -26,18 +26,37 @@
     </div>
     <div class="history">
         <h3>Scanned item history:</h3> 
-        <table class="table table-condensed">
-            <tr>
-                <th>Name:</th>
-                <th>Date Scanned</th>
-            </tr>
-            {% for item in data %} {% if user.profile.id == item.userId_id %}
-            <tr>
-                <td>{{item.name}}</td>
-                <td>{{item.date_Added}}</td>
-            </tr>
-            {% endif %}{% endfor %}
-        </table>
+        <div id="outerDiv">
+            <div id="innerDiv">
+                <table class="table table-condensed">
+                    <tr>
+                        <th>Name:</th>
+                        <th>Date Scanned</th>
+                    </tr>
+                    {% for item in data %} {% if user.profile.id == item.userId_id %}
+                    <tr>
+                        <td>{{item.name}}</td>
+                        <td>{{item.date_Added}}</td>
+                    </tr>
+                    {% endif %}{% endfor %}
+                </table>
+            </div>
+          </div>
+          
+          <style>
+              #outerDiv
+              { height : 200px;
+                margin : 44px; 
+                /* border: solid 4px Red; */
+              }
+          
+              #innerDiv
+              { height     : 80%;
+                overflow-y : auto;
+                /* border     : solid 4px Green;  */
+                font-size: 100%;
+              }
+          </style>
     </div>
 </div>
 {% endblock content %}
