@@ -5,3 +5,4 @@ requests==2.26.0
 django-crispy-forms==2.0
 crispy-bootstrap4==2022.1
 Pillow==9.4.0
+django_cron==0.6.0
