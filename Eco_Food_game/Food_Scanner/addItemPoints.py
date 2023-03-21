@@ -5,7 +5,7 @@
 # Author: Ryan Gascoigne-Jones
 #---------------------------------------------------------------------------------------
 import sqlite3
-from .users.models import Profile, History
+from Food_Scanner.users.models import Profile, History
 
 
 def isAdd(fragment) -> bool:
