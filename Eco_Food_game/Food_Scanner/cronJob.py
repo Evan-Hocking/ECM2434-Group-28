@@ -3,7 +3,7 @@ from users.models import Profile
 
 
 class CronJob(CronJobBase):
-    RUN_EVERY_MINS = 1440  # every 2 hours
+    RUN_EVERY_MINS = 1440  # every 24 hours
 
     schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
     code = 'clean_daily_foodRecord'  # a unique code
