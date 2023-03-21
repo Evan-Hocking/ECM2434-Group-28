@@ -4,31 +4,28 @@
 #
 # Author:      Tom Sturgeon
 #-------------------------------------------------------------------------------
-
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
-from .models import History
+from .models import History, Profile
 
-# Create your views here.
 
 def register(request):
     """
     Pass User registration form to the register webpage based on the register.html template
-    param - request:
-        type - HttpRequest object
-        contents -  Data about request made to webpage
-    return - Rendered webpage
-        Returns the requested webpage based on the supplied template with context passed to it 
+    :param request: The data about request made to webpage
+        type - obj (HttpRequest)
+    :return: The requested webpage based on the supplied template with context passed to it 
+        type - HttpRequest
     """
-    #If the method of request is POST
+    # If the method of request is POST
     if request.method == 'POST':
-        #Create a form using the UserRegistrationForm method from users/forms.py
+        # Create a form using the UserRegistrationForm method from users/forms.py
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            #If the form is valid, Save it then redirect to the login page
+            # If the form is valid, Save it then redirect to the login page
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(
@@ -37,7 +34,7 @@ def register(request):
     else:
         form = UserRegisterForm()
 
-    #Return and render the webpage and pass the form into the template
+    # Returns and render the webpage and pass the form into the template
     return render(request, 'users/register.html', {'form': form})
 
 
@@ -46,19 +43,22 @@ def profile(request):
     """
     Pass the profile information to the correct webpage
     You need to be logged in to access webpage otherwise you will be redirected to Food_Scanner-home 
-    param - request:
-        type - HttpRequest object
-        contents -  Data about request made to webpage
-    return - Rendered webpage
-        Returns the requested webpage based on the supplied template with context passed to it 
+    :param request: The data about request made to webpage
+        type - obj (HttpRequest)
+    :return: The requested webpage based on the supplied template with context passed to it
+        type - HttpRequest
     """
     
-    #Collects history from database
-    history = History.objects.order_by('date_Added')
+    # Collects history from database
+    history = History.objects.order_by('-date_Added')
 
-    #Add data to the context
+    profiles = Profile.objects.order_by('-score')
+
+
+    # Add data to the context
     context = {
-        'data': history
+        'data': history,
+        'profiles': profiles
     }
 
     return render(request, 'users/profile.html', context)
@@ -69,11 +69,10 @@ def profileUpdate(request):
     """
     Pass UserUpdateForm to the webpage when requested
     You must be logged in to access the webpage if not you will be redirected to Food_Scanner-home
-    param - request:
-        type - HttpRequest object
-        contents -  Data about request made to webpage
-    return - Rendered webpage
-        Returns the requested webpage based on the supplied template with context passed to it 
+    :param request: The data about request made to webpage
+        type - obj (HttpRequest)
+    :return: The requested webpage based on the supplied template with context passed to it (Profile)
+        type - HttpRequest
     """
 
     if request.method == 'POST':
@@ -91,9 +90,17 @@ def profileUpdate(request):
         uForm = UserUpdateForm(instance=request.user)
         pForm = ProfileUpdateForm(instance=request.user.profile)
 
-    #Add the forms to the context
+    # Add the forms to the context
     context = {
         'user_form': uForm,
         'profile_form': pForm
     }
     return render(request, 'users/profile_update.html', context)
+
+def profile_list(request):
+    if request.user.is_authenticated:
+        profiles = Profile.objects.exclude(user=request.user)
+        return render(request, 'users/profile_list.html', {'profiles': profiles})
+    else:
+        messages.warning(request, ("You must be logged in to view this page"))
+        return redirect('auth-login')

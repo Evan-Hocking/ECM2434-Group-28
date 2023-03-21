@@ -1,14 +1,18 @@
 {% extends "Food_Scanner/base.html" %} {% load crispy_forms_tags %} {% block content %}
-<div class="content-section">
+<div style="padding-top: 10px;"class="content-section">
     <div class="media">
         <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" width="100" height="auto" />
-        <div class="media-body">
+        <div style="padding-left: 15px;" class="media-body">
             <h2 class="account-heading">{{ user.username }}</h2>
             <!-- <p class="text-secondary">Name: {{ user.first_name }}{{ user.last_name }}</p> -->
             <p class="text-secondary">Email: {{ user.email }}</p>
             <p class="text-secondary">ID: {{ user.id }}</p>
             <p class="text-secondary">Current score: {{ user.profile.score }}</p>
-            <!-- <p class="text-secondary">Current rank: {{ user.profile.rank }}</p> -->
+            {% for profile in profiles %}
+            {% if user.id == profile.user.id%}
+            <p class="text-secondary">Current rank: {{ forloop.counter }}</p>
+            {% endif %}
+            {% endfor %}
             <div class="form-group">
                 <form action="{% url 'user-profile_update' %}">
                     <input class="btn btn-login" type="submit" value="Update profile" />

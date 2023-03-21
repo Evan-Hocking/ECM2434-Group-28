@@ -5,4 +5,8 @@ requests==2.26.0
 django-crispy-forms==2.0
 crispy-bootstrap4==2022.1
 Pillow==9.4.0
+<<<<<<< HEAD
 django_cron==0.6.0
+=======
+pytest
+>>>>>>> 7d25c6f08f8d1eccf6958e231b3436560c8b8a63

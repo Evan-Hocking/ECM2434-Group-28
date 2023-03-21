@@ -1,32 +1,41 @@
+# -------------------------------------------------------------------------------
+# Name:        validation.py
+# Purpose:     Performs various validations mainly for login and registration pages
+#
+# Author:      Hao Lun Lin
+# -------------------------------------------------------------------------------
 import sqlite3
 import re
 
+
 def searchUser(field, searchTerm):
     """
-	Searches for the user by their username
-	:param username: The username that is trying to be found
-	:return: A tuple of the record data of the user that matches with the record's username
+    Searches for the user by their username
+    :param username: The username that is trying to be found
+    :return: A tuple of the record data of the user that matches with the record's username
     """
     # Connecting to sqlite
     conn = sqlite3.connect('db.sqlite3')
     # Creating a cursor object using the cursor() method
     cursor = conn.cursor()
 
-	# Retrieving data using the username 
+    # Retrieving data using the username
     query = f"SELECT id, userName, userScore, userEmail, userPw, role FROM tracks WHERE {field} LIKE '{searchTerm}'"
     result = cursor.execute(query).fetchall()
 
-	# Closing the connection
+    # Closing the connection
     conn.close()
     return result
+ 
 
 def usernameAlreadyExists(username) -> bool:
-	"""
-	Checks if the username is already in the database
-	:param username: The username that is trying to be found
-	:return: True if username is found otherwise False
-	"""
-	return not len(searchUser('userName', username)) == 0
+    """
+    Checks if the username is already in the database
+    :param username: The username that is trying to be found
+    :return: True if username is found otherwise False
+    """
+    return not len(searchUser('userName', username)) == 0
+
 
 def presenceCheck(txtinput) -> bool:
     """
@@ -39,6 +48,7 @@ def presenceCheck(txtinput) -> bool:
     else:
         return False
 
+
 def twoStringsMatchCheck(txtinput1, txtinput2) -> bool:
     """
     Checks if the 2 strings match
@@ -48,7 +58,6 @@ def twoStringsMatchCheck(txtinput1, txtinput2) -> bool:
     """
     return txtinput1 == txtinput2
 
-import re
 
 def passwordComplexityCheck(username, password) -> bool:
     """
@@ -65,17 +74,18 @@ def passwordComplexityCheck(username, password) -> bool:
         return False
     elif not re.search("[0-9]", password):
         return False
-    elif not re.search("[_@£&#?$]" , password):
+    elif not re.search("[_@£&#?$]", password):
         return False
-    elif re.search("\s" , password):
+    elif re.search("\s", password):
         return False
 
     # If the username is in the password
     if username in password:
         return False
-    
+
     # All checks have been passed
     return True
+
 
 def lengthAtLeastCheck(txtinput, lengthAtLeast) -> bool:
     """
@@ -89,6 +99,7 @@ def lengthAtLeastCheck(txtinput, lengthAtLeast) -> bool:
         return True
     else:
         return False
+
 
 def strongPasswordCheck(username, password) -> bool:
     """

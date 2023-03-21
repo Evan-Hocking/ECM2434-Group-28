@@ -1,77 +1,84 @@
+#--------------------------------------------------------------------------------------------
+# Name: views.py
+# Purpose: Uses requests from web pages to generate data to populate the page with context
+#
+# Author: Ryan Gascoigne-Jones, Phil
+#--------------------------------------------------------------------------------------------
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from Food_Scanner import models
 from users.models import Profile
 from .itemRequest import itemAttributesDict
-from .addItemPoints import isAdd, showPts, addPtsDB, updateRank
-
-# Create your views here.
-
-"""
-Parse data to the homepage and render it from the provided template
-@param request from html
-@return home.html
-"""
+from .addItemPoints import isAdd, showPts, addPtsHistDB, updateRank
+from .onCampus import isOnCampus
 
 
 def home(request):
+    """
+    Parse data to the homepage and render it from the provided template
+    :param request: The http request from the html
+    :return: The Http response of the home page (home.html)
+        type - Http Response object
+    """
     context = {
         'title': "HomePage",
     }
     return render(request, 'Food_Scanner/home.html', context)
 
 
-"""
-Parse data to the about page and render it from the provided template
-@param request from html
-@return about.html
-"""
-
-
 def about(request):
+    """
+    Parse data to the about page and render it from the provided template
+    :param request: The http request from the html
+    :return: The Http response of the about page (about.html)
+        type - Http Response object
+    """
+    
     context = {
         'title': "HomePage",
     }
     return render(request, 'Food_Scanner/about.html', context)
 
-"""
-Returns an ordered list to the leaderboard page
-@param request from html
-@return leaderboard.html & list variable connect with Profile database ordered DESC by score
-"""
 def leaderboard(request):
+    """
+    Returns an ordered list to the leaderboard page in descending order by score
+    :param request: The http request from the html
+    :return: data for leaderboard.html to use to render page & list variable connected with Profile database ordered DESC by score
+        type - Http Response object
+    """
+    
     '''Users profile from user.models table loaded into d and ordered DESC by score '''
     d = Profile.objects.order_by('-score')
     return render(request, 'Food_Scanner/leaderboard.html', locals())
 
-
-"""
-Parse data to the item page and render it from the provided template
-@param request from html + barcode
-@return item.html + eco Score and add it to user socre in database + rank update
-"""
-
-
 def item(request):
+    """
+    Parse data to the item page and render it from the provided template
+    Sends all attributes and data of an object or adds number of points to a users score
+    :param request: The http request from the html
+    :return: data for item.html to render page and add the items score to user score in 
+            database and rank update
+        type - Http Respone object
+    """
+
     # Gets header contents and splits into 2 lists, the value of the query (fragment),
     # and the rest of the URL, discards the rest of the url as it is not useful
     url = (request.get_full_path()).split("=")
     fragment = url[1]
 
-    # Checks if the value of the fragment is an Add points request, not a barcode
+    # If the user has clicked add points button then:
     if isAdd(fragment):
         # Breaks the url fragment down and returns a library of n/a except isAdd and addPts 
-        lib = showPts(fragment)
-        points = int(lib['addPts'])
+        context = showPts(fragment)
+        if not isOnCampus():
+            context['addPts'] = 0
 
-        # Adds points of object to DB
-        addPtsDB(request, points)
+        # Adds points of object to users DB and item to history DB
+        addPtsHistDB(request, int(context['addPts']), str(context['itemName']))
 
-        # Updates users ranks according to updated scores
-        updateRank()
-
-    # If the barcode is in URL (meaning the user has not yet chosen to add points this runs
+    # If the barcode is in URL (meaning the user has not yet chosen to add points) then:
     else:
+<<<<<<< HEAD
         lib = itemAttributesDict(fragment)
 
     context = {
@@ -89,6 +96,10 @@ def item(request):
         'addPts' : lib['addPts'],
     }
     
+=======
+        # Library of all attributes of an item
+        context = itemAttributesDict(fragment)
+>>>>>>> 7d25c6f08f8d1eccf6958e231b3436560c8b8a63
 
     return render(request, 'Food_Scanner/item.html', context)
 

@@ -1,0 +1,43 @@
+Privacy Policy
+
+Thank you for using our university project Carbon Foodprint. We are committed to protecting your privacy and ensuring that any personal information that you 
+provide to us is treated with the utmost care and respect. This privacy policy outlines the types of information we collect, how we use it, and how we protect it.
+
+Information We Collect
+
+The only information that we collect is your email address, which is used for authentication of your account and possibly used for notifications. We do not
+collect any other personal information from you.
+
+How We Use Your Information
+
+We use your email address solely for the purpose of authentication of your account and to possibly send you notifications related to your account or the
+project. We will never share your email address with any third parties.
+
+How We Protect Your Information
+
+We take the protection of your information very seriously. The passwords of our users are encrypted in our database, so your password is always kept secure.
+We also take steps to ensure the security of our servers and the data stored on them.
+
+Data Retention
+
+Currently, users cannot delete their profiles, so no personal data is being deleted. However, we will delete your email address and any associated data
+upon your request.
+
+Third-Party Services
+
+We uses third-party services called OpenFoodFacts that only collects item informations. No third-party services are collecting personal user-information.
+
+Legal Requirements
+
+We are committed to complying with all applicable laws and regulations related to privacy and data protection.
+
+Contact Information
+
+If you have any questions or concerns about our privacy policy, please contact Evan at evan@hotmail.com.
+
+Changes to This Policy
+
+We reserve the right to make changes to this privacy policy at any time. Any changes will be posted on this page, so please check back periodically to stay
+up-to-date.
+
+Thank you for using our Carbon Foodprint project!

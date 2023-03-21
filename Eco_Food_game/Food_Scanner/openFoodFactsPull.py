@@ -30,7 +30,7 @@ def getData(barcode):
     #tests if api request was success
     if request['status']==0:
         return ("Err: Product not found")
-    print(product)
+
     return product
 
 
@@ -265,4 +265,3 @@ def getProduct(barcode=0):
 
     lib = makeDictionaryConsistent(lib)
     return lib
-getProduct("3095758914010")
