@@ -1,13 +1,14 @@
 {% extends "Food_Scanner/base.html" %}
+{% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
     <head>
     <meta charset="utf-8" />
     <title>ECharts</title>
-    <script src="{% static 'echarts.js' %}"></script>
+        <script src="{% static 'echarts.js' %}"></script>
   </head>
   <body>
-  <table bgcolor="white">
+  <table  bgcolor="white">
     <tr>
         <td><div id="main" style="width: 600px;height:400px;"></div></td>
         <td><div id="main3" style="width: 600px;height:400px;"></div></td>
@@ -31,7 +32,7 @@
           data: ['Numbers']
         },
         xAxis: {
-          data: ['Drinks', 'Snacks', 'Fruits', 'Vegetables', 'Proteins']
+          data: ['Drinks', 'Confectionery', 'Fruits', 'Vegetables', 'Meat']
         },
         yAxis: {},
         series: [
@@ -76,7 +77,7 @@
 
      var option3 = {
   xAxis: {
-    data: ['Drinks', 'Snack', 'Fruit', 'Vegetable', 'Protein']
+    data: ['Drinks', 'Confectionery', 'Fruit', 'Vegetable', 'Meat']
   },
   yAxis: {},
   series: [
