@@ -11,7 +11,7 @@ from geopy import distance
 
 ### Switch to use config files ###
 # Opens and assigns config file to access settings
-with open('./config.json') as json_config:
+with open('../config.json') as json_config:
     config = json.load(json_config)
 
     
