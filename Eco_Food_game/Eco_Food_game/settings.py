@@ -57,7 +57,7 @@ MIDDLEWARE = [
 ]
 
 CRON_CLASSES = [
-    "my_app.cron.CornJob",
+    "Food_Scanner.cronJob.CronJob",
 ]
 
 ROOT_URLCONF = 'Eco_Food_game.urls'
