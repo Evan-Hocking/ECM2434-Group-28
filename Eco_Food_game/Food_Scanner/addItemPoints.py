@@ -5,7 +5,7 @@
 # Author: Ryan Gascoigne-Jones
 #---------------------------------------------------------------------------------------
 import sqlite3
-from Eco_Food_game.users.models import Profile, History
+from users.models import Profile, History
 
 
 def isAdd(fragment) -> bool:
