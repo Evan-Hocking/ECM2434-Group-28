@@ -1,23 +1,21 @@
 {% extends "Food_Scanner/base.html" %} {% load crispy_forms_tags %} {% block content %}
-<div style="padding-top: 10px;"class="content-section">
+<div style="padding-top: 10px" class="content-section">
     <div class="media">
         <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" width="100" height="auto" />
-        <div style="padding-left: 15px;" class="media-body">
+        <div style="padding-left: 15px" class="media-body">
             <h2 class="account-heading">{{ user.username }}</h2>
             <!-- <p class="text-secondary">Name: {{ user.first_name }}{{ user.last_name }}</p> -->
             <p class="text-secondary">Email: {{ user.email }}</p>
             <p class="text-secondary">ID: {{ user.id }}</p>
             <p class="text-secondary">Current score: {{ user.profile.score }}</p>
-            {% for profile in profiles %}
-            {% if user.id == profile.user.id%}
+            {% for profile in profiles %} {% if user.id == profile.user.id%}
             <p class="text-secondary">Current rank: {{ forloop.counter }}</p>
-            {% endif %}
-            {% endfor %}
+            {% endif %} {% endfor %}
             <div class="form-group">
                 <form action="{% url 'user-profile_update' %}">
                     <input class="btn btn-login" type="submit" value="Update profile" />
                 </form>
-                <br>
+                <br />
                 <form action="{% url 'update_password' %}">
                     <input class="btn btn-login" type="submit" value="Update password" />
                 </form>
@@ -25,19 +23,69 @@
         </div>
     </div>
     <div class="history">
-        <h3>Scanned item history:</h3> 
-        <table class="table table-condensed">
-            <tr>
-                <th>Name:</th>
-                <th>Date Scanned</th>
-            </tr>
-            {% for item in data %} {% if user.profile.id == item.userId_id %}
-            <tr>
-                <td>{{item.name}}</td>
-                <td>{{item.date_Added}}</td>
-            </tr>
-            {% endif %}{% endfor %}
-        </table>
+        <h3>Scanned item history:</h3>
+        <div id="outerDiv">
+            <div id="innerDiv">
+                <table class="table table-condensed">
+                    <tr>
+                        <th>Name:</th>
+                        <th>Date Scanned</th>
+                    </tr>
+                    {% for item in data %} {% if user.profile.id == item.userId_id %}
+                    <tr>
+                        <td>{{item.name}}</td>
+                        <td>{{item.date_Added}}</td>
+                    </tr>
+                    {% endif %}{% endfor %}
+                </table>
+            </div>
+        </div>
+
+        <style>
+            #outerDiv {
+                height: 200px;
+                margin: 44px;
+                /* border: solid 4px Red; */
+            }
+
+            #innerDiv {
+                height: 80%;
+                overflow-y: auto;
+                /* border     : solid 4px Green;  */
+                font-size: 100%;
+            }
+        </style>
     </div>
 </div>
-{% endblock content %}
+{% endblock content %} {% block sidebar %}
+<div class="col-md-4">
+    <h3>Achievements</h3>
+    <div class="row">
+        {% if Achievements.First_Scan %}
+        <div class="col Achievements"><img src="..\..\.\media\Achievements\FirstScan.png" alt="First Scan" width="75px"></div>
+        {% endif %}{% if Achievements.points_50 %}
+        <div class="col Achievements"><img src="..\..\.\media\Achievements\50Pts.png" alt="50 points" width="75px"></div>
+        {% endif %}{% if Achievements.points_250 %}
+        <div class="col Achievements"><img src="..\..\.\media\Achievements\250Pts.png" alt="250 points" width="75px"></div>
+        <div class="w-100"></div>
+        {% endif %}{% if Achievements.points_500 %}
+        <div class="col Achievements"><img src="..\..\.\media\Achievements\500Pts.png" alt="500 points" width="75px"></div>
+        {% endif %}{% if Achievements.max_Score %}
+        <div class="col Achievements"><img src="..\..\.\media\Achievements\MaxScore.png" alt="Max Score Item" width="75px"></div>
+        {% endif %} {% if Achievements.All_cat %}
+        <div class="col Achievements"><img src="..\..\.\media\Achievements\AllCats.png" alt="All Categories" width="75px"></div>
+        <div class="w-100"></div>
+        {% endif %}{% if Achievements.Top_10 %}
+        <div class="col Achievements"><img src="..\..\.\media\Achievements\Top10.png" alt="Top 10" width="75px"></div>
+        {% endif %}{% if Achievements.Top_5 %}
+        <div class="col Achievements"><img src="..\..\.\media\Achievements\Top5.png" alt="Top 5" width="75px"></div>
+        {% endif %}{% if Achievements.Top_3 %}
+        <div class="col Achievements"><img src="..\..\.\media\Achievements\Top3.png" alt="Top 3" width="75px"></div>
+        {% endif %}{% if Achievements.Top_1 %}
+        <div class="col Achievements"><img src="..\..\.\media\Achievements\Top1.png" alt="Top 1" width="75px"></div>
+        {% endif %}
+        <div class="w-100"></div>
+
+      </div>
+</div>
+{% endblock %}

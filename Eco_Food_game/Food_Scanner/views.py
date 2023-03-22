@@ -79,6 +79,7 @@ def item(request):
             context['spam'] = True
         # Adds points of object to users DB and item to history DB
         addPtsHistDB(request, int(context['addPts']), str(context['itemName']))
+        return render(request, 'Food_Scanner/item.html', context)
 
     # If the barcode is in URL (meaning the user has not yet chosen to add points) then:
     else:
@@ -86,3 +87,8 @@ def item(request):
         context = itemAttributesDict(fragment)
 
     return render(request, 'Food_Scanner/item.html', context)
+
+def dashboard(request):
+    user = Profile.objects.filter(user=request.user).first()
+
+    return render(request, 'Food_Scanner/dashboard.html', locals())

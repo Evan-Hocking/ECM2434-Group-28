@@ -23,7 +23,7 @@ def getLocation() -> tuple:
         type - tuple
     """
     ### Switch API key use config file instead ###
-    URL = 'https://www.googleapis.com/geolocation/v1/geolocate?key=' + "AIzaSyCN1AwE1eqibnlt3nOcH7Nrr7BmIFtBAW8" #config['Geolocation_API_Key']
+    URL = 'https://www.googleapis.com/geolocation/v1/geolocate?key=' + config['Geolocation_API_Key']
     try:
         # Gets the geolocation data of the user from the Google api
         r = requests.post(URL)
@@ -54,8 +54,8 @@ def isOnCampus() -> bool:
     """
     try:
         ### Switch coords use config files ###
-        #campus = (config['uni_lat'],config['uni_long'])
-        campus = (50.737126,-3.532565)
+        campus = (config['uni_lat'],config['uni_long'])
+
     except:
         return "Err: campus location not found"
     loc = getLocation()
@@ -63,7 +63,7 @@ def isOnCampus() -> bool:
     
     ### Switch 0.75 use config files ###
     # Returns true if the two points are less than or equal to 0.75km otherwise false
-    if dist <= 0.75: #config['range_km']:
+    if dist <= config['range_km']:
         return True
     else:
         return False

@@ -25,6 +25,11 @@ class Profile(models.Model):
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     score = models.IntegerField(default=0)
     userRank = models.IntegerField(default=0)
+    Drink = models.IntegerField(default=0)
+    Snack = models.IntegerField(default=0)
+    Vegetable = models.IntegerField(default=0)
+    Protein = models.IntegerField(default=0)
+    Fruit = models.IntegerField(default=0)
 
     
     def __str__(self):
@@ -87,3 +92,23 @@ class History(models.Model):
     #         outputSize = (300, 300)
     #         img.thumbnail(outputSize)
     #         img.save(self.image.path)
+
+class Achievements(models.Model):
+    """
+    Create Achievements model with all the achievements in the database
+    """
+    Id = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    First_Scan = models.BooleanField(default=False)
+    points_50 = models.BooleanField(default=False) 
+    points_250 = models.BooleanField(default=False)
+    points_500 = models.BooleanField(default=False)
+    max_Score = models.BooleanField(default=False)
+    All_cat = models.BooleanField(default=False)
+    Top_10 = models.BooleanField(default=False)
+    Top_5 = models.BooleanField(default=False)
+    Top_3 = models.BooleanField(default=False)
+    Top_1 = models.BooleanField(default=False)
+
+    def __Str__(self):
+        return f'{self.Profile.name}'
+
