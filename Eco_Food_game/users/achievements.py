@@ -24,6 +24,8 @@ def checkAchievements(request):
             if achievements[x].Id_id == request.user.id:
                 userAchievements = achievements[x]
                 break
+            else:
+                userAchievements = Achievements.objects.create(Id_id=request.user.id)
 
     if History.objects.raw(f"SELECT * FROM users_history WHERE userId_id={profile.id}"):
         userAchievements.First_Scan = "True"
