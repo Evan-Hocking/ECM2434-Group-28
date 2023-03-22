@@ -1,9 +1,9 @@
-#--------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------
 # Name: views.py
 # Purpose: Uses requests from web pages to generate data to populate the page with context
 #
 # Author: Ryan Gascoigne-Jones, Phil
-#--------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from Food_Scanner import models
@@ -11,6 +11,7 @@ from users.models import Profile
 from .itemRequest import itemAttributesDict
 from .addItemPoints import isAdd, showPts, addPtsHistDB, updateRank
 from .onCampus import isOnCampus
+from .openFoodFactsPull import getCategory, getProduct, getData
 
 
 def home(request):
@@ -33,11 +34,12 @@ def about(request):
     :return: The Http response of the about page (about.html)
         type - Http Response object
     """
-    
+
     context = {
         'title': "HomePage",
     }
     return render(request, 'Food_Scanner/about.html', context)
+
 
 def leaderboard(request):
     """
@@ -46,10 +48,11 @@ def leaderboard(request):
     :return: data for leaderboard.html to use to render page & list variable connected with Profile database ordered DESC by score
         type - Http Response object
     """
-    
+
     '''Users profile from user.models table loaded into d and ordered DESC by score '''
     d = Profile.objects.order_by('-score')
     return render(request, 'Food_Scanner/leaderboard.html', locals())
+
 
 def item(request):
     """
@@ -68,8 +71,21 @@ def item(request):
     u = Profile.objects.filter(user=request.user).first()
     # If the user has clicked add points button then:
     if isAdd(fragment):
-        lib = itemAttributesDict(fragment)
-        tags = lib['tags']
+        # Breaks the url fragment down and returns a library of n/a except isAdd and addPts 
+        context = showPts(fragment)
+        if not isOnCampus():
+            context['addPts'] = 0
+
+        # Adds points of object to users DB and item to history DB
+        addPtsHistDB(request, int(context['addPts']), str(context['itemName']))
+
+    # If the barcode is in URL (meaning the user has not yet chosen to add points) then:
+    else:
+
+        # Library of all attributes of an item
+        context = itemAttributesDict(fragment)
+
+        tags = context['tags']
         for i in tags:
             if i == "snack":
                 u.Snack = u.Snack + 1
@@ -86,20 +102,9 @@ def item(request):
             elif i == "protein":
                 u.Protein = u.Protein + 1
                 u.save()
-        # Breaks the url fragment down and returns a library of n/a except isAdd and addPts 
-        context = showPts(fragment)
-        if not isOnCampus():
-            context['addPts'] = 0
 
-        # Adds points of object to users DB and item to history DB
-        addPtsHistDB(request, int(context['addPts']), str(context['itemName']))
+        return render(request, 'Food_Scanner/item.html', context)
 
-    # If the barcode is in URL (meaning the user has not yet chosen to add points) then:
-    else:
-        # Library of all attributes of an item
-        context = itemAttributesDict(fragment)
-
-    return render(request, 'Food_Scanner/item.html', context)
 
 def dashboard(request):
     user = Profile.objects.filter(user=request.user).first()
