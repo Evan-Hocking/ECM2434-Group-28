@@ -11,4 +11,4 @@ from .models import *
 class addImage(forms.ModelForm):
     class Meta:
         model = Image
-        fields = ['name','image']
+        fields = ['image']
