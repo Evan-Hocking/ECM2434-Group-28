@@ -8,8 +8,10 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login_required
+#from Eco_Food_game.users.achievements import check25
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
-from .models import History, Profile
+from .models import History, Profile, Achievements
+from .achievements import checkAchievements
 
 
 def register(request):
@@ -49,16 +51,28 @@ def profile(request):
         type - HttpRequest
     """
     
+    curProfile = Profile.objects.get(user=request.user)
+
+
     # Collects history from database
-    history = History.objects.order_by('-date_Added')
+    history = History.objects.filter(userId_id=curProfile.id).order_by('-date_Added')
 
     profiles = Profile.objects.order_by('-score')
 
+    checkAchievements(request)
+
+    achievements = Achievements.objects.all()
+
+    for x in range(0,len(achievements)):
+        if achievements[x].Id_id == request.user.id:
+            userAchievements = achievements[x]
+            break
 
     # Add data to the context
     context = {
         'data': history,
-        'profiles': profiles
+        'profiles': profiles,
+        'Achievements': userAchievements
     }
 
     return render(request, 'users/profile.html', context)

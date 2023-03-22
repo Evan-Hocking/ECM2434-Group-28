@@ -5,9 +5,11 @@
 # Author:      Tom Sturgeon, Phil
 #-------------------------------------------------------------------------------
 from django.contrib import admin
-from .models import Profile, History
+from .models import Profile, History, Achievements
 
 
 # Register extend database
 admin.site.register(Profile)
 admin.site.register(History)
+admin.site.register(Achievements)
+

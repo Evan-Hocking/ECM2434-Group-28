@@ -43,10 +43,7 @@
           data: ['Numbers']
         },
         xAxis: {
-          data: ['Drinks', 'Confectionery', 'Fruits', 'Vegetables', 'Meat'],
-          axisLabel: {
-      fontSize: 9, // set the font size to 16
-    },
+          data: ['Drinks', 'Confectionery', 'Fruits', 'Vegetables', 'Meat']
         },
         yAxis: {},
         series: [
@@ -58,43 +55,40 @@
         ]
       };
 
-      var option2 = {
-  series: [
-    {
-      type: 'pie',
-      data: [
-        {
-          value: {{user.Drink}},
-          name: 'Drink'
-        },
-        {
-          value: {{ user.Snack }},
-          name: 'Confectionary'
-        },
-        {
-          value: {{ user.Fruit }},
-          name: 'Fruits'
-        },
-          {
-          value: {{ user.Vegetable }},
-          name: 'Vegetable'
-          },
-          {
-          value: {{ user.Protein }},
-          name: 'Meat'
-          }
-      ]
-    }
-  ]
-};
+              var option2 = {
+          series: [
+            {
+              type: 'pie',
+              data: [
+                {
+                  value: {{user.Drink}},
+                  name: 'Drink'
+                },
+                {
+                  value: {{ user.Snack }},
+                  name: 'Confectionary'
+                },
+                {
+                  value: {{ user.Fruit }},
+                  name: 'Fruits'
+                },
+                  {
+                  value: {{ user.Vegetable }},
+                  name: 'Vegetable'
+                  },
+                  {
+                  value: {{ user.Protein }},
+                  name: 'Meat'
+                  }
+              ]
+            }
+          ]
+        };
 
 
      var option3 = {
   xAxis: {
-    data: ['Drinks', 'Confectionary', 'Fruit', 'Vegetable', 'Meat'],
-    axisLabel: {
-      fontSize: 9, // set the font size to 16
-    },
+    data: ['Drinks', 'Confectionary', 'Fruit', 'Vegetable', 'Meat']
   },
   yAxis: {},
   series: [
@@ -117,6 +111,5 @@
       myChart2.setOption((option2));
       myChart3.setOption((option3));
     </script>
-  </body>
-    </div>
+</div>
 {% endblock content %}
