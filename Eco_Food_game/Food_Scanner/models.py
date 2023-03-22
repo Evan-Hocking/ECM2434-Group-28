@@ -58,7 +58,7 @@ class Score(models.Model):
         """
         Display the table with the title of "username , score, rank"
         :param self: The instance of the Score object
-            type - Score
+            type - obj (Score)
         :return: The string representation of the object (self and rank)
             type - str
         """
