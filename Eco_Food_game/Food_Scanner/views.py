@@ -115,7 +115,25 @@ def item(request):
         # Library of all attributes of an item
         context = itemAttributesDict(fragment)
 
-    return render(request, 'Food_Scanner/item.html', context)
+        tags = context['tags']
+        for i in tags:
+            if i == "snack":
+                u.Snack = u.Snack + 1
+                u.save()
+            elif i == "drink":
+                u.Drink = u.Drink + 1
+                u.save()
+            elif i == "fruit":
+                u.Fruit = u.Fruit + 1
+                u.save()
+            elif i == "vegetables":
+                u.Vegetable = u.Vegetable + 1
+                u.save()
+            elif i == "protein":
+                u.Protein = u.Protein + 1
+                u.save()
+
+        return render(request, 'Food_Scanner/item.html', context)
 
 @csrf_exempt
 def upload_barcode(request):
@@ -156,26 +174,7 @@ def upload_barcode(request):
 
     return redirect(reverse('Food_Scanner-item') + '?barcodeNumber='+barcodeData['barcodeNum'].decode('utf-8'))
 
-    #return render(request, 'Food_Scanner/item.html/?barcodeNumber=', context)
-        tags = context['tags']
-        for i in tags:
-            if i == "snack":
-                u.Snack = u.Snack + 1
-                u.save()
-            elif i == "drink":
-                u.Drink = u.Drink + 1
-                u.save()
-            elif i == "fruit":
-                u.Fruit = u.Fruit + 1
-                u.save()
-            elif i == "vegetables":
-                u.Vegetable = u.Vegetable + 1
-                u.save()
-            elif i == "protein":
-                u.Protein = u.Protein + 1
-                u.save()
-
-        return render(request, 'Food_Scanner/item.html', context)
+   
 
 
 def dashboard(request):
