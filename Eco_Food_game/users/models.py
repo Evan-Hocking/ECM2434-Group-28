@@ -87,3 +87,23 @@ class History(models.Model):
     #         outputSize = (300, 300)
     #         img.thumbnail(outputSize)
     #         img.save(self.image.path)
+
+class Achievements(models.Model):
+    """
+    Create Achievements model with all the achievements in the database
+    """
+    Id = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    First_Scan = models.BooleanField(default=False)
+    points_50 = models.BooleanField(default=False) 
+    points_250 = models.BooleanField(default=False)
+    points_500 = models.BooleanField(default=False)
+    max_Score = models.BooleanField(default=False)
+    All_cat = models.BooleanField(default=False)
+    Top_10 = models.BooleanField(default=False)
+    Top_5 = models.BooleanField(default=False)
+    Top_3 = models.BooleanField(default=False)
+    Top_1 = models.BooleanField(default=False)
+
+    def __Str__(self):
+        return f'{self.Profile.name}'
+
