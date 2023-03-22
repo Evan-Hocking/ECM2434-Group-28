@@ -19,13 +19,17 @@ def checkAchievements(request):
     if len(achievements) == 0:
         userAchievements = Achievements.objects.create(
                 Id_id=request.user.id)
+        userAchievements.save()
     else:
         for x in range(0, len(achievements)):
             if achievements[x].Id_id == request.user.id:
                 userAchievements = achievements[x]
                 break
             else:
-                userAchievements = Achievements.objects.create(Id_id=request.user.id)
+                # userAchievements = Achievements.objects.raw(f"INSERT INTO users_achievements (Id_id) VALUES ({request.user.id})")
+                userAchievements = Achievements.objects.create(
+                Id_id=request.user.id)
+                userAchievements.save()
 
     if History.objects.raw(f"SELECT * FROM users_history WHERE userId_id={profile.id}"):
         userAchievements.First_Scan = "True"

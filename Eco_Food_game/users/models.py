@@ -19,7 +19,6 @@ class Profile(models.Model):
     """
     Create Profile model with user, image, score and userRank fields to be added to the database
     """
-
     # Defining the fields and types
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
@@ -98,7 +97,7 @@ class Achievements(models.Model):
     """
     Create Achievements model with all the achievements in the database
     """
-    Id = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    Id = models.OneToOneField(Profile, on_delete=models.CASCADE)
     First_Scan = models.BooleanField(default=False)
     points_50 = models.BooleanField(default=False) 
     points_250 = models.BooleanField(default=False)
