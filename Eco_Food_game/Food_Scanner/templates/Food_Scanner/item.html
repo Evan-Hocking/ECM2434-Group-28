@@ -9,7 +9,9 @@
         </div>
     {% elif isAdd == True %}
         <div style="text-align: center;">
-        {%if addPts == 0 %}
+        {% if spam == True%}
+            <h1>Added {{ addPts }} pts because you scanned to many items in too short amount of time</h1>
+        {% elif addPts == 0 %}
             <h1>Added {{ addPts }} pts because you are not on campus</h1>
         {% else %}
             <h1>Added {{ addPts }} pts</h1>
