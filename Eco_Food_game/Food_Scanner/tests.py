@@ -6,7 +6,7 @@
 # -------------------------------------------------------------------------------
 from django.test import TestCase
 from .addItemPoints import isAdd, showPts, addPtsHistDB, updateRank
-# from .models import Profile, History
+from .models import Demo
 
 
 class AddItemPointsTestCase(TestCase):
@@ -74,19 +74,43 @@ class AddItemPointsTestCase(TestCase):
         # tests if the addPts is present in the returned dictionary
         self.assertIn('addPts', showPts(
             "Add+1+pts+for+Buxton+Still+Mineral+Water+Sportscap+%2812+x+75+cl%29"), "SP Err: no addPts error")
-        
+
         print("showPts() METHOD TEST PASSED")
 
 
-# class TestModels(TestCase):
-#     """
-#     The class for testing the module models
-#     """
+class DemoModelTest(TestCase):
+    """
+    The class for testing the Demo Class from addItemPoints module
+    """
 
-#     def setUp(self):
-#         """
-#         Sets up the objects
-#         """
+    def setUp(self):
+        """
+        Sets up the demo object for testing use
+        """
+        Demo.objects.create(
+            userName='test_user',
+            userEmail='test_email@example.com',
+            userPw='test_password',
+            role='test_role',
+            userScore=100,
+        )
+
+
+    def test_demo_model(self):
+        """
+        Getting the demo object from the database
+        """
+        # Gets the demo object from the database
+        demo = Demo.objects.get(userName='test_user')
+        self.assertEqual(demo.userEmail, 'test_email@example.com')
+        self.assertEqual(demo.userPw, 'test_password')
+        self.assertEqual(demo.role, 'test_role')
+        self.assertEqual(demo.userScore, 100)
+
+        # Delete the demo object that is used for testing
+        demo.delete()
+
+        print("Demo CLASS TEST PASSED")
 
 
 # class TestViews(TestCase):
@@ -99,7 +123,7 @@ class AddItemPointsTestCase(TestCase):
 #         Testing the home method from views.py
 #         """
 #         home()
-    
+
 #     def testAbout(self):
 #         """
 #         Testing the about method from views.py
