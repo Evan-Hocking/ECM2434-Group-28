@@ -11,17 +11,17 @@
   <body>
   <table  bgcolor="white">
     <tr>
-      <td><div id="main" style="width: 400px;height: 200px;"></div></td>
+      <td><div id="main" style="width: 525px;height: 300px;"></div></td>
     </tr>
     <tr>
-      <td><div id="main2" style="width: 400px;height: 200px;"></div></td>
+      <td><div id="main2" style="width: 525px;height: 300px;"></div></td>
     </tr>
     <tr>
-      <td><div id="main3" style="width: 400px;height: 200px;"></div></td>
+      <td><div id="main3" style="width: 525px;height: 300px;"></div></td>
     </tr>
     
     <tr>
-      <td><div id="main2" style="width: 400px;height: 200px;"><a style="font-family: serif,Helvetica; font-size: auto">Please note! The yellow line in the chart above represents our development team's recommendations for users' daily dietary expenses. There should be less than 4 drinks (excluding water),Snacks should be less than 2. Fruits, vegetables and meat should be less than 5. We hope you enjoy your healthy lifestyle :) </a></div></td>
+      <td><div id="main2" style="width: 525px;height: auto;"><a style="font-family: serif,Helvetica; font-size: auto">Please note! The yellow line in the chart above represents our development team's recommendations for users' daily dietary expenses. There should be less than 4 drinks (excluding water),Snacks should be less than 2. Fruits, vegetables and meat should be less than 5. We hope you enjoy your healthy lifestyle :) </a></div></td>
     </tr>
   </table>
 
@@ -43,7 +43,10 @@
           data: ['Numbers']
         },
         xAxis: {
-          data: ['Drinks', 'Confectionery', 'Fruits', 'Vegetables', 'Meat']
+          data: ['Drinks', 'Confectionery', 'Fruits', 'Vegetables', 'Meat'],
+          axisLabel: {
+      fontSize: 9, // set the font size to 16
+    },
         },
         yAxis: {},
         series: [
@@ -88,7 +91,10 @@
 
      var option3 = {
   xAxis: {
-    data: ['Drinks', 'Confectionary', 'Fruit', 'Vegetable', 'Meat']
+    data: ['Drinks', 'Confectionary', 'Fruit', 'Vegetable', 'Meat'],
+    axisLabel: {
+      fontSize: 9, // set the font size to 16
+    },
   },
   yAxis: {},
   series: [
