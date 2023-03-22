@@ -23,23 +23,6 @@
         </div>
     </div>
     <div class="history">
-<<<<<<< HEAD
-        <h3>Scanned item history:</h3> 
-        <table class="table table-condensed">
-            <tr>
-                <th>Name:</th>
-                <th>Date Scanned</th>
-                <th>Item Score</th>
-            </tr>
-            {% for item in data %} {% if user.profile.id == item.userId_id %}
-            <tr>
-                <td>{{item.name}}</td>
-                <td>{{item.date_Added}}</td>
-                <td>{{item.score}}</td>
-            </tr>
-            {% endif %}{% endfor %}
-        </table>
-=======
         <h3>Scanned item history:</h3>
         <div id="outerDiv">
             <div id="innerDiv">
@@ -60,7 +43,7 @@
 
         <style>
             #outerDiv {
-                height: 200px;
+                height: 400px;
                 margin: 44px;
                 /* border: solid 4px Red; */
             }
@@ -72,7 +55,6 @@
                 font-size: 100%;
             }
         </style>
->>>>>>> 3112db43c3912421ffd390a4e0a87c298fd87657
     </div>
 </div>
 {% endblock content %} {% block sidebar %}

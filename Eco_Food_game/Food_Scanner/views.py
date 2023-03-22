@@ -11,10 +11,12 @@ from Food_Scanner import models
 from users.models import Profile
 from .forms import addImage
 from .itemRequest import itemAttributesDict
-from .addItemPoints import isAdd, showPts, addPtsHistDB, updateRank
+from .addItemPoints import isAdd, maxScans, showPts, addPtsHistDB, updateRank
 from .scanner import barcodeReader
 from PIL import Image
 from pathlib import Path
+from .onCampus import isOnCampus
+
 
 
 def home(request):
