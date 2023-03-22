@@ -1,8 +1,8 @@
 #---------------------------------------------------------------------------------------
-# Name: addItemPoints.py
+# Name: cronJob.py
 # Purpose: For every 24 hours, resetting the daily item history of the users to 0
 #
-# Author: 
+# Author: Phil Cai
 #---------------------------------------------------------------------------------------
 from django_cron import CronJobBase, Schedule
 from users.models import Profile
