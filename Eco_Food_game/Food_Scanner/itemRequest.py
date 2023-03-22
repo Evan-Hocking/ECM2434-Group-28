@@ -1,10 +1,10 @@
-#------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------
 # Name: itemRequest.py
 # Purpose: Uses barcode entered by user to find all an a specifc items attributes using getProduct()
 #
 # Author: Ryan Gascoigne-Jones
-#------------------------------------------------------------------------------------------------------
-from .openFoodFactsPull import getProduct
+# ------------------------------------------------------------------------------------------------------
+from .openFoodFactsPull import getProduct, getCategory
 
 
 def itemAttributesDict(barcode) -> dict:
@@ -35,7 +35,8 @@ def itemAttributesDict(barcode) -> dict:
         itemImg = "N/A"
         itemCO2 = "N/A"
         itemPoints = 0
-    
+        tag = "N/A"
+
     # If there is an item for the barcode then its attributes/values
     # obtained from getProduct() are parsed and formatted.
     else:
@@ -46,20 +47,21 @@ def itemAttributesDict(barcode) -> dict:
         itemImg = itemDict['image']
         itemCO2 = itemDict['co2']
         itemPoints = itemDict['points']
-
+        tag = getCategory(itemDict)
     # Library of all values used in django templates
     lib = {
-      'title' : "Item page",
-      'itemName' : itemName,
-      'itemEcoR' : itemEcoR,
-      'itemEner' : itemEner,
-      'itemNutr' : itemNutr,
-      'itemImg' : itemImg,
-      'itemCO2' : itemCO2,
-      'itemPoints' : itemPoints,
-      'isError' : isError,
-      'errorMsg' : errorMsg,
-      'isAdd' : False
+        'title': "Item page",
+        'itemName': itemName,
+        'itemEcoR': itemEcoR,
+        'itemEner': itemEner,
+        'itemNutr': itemNutr,
+        'itemImg': itemImg,
+        'itemCO2': itemCO2,
+        'itemPoints': itemPoints,
+        'isError': isError,
+        'errorMsg': errorMsg,
+        'tags': tag,
+        'isAdd': False,
     }
 
     return lib
