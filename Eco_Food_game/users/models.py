@@ -68,6 +68,7 @@ class History(models.Model):
     name = models.CharField(max_length=200)
     userId = models.ForeignKey(Profile, on_delete=models.CASCADE)
     date_Added = models.DateTimeField(auto_now_add=True)
+    score = models.IntegerField(default=0)
     # image = models.CharField(max_length=9999, blank=True)
     """
     When it calls itself, returns the usernames

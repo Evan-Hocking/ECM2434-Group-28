@@ -55,6 +55,9 @@ def profile(request):
 
 
     # Collects history from database
+<<<<<<< HEAD
+    history = History.objects.order_by('-date_Added')
+=======
     history = History.objects.filter(userId_id=curProfile.id).order_by('-date_Added')
 
     profiles = Profile.objects.order_by('-score')
@@ -67,6 +70,7 @@ def profile(request):
         if achievements[x].Id_id == request.user.id:
             userAchievements = achievements[x]
             break
+>>>>>>> 3112db43c3912421ffd390a4e0a87c298fd87657
 
     # Add data to the context
     context = {

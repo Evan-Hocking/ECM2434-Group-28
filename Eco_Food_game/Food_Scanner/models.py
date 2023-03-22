@@ -6,6 +6,7 @@
 #-------------------------------------------------------------------------------
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from PIL import Image
 
 
 class Demo(models.Model):
@@ -68,3 +69,22 @@ class Score(models.Model):
     class Meta:
         verbose_name = 'Score List'
         verbose_name_plural = verbose_name
+
+########################### Tried this ##################################
+class Image(models.Model):
+    name = models.CharField(max_length=200,default="image")
+    image = models.ImageField(upload_to='barcode_imgs')
+
+    def __str__(self) -> str:
+        return self.name
+    
+    def save(self, *args, **kwargs) -> None:
+        """
+        Save the image to the server
+        :param self:
+        :param args:
+        :param kwargs:
+        """
+        super().save()
+
+        #img = Image.open(self.image.path)
