@@ -2,7 +2,7 @@
 # Name: addItemPoints.py
 # Purpose: Adds an items points to the DB and provides context for confirmation page
 #
-# Author: Ryan Gascoigne-Jones
+# Author: Ryan Gascoigne-Jones, Tom Sturgeon
 #---------------------------------------------------------------------------------------
 
 import sqlite3

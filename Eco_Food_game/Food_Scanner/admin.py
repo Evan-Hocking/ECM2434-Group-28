@@ -2,7 +2,7 @@
 # Name:        admin.py
 # Purpose:     Registers the database tables to be visible on the django admin page.
 #
-# Author:      Thomas Sturgeon
+# Author:      Tom Sturgeon
 #-------------------------------------------------------------------------------
 from django.contrib import admin
 from Food_Scanner.models import Demo
