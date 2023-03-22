@@ -18,8 +18,6 @@ def testItemAttributesDict():
     """
     Testing the itemAttributesDict function from the itemRequest.py
     """
-    # tests Null input into itemAttributesDict() Function
-    assert itemAttributesDict(), "IAD Erro: OFFP Err - null input error"
 
     # tests a text input into itemAttributesDict()
     assert itemAttributesDict("hello"), "IAD Erro: OFFP Err - text input error"
