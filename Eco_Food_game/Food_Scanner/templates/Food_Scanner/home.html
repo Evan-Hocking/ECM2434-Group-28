@@ -1,8 +1,25 @@
-{% extends "Food_Scanner/base.html" %}
-{% block content %}
-    <form id="barcodeEntryForm" action="/item" method="GET">
-        <br><input type="number" min="0" max="9999999999999" id="barcodeNumEntry" name="barcodeNumber" placeholder="Enter barcode number here">
-        <input type="button" id="addItem" name="addItem" value="+"><br><br>
-        <input type="submit" value="Submit" id="barcodeNumSubmit">
-    </form>
+{% extends "Food_Scanner/base.html" %} {% load crispy_forms_tags %} {% block content %}
+<form id="barcodeEntryForm" action="/item" method="GET">
+    <br />
+    <input type="number" min="0" max="9999999999999" id="barcodeNumEntry" 
+    name="barcodeNumber" placeholder="Enter barcode number here" />
+    <!-- <input type="button" id="addItem" name="addItem" value="+" /><br /><br /> -->
+    <input type="submit" value="Submit Barcode" id="barcodeNumSubmit" />
+</form>
+<!-- <form id="barcodeEntryForm" action="/upload_barcode" method="POST" enctype="multipart/form-data">
+    <br /><label for="barcodeImage" class="btn" id="scanBarcodeLabel">Scan Barcode</label>
+    <input type="file" name="barcodeImage" id="barcodeImage" accept="image/*" 
+    capture="environment" style="visibility: hidden; text-align: center" onchange="form.submit()"/>
+</form> -->
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset class="content-section">
+        <legend class="border-bottom mb-4">Add barcode</legend>
+        {{ form|crispy }}
+    </fieldset>
+    <div class="form-group">
+        <button class="btn btn-login" type="submit">Submit barcode</button>
+    </div>
+</form>
 {% endblock content%}

@@ -2,15 +2,30 @@
 # Name: views.py
 # Purpose: Uses requests from web pages to generate data to populate the page with context
 #
+<<<<<<< HEAD
+# Author: Ryan Gascoigne-Jones, Phil, Evan Hocking
+#--------------------------------------------------------------------------------------------
+from django.shortcuts import render, redirect, reverse
+=======
 # Author: Ryan Gascoigne-Jones, Phil
 # --------------------------------------------------------------------------------------------
 from django.shortcuts import render
+>>>>>>> 3112db43c3912421ffd390a4e0a87c298fd87657
 from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from Food_Scanner import models
 from users.models import Profile
+from .forms import addImage
 from .itemRequest import itemAttributesDict
+<<<<<<< HEAD
+from .addItemPoints import isAdd, showPts, addPtsHistDB, updateRank
+from .scanner import barcodeReader
+from PIL import Image
+from pathlib import Path
+=======
 from .addItemPoints import isAdd, showPts, addPtsHistDB, updateRank, maxScans
 from .onCampus import isOnCampus
+>>>>>>> 3112db43c3912421ffd390a4e0a87c298fd87657
 
 
 def home(request):
@@ -20,8 +35,30 @@ def home(request):
     :return: The Http response of the home page (home.html)
         type - Http Response object
     """
+
+    #url = (request.get_full_path()).split("=")
+    #fragment = url[1]
+
+    # If the method of request is POST
+    if request.method == 'POST':
+        print("Test")
+        # Create a form using the UserRegistrationForm method from users/forms.py
+        form = addImage( request.POST, request.FILES)
+        if form.is_valid():
+            # If the form is valid, Save it then redirect to the login page
+            print("Form is saving and valid")
+            image_file = form.cleaned_data['image']
+            file_name = image_file.name
+            form.save()
+            return redirect(reverse('Food_Scanner-upload_barcode')+'?filename='+file_name)
+    else:
+        print("Form not valid")
+        form = addImage()
+
+
     context = {
         'title': "HomePage",
+        'form': form
     }
     return render(request, 'Food_Scanner/home.html', context)
 
@@ -80,8 +117,15 @@ def item(request):
             context['addPts'] = 0
             context['spam'] = True
         # Adds points of object to users DB and item to history DB
+<<<<<<< HEAD
+        addPtsHistDB(request, points, str(context['itemName']))
+
+        # Updates users ranks according to updated scores
+        updateRank()
+=======
         addPtsHistDB(request, int(context['addPts']), str(context['itemName']))
         return render(request, 'Food_Scanner/item.html', context)
+>>>>>>> 3112db43c3912421ffd390a4e0a87c298fd87657
 
     # If the barcode is in URL (meaning the user has not yet chosen to add points) then:
     else:
@@ -89,6 +133,50 @@ def item(request):
         # Library of all attributes of an item
         context = itemAttributesDict(fragment)
 
+<<<<<<< HEAD
+    return render(request, 'Food_Scanner/item.html', context)
+
+@csrf_exempt
+def upload_barcode(request):
+
+    """
+    if request.method == 'POST':
+        barcodeImg = request.IMAGE#POST.get('barcodeImage', 'default')
+
+        barcodeImgPar = Image.open(barcodeImg)
+
+        barcodeData = barcodeReader(barcodeImgPar)
+    else:
+        barcodeImg = "No-image"
+        barcodeData = {
+            'barcodeNum': 5,
+            'isBarcode': False
+        }
+    """
+    url = (request.get_full_path()).split("=")
+    fragment = url[1]
+    #path = Path("../media/barcode_imgs/haribo_starmix_barcode.png/")
+
+    path = Path("Eco_Food_game\\media\\barcode_imgs\\"+fragment)
+
+    #cur_path = 
+
+    img = Image.open(path)
+
+    barcodeData = barcodeReader(path)
+        
+    ############### Send barcode num in GET request to item page ###############
+
+    context = {
+        'barcodeImg': img,
+        'barcodeNum': barcodeData['barcodeNum'],
+        'isBarcode': barcodeData['isBarcode']
+    }
+
+    return redirect(reverse('Food_Scanner-item') + '?barcodeNumber='+barcodeData['barcodeNum'].decode('utf-8'))
+
+    #return render(request, 'Food_Scanner/item.html/?barcodeNumber=', context)
+=======
         tags = context['tags']
         for i in tags:
             if i == "snack":
@@ -118,3 +206,4 @@ def dashboard(request):
     }
 
     return render(request, 'Food_Scanner/dashboard.html', context)
+>>>>>>> 3112db43c3912421ffd390a4e0a87c298fd87657

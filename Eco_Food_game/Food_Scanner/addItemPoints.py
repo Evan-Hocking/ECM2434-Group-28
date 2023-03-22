@@ -81,7 +81,8 @@ def addPtsHistDB(request, points, itemName) -> None:
     ## Should it add points for each item as well? ##
     # Adds Item Name and date scanned to history table which is ouput on Profile page
     profile = Profile.objects.get(user=request.user)
-    history = History.objects.create(name=itemName, userId=profile)    
+    history = History.objects.create(name=itemName, userId=profile, score=points)
+
 
 
 ### Is this still necessary / are we still using rank for profile ###
