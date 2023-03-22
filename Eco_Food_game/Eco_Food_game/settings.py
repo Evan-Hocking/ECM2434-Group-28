@@ -56,6 +56,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CRON_CLASSES = [
+    "Food_Scanner.cronJob.CronJob",
+]
+
 ROOT_URLCONF = 'Eco_Food_game.urls'
 
 TEMPLATES = [

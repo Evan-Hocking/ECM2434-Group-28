@@ -27,7 +27,6 @@ def showPts(fragment) -> dict:
     essentially empty dictionary
     :param fragment: The value of fragment in URL
         type - str
-        contents - value of fragment in URL
     :return lib: All the values passed to webpage, many are N/A and are unused
         type - dict
     """
@@ -56,7 +55,7 @@ def addPtsHistDB(request, points, itemName) -> None:
     """
     Adds new points to a users score on DB
     :param request: The http request from the html]
-        type - obj (HttpRequest)
+        type - HttpRequest
     :param points: points of current object to add to user's score
         type - int
     :param itemName: Item name parsed from url of item page

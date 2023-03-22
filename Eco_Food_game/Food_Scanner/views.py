@@ -83,3 +83,8 @@ def item(request):
         context = itemAttributesDict(fragment)
 
     return render(request, 'Food_Scanner/item.html', context)
+
+def dashboard(request):
+    user = Profile.objects.filter(user=request.user).first()
+
+    return render(request, 'Food_Scanner/dashboard.html', locals())
