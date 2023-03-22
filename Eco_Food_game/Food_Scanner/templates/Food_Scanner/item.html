@@ -1,6 +1,6 @@
 {% extends "Food_Scanner/base.html" %}
 {% block content %}
-    {%if isError == True %}
+    {% if isError == True %}
         <div style="text-align: center;">
         <h1>{{ errorMsg }}</h1>
         <a href="/">
@@ -9,7 +9,13 @@
         </div>
     {% elif isAdd == True %}
         <div style="text-align: center;">
-        <h1>Added {{ addPts }} pts</h1>
+        {% if spam == True%}
+            <h1>Added {{ addPts }} pts because you scanned to many items in too short amount of time</h1>
+        {% elif addPts == 0 %}
+            <h1>Added {{ addPts }} pts because you are not on campus</h1>
+        {% else %}
+            <h1>Added {{ addPts }} pts</h1>
+        {% endif %}
         <a href="/">
             <button class="btn btn-login" style="width: 100%;">Home</button>
         </a>
@@ -17,7 +23,7 @@
     {% else %}
         <div style="text-align: center;">
             <h1 class="scores">{{ itemName }}</h1>
-            <img class="itemImage" src="{{ itemImg }}" alt="Item image" width="auto" style="align-self: center;">
+            <img class="itemImage" src="{{ itemImg }}" alt="Item image" width="auto" style="align-self: center; max-height: 540px;width: auto;">
             <p class="scores">CO2 (in g) produced per 100g: {{ itemCO2 }}</p>
             <p class="scores">EcoScore: {{ itemEcoR }}</p>
             <p class="scores">Energy per 100g (in kcal): {{ itemEner }}</p>

@@ -1,20 +1,31 @@
-#--------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------
 # Name: views.py
 # Purpose: Uses requests from web pages to generate data to populate the page with context
 #
+<<<<<<< HEAD
 # Author: Ryan Gascoigne-Jones, Phil, Evan Hocking
 #--------------------------------------------------------------------------------------------
 from django.shortcuts import render, redirect, reverse
+=======
+# Author: Ryan Gascoigne-Jones, Phil
+# --------------------------------------------------------------------------------------------
+from django.shortcuts import render
+>>>>>>> 3112db43c3912421ffd390a4e0a87c298fd87657
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from Food_Scanner import models
 from users.models import Profile
 from .forms import addImage
 from .itemRequest import itemAttributesDict
+<<<<<<< HEAD
 from .addItemPoints import isAdd, showPts, addPtsHistDB, updateRank
 from .scanner import barcodeReader
 from PIL import Image
 from pathlib import Path
+=======
+from .addItemPoints import isAdd, showPts, addPtsHistDB, updateRank, maxScans
+from .onCampus import isOnCampus
+>>>>>>> 3112db43c3912421ffd390a4e0a87c298fd87657
 
 
 def home(request):
@@ -59,11 +70,12 @@ def about(request):
     :return: The Http response of the about page (about.html)
         type - Http Response object
     """
-    
+
     context = {
         'title': "HomePage",
     }
     return render(request, 'Food_Scanner/about.html', context)
+
 
 def leaderboard(request):
     """
@@ -72,10 +84,11 @@ def leaderboard(request):
     :return: data for leaderboard.html to use to render page & list variable connected with Profile database ordered DESC by score
         type - Http Response object
     """
-    
+
     '''Users profile from user.models table loaded into d and ordered DESC by score '''
     d = Profile.objects.order_by('-score')
     return render(request, 'Food_Scanner/leaderboard.html', locals())
+
 
 def item(request):
     """
@@ -91,24 +104,36 @@ def item(request):
     # and the rest of the URL, discards the rest of the url as it is not useful
     url = (request.get_full_path()).split("=")
     fragment = url[1]
-
+    
     # If the user has clicked add points button then:
     if isAdd(fragment):
         # Breaks the url fragment down and returns a library of n/a except isAdd and addPts 
         context = showPts(fragment)
-        points = int(context['addPts'])
+        if not isOnCampus():
+            context['addPts'] = 0
 
+        if maxScans(request):
+            print("noPoints")
+            context['addPts'] = 0
+            context['spam'] = True
         # Adds points of object to users DB and item to history DB
+<<<<<<< HEAD
         addPtsHistDB(request, points, str(context['itemName']))
 
         # Updates users ranks according to updated scores
         updateRank()
+=======
+        addPtsHistDB(request, int(context['addPts']), str(context['itemName']))
+        return render(request, 'Food_Scanner/item.html', context)
+>>>>>>> 3112db43c3912421ffd390a4e0a87c298fd87657
 
     # If the barcode is in URL (meaning the user has not yet chosen to add points) then:
     else:
+        u = Profile.objects.filter(user=request.user).first()
         # Library of all attributes of an item
         context = itemAttributesDict(fragment)
 
+<<<<<<< HEAD
     return render(request, 'Food_Scanner/item.html', context)
 
 @csrf_exempt
@@ -151,3 +176,34 @@ def upload_barcode(request):
     return redirect(reverse('Food_Scanner-item') + '?barcodeNumber='+barcodeData['barcodeNum'].decode('utf-8'))
 
     #return render(request, 'Food_Scanner/item.html/?barcodeNumber=', context)
+=======
+        tags = context['tags']
+        for i in tags:
+            if i == "snack":
+                u.Snack = u.Snack + 1
+                u.save()
+            elif i == "drink":
+                u.Drink = u.Drink + 1
+                u.save()
+            elif i == "fruit":
+                u.Fruit = u.Fruit + 1
+                u.save()
+            elif i == "vegetables":
+                u.Vegetable = u.Vegetable + 1
+                u.save()
+            elif i == "protein":
+                u.Protein = u.Protein + 1
+                u.save()
+
+        return render(request, 'Food_Scanner/item.html', context)
+
+
+def dashboard(request):
+    user = Profile.objects.filter(user=request.user).first()
+
+    context = {
+        'user':user
+    }
+
+    return render(request, 'Food_Scanner/dashboard.html', context)
+>>>>>>> 3112db43c3912421ffd390a4e0a87c298fd87657

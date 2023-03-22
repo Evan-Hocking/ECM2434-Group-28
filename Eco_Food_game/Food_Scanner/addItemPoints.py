@@ -4,14 +4,18 @@
 #
 # Author: Ryan Gascoigne-Jones
 #---------------------------------------------------------------------------------------
+
 import sqlite3
+from datetime import date, datetime, timedelta
+from dateutil import parser
+
 from users.models import Profile, History
 
 
 def isAdd(fragment) -> bool:
     """
     Checks whether the fragment is an Add request
-    :param fragment: value of fragment in URL
+    :param fragment: The value of fragment in URL
         type - str
     :return: True when the fragment is an Add request otherwise false
         type - bool
@@ -25,15 +29,13 @@ def showPts(fragment) -> dict:
     Generates an attributes for when a user clicks Add X Points button
     Splits fragment and returns addPts as points and isAdd as True other than them 2 it returns an
     essentially empty dictionary
-    :param - fragment
-        type - string
-        contents - value of fragment in URL
-    :return - lib
-        type - dictionary
-        contents - all values passed to webpage, many are N/A and are unused
+    :param fragment: The value of fragment in URL
+        type - str
+    :return lib: All the values passed to webpage, many are N/A and are unused
+        type - dict
     """
     
-    #Splits fragment into points and item name
+    # Splits fragment into points and item name
     fragment1 = fragment.split("+")
     #fragmentPts2 = (fragmentPts[1]).split("+")
     points = fragment1[1]
@@ -56,11 +58,13 @@ def showPts(fragment) -> dict:
 def addPtsHistDB(request, points, itemName) -> None:
     """
     Adds new points to a users score on DB
-    :param1 request: The http request from the html
-    :param2 points: points of current object to add to user's score
+    :param request: The http request from the html]
+        type - HttpRequest
+    :param points: points of current object to add to user's score
         type - int
-    :param3 itemName: Item name parsed from url of item page
-    :return - none
+    :param itemName: Item name parsed from url of item page
+        type - str
+    :return: None
     """
 
     # Get data from db
@@ -84,10 +88,10 @@ def addPtsHistDB(request, points, itemName) -> None:
 ### Is this still necessary / are we still using rank for profile ###
 ### Also it doesn't work ###
 ### Could generate rank when a profile page is loaded instead of storing on DB - YES says Phil ###
-def updateRank():
+def updateRank() -> None:
     """
     Updates rank of users according to scores in Profiles table in users.models
-    :return - none
+    :return: None
     """
 
     # Updates rank
@@ -122,3 +126,42 @@ object.score = object.score + (int(lib['addPts'])) """
     'isAdd' : lib['isAdd'],
     'addPts' : lib['addPts'],
 }"""
+
+def maxScans(request) -> bool:
+    """
+    checks you not spamming item scans by checking that only 5 items can be scanned in 5 minutes 
+    :param request: The http request from the html]
+        type - obj (HttpRequest)
+    :return: bool
+    """
+    #Get current user profile
+    curProfile = Profile.objects.get(user=request.user)
+
+    #get profile item history
+    history = History.objects.raw(f'SELECT id, date_Added FROM users_history WHERE userId_id = {curProfile.id} ORDER BY date_Added DESC')
+    
+    #converts date into string
+    nowLong = str(history[0].date_Added)
+    thenLong = str(history[4].date_Added)
+
+    #selects time in format of HH:MM:SS
+    now = nowLong[11:19]
+    then = thenLong[11:19]
+
+    #Selects date in format of YYYY-MM-DD
+    nowDay = nowLong[0:10]
+    thenDay = thenLong[0:10]
+
+    #Converts time into a number of seconds
+    nowInSec = (int(now[0:2])*60*60) + (int(now[3:5])*60) + (int(now[6:8]))
+    thenInSec = (int(then[0:2])*60*60) + (int(then[3:5])*60) + (int(then[6:8]))
+
+    #calculates the difference in seconds
+    difInSec = nowInSec - thenInSec
+
+    #converts difference in seconds to difference in minutes
+    dif = difInSec / 60
+
+    #checks if its the same day and the difference is greater than 5 min
+    if nowDay == thenDay and dif < 5:
+        return True

@@ -1,22 +1,22 @@
-#------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------
 # Name: itemRequest.py
 # Purpose: Uses barcode entered by user to find all an a specifc items attributes using getProduct()
 #
 # Author: Ryan Gascoigne-Jones
-#------------------------------------------------------------------------------------------------------
-from .openFoodFactsPull import getProduct
+# ------------------------------------------------------------------------------------------------------
+from .openFoodFactsPull import getProduct, getCategory
 
 
 def itemAttributesDict(barcode) -> dict:
     """
     Finds and generates all attributes for a specified item for use on the item page
-    :param barcode: value of barcode passed in url
-        type - string
+    :param barcode: The value of barcode passed in url
+        type - str
     :return lib: all attributes of an item
-        type - dictionary
+        type - dict
     """
 
-    # Uses func from openFoodFactsPull.py
+    # Uses method from openFoodFactsPull.py to get the item information
     itemDict = getProduct(barcode)
 
     # Sets values for variables
@@ -35,7 +35,8 @@ def itemAttributesDict(barcode) -> dict:
         itemImg = "N/A"
         itemCO2 = "N/A"
         itemPoints = 0
-    
+        tags = "N/A"
+
     # If there is an item for the barcode then its attributes/values
     # obtained from getProduct() are parsed and formatted.
     else:
@@ -46,28 +47,21 @@ def itemAttributesDict(barcode) -> dict:
         itemImg = itemDict['image']
         itemCO2 = itemDict['co2']
         itemPoints = itemDict['points']
-
+        tags = itemDict['tags']
     # Library of all values used in django templates
     lib = {
-      'title' : "Item page",
-      'itemName' : itemName,
-      'itemEcoR' : itemEcoR,
-      'itemEner' : itemEner,
-      'itemNutr' : itemNutr,
-      'itemImg' : itemImg,
-      'itemCO2' : itemCO2,
-      'itemPoints' : itemPoints,
-      'isError' : isError,
-      'errorMsg' : errorMsg,
-      'isAdd' : False
+        'title': "Item page",
+        'itemName': itemName,
+        'itemEcoR': itemEcoR,
+        'itemEner': itemEner,
+        'itemNutr': itemNutr,
+        'itemImg': itemImg,
+        'itemCO2': itemCO2,
+        'itemPoints': itemPoints,
+        'isError': isError,
+        'errorMsg': errorMsg,
+        'tags': tags,
+        'isAdd': False,
     }
 
     return lib
-
-  
-# Decided not to use
-"""itemProc = itemDict['processed']
-if itemProc.startswith("en"):
-    itemProcStr = (itemDict['processed']).split(":")
-    itemProcStr2 = (itemProcStr[1]).split("-")
-    itemProc = itemProcStr2[0]"""

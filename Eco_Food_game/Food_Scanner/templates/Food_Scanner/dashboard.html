@@ -1,0 +1,115 @@
+{% extends "Food_Scanner/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+    <div class ="content-section">
+    <head>
+    <meta charset="utf-8" />
+    <title>ECharts</title>
+        <script src="{% static 'echarts.js' %}"></script>
+  </head>
+  <body>
+  <table  bgcolor="white">
+    <tr>
+      <td><div id="main" style="width: 525px;height: 300px;"></div></td>
+    </tr>
+    <tr>
+      <td><div id="main2" style="width: 525px;height: 300px;"></div></td>
+    </tr>
+    <tr>
+      <td><div id="main3" style="width: 525px;height: 300px;"></div></td>
+    </tr>
+    
+    <tr>
+      <td><div id="main2" style="width: 525px;height: auto;"><a style="font-family: serif,Helvetica; font-size: auto">Please note! The yellow line in the chart above represents our development team's recommendations for users' daily dietary expenses. There should be less than 4 drinks (excluding water),Snacks should be less than 2. Fruits, vegetables and meat should be less than 5. We hope you enjoy your healthy lifestyle :) </a></div></td>
+    </tr>
+  </table>
+
+
+
+    <script type="text/javascript">
+      var myChart = echarts.init(document.getElementById('main'));
+      var myChart2 = echarts.init(document.getElementById('main2'));
+      var myChart3 = echarts.init(document.getElementById('main3'));
+      var option = {
+          itemStyle: {
+              color:'green'
+          },
+        title: {
+          text: 'My daily food'
+        },
+        tooltip: {},
+        legend: {
+          data: ['Numbers']
+        },
+        xAxis: {
+          data: ['Drinks', 'Confectionery', 'Fruits', 'Vegetables', 'Meat']
+        },
+        yAxis: {},
+        series: [
+          {
+            name: 'Numbers',
+            type: 'bar',
+            data: [{{ user.Drink }}, {{ user.Snack }}, {{ user.Fruit }}, {{ user.Vegetable }}, {{ user.Protein }}]
+          }
+        ]
+      };
+
+              var option2 = {
+          series: [
+            {
+              type: 'pie',
+              data: [
+                {
+                  value: {{user.Drink}},
+                  name: 'Drink'
+                },
+                {
+                  value: {{ user.Snack }},
+                  name: 'Confectionary'
+                },
+                {
+                  value: {{ user.Fruit }},
+                  name: 'Fruits'
+                },
+                  {
+                  value: {{ user.Vegetable }},
+                  name: 'Vegetable'
+                  },
+                  {
+                  value: {{ user.Protein }},
+                  name: 'Meat'
+                  }
+              ]
+            }
+          ]
+        };
+
+
+     var option3 = {
+  xAxis: {
+    data: ['Drinks', 'Confectionary', 'Fruit', 'Vegetable', 'Meat']
+  },
+  yAxis: {},
+  series: [
+    {
+      data: [{{user.Drink}}, {{ user.Snack }}, {{ user.Fruit }}, {{ user.Vegetable }}, {{ user.Protein }}],
+      type: 'line',
+      areaStyle: {}
+    },
+    {
+      data: [4, 2, 5, 5, 5],
+      type: 'line',
+      areaStyle: {
+        color: '#ff0',
+        opacity: 0.5
+      }
+    }
+  ]
+};
+      myChart.setOption(option);
+      myChart2.setOption((option2));
+      myChart3.setOption((option3));
+    </script>
+</div>
+{% endblock content %}
