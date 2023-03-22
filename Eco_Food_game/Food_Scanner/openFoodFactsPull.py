@@ -7,8 +7,6 @@
 import json
 import openfoodfacts
 from statistics import mean
-<<<<<<< HEAD
-=======
 def getData(barcode):
     """
     Validates barcode using isNumber
@@ -33,7 +31,6 @@ def getData(barcode):
     if request['status']==0:
         return ("Err: Product not found")
     return product
->>>>>>> parent of 5877d9c (Merge pull request #37 from Evan-Hocking/dash)
 
 
 def isNumber(value) -> bool:
@@ -198,7 +195,6 @@ def getNutri(foodDict) -> str:
     
     return nutriScore
 
-<<<<<<< HEAD
 
 def getCategory(foodDict) -> list:
     """
@@ -225,8 +221,6 @@ def getCategory(foodDict) -> list:
         
     return tags
 
-=======
->>>>>>> parent of 5877d9c (Merge pull request #37 from Evan-Hocking/dash)
 
 def getPoints(CO2Dat,ecoScore) -> str:
     """
@@ -310,6 +304,7 @@ def getProduct(barcode=0) -> dict:
     img = getImage(product)
     co2 = getCO2(product)
     points = getPoints(co2,ecoRating)
+    tags = getCategory(product)
 
     # Condenses pulled data to dictionary lib
     lib         =   {
@@ -320,15 +315,10 @@ def getProduct(barcode=0) -> dict:
         'ecoRating':ecoRating,
         'image':img,
         'co2':co2,
-<<<<<<< HEAD
         'points':points,
         'tags':tags
         }
     
     # Fills in any missing data in lib
-=======
-        'points':points}
-
->>>>>>> parent of 5877d9c (Merge pull request #37 from Evan-Hocking/dash)
     lib = makeDictionaryConsistent(lib)
     return lib

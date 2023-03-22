@@ -86,7 +86,7 @@ def item(request) -> HttpResponse:
         context = itemAttributesDict(fragment)
 
     return render(request, 'Food_Scanner/item.html', context)
-<<<<<<< HEAD
+
 
 def dashboard(request) -> HttpResponse:
     """
@@ -99,5 +99,4 @@ def dashboard(request) -> HttpResponse:
     user = Profile.objects.filter(user=request.user).first()
 
     return render(request, 'Food_Scanner/dashboard.html', locals())
-=======
->>>>>>> parent of 5877d9c (Merge pull request #37 from Evan-Hocking/dash)
+
