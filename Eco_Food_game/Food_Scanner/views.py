@@ -13,12 +13,13 @@ from .addItemPoints import isAdd, showPts, addPtsHistDB, updateRank
 from .onCampus import isOnCampus
 
 
-def home(request):
+def home(request) -> HttpResponse:
     """
     Parse data to the homepage and render it from the provided template
     :param request: The http request from the html
+        type - HttpResponse
     :return: The Http response of the home page (home.html)
-        type - Http Response object
+        type - HttpResponse
     """
     context = {
         'title': "HomePage",
@@ -26,12 +27,13 @@ def home(request):
     return render(request, 'Food_Scanner/home.html', context)
 
 
-def about(request):
+def about(request) -> HttpResponse:
     """
     Parse data to the about page and render it from the provided template
     :param request: The http request from the html
+        type - HttpResponse
     :return: The Http response of the about page (about.html)
-        type - Http Response object
+        type - HttpResponse
     """
     
     context = {
@@ -39,26 +41,28 @@ def about(request):
     }
     return render(request, 'Food_Scanner/about.html', context)
 
-def leaderboard(request):
+
+def leaderboard(request) -> HttpResponse:
     """
-    Returns an ordered list to the leaderboard page in descending order by score
+    Parse data to the leaderboard page and render it from the provided template with an ordered list in descending order by score
     :param request: The http request from the html
-    :return: data for leaderboard.html to use to render page & list variable connected with Profile database ordered DESC by score
-        type - Http Response object
+        type - HttpResponse
+    :return: The data for the leaderboard.html to use to render and list variable connected with Profile database in descending order
+        type - HttpResponse
     """
-    
-    '''Users profile from user.models table loaded into d and ordered DESC by score '''
+    # Users profile from user.models table loaded into d and ordered DESC by score
     d = Profile.objects.order_by('-score')
     return render(request, 'Food_Scanner/leaderboard.html', locals())
 
-def item(request):
+def item(request) -> HttpResponse:
     """
     Parse data to the item page and render it from the provided template
     Sends all attributes and data of an object or adds number of points to a users score
     :param request: The http request from the html
+        type - HttpResponse
     :return: data for item.html to render page and add the items score to user score in 
             database and rank update
-        type - Http Respone object
+        type - HttpRespone 
     """
 
     # Gets header contents and splits into 2 lists, the value of the query (fragment),
@@ -83,7 +87,16 @@ def item(request):
 
     return render(request, 'Food_Scanner/item.html', context)
 
-def dashboard(request):
+
+def dashboard(request) -> HttpResponse:
+    """
+    Parse data to the dashboard page and render it from the provided template
+    :param request: The http request from the html
+        type - HttpResponse
+    :return: The data for dashboard.html to render
+        type - HttpRespone 
+    """
     user = Profile.objects.filter(user=request.user).first()
 
     return render(request, 'Food_Scanner/dashboard.html', locals())
+
