@@ -165,7 +165,10 @@ def getCategory(foodDict):
     """
     searches and assigns tags to the product
     """
-    categories = foodDict['food_groups_tags']
+    try:
+        categories = foodDict['categories_tags']
+    except:
+        return ['n/a']
     tags = []
     if any("beverage" in s for s in categories):
         tags.append("drink")
@@ -175,9 +178,9 @@ def getCategory(foodDict):
         tags.append("vegetables")
     elif any("snack" in s for s in categories):
         tags.append("snack")
-    elif any("meat" in s for s in categories):
+    elif any("meat" in s for s in categories) or any("fish" in s for s in categories) or any("protein" in s for s in categories):
         tags.append("protein")
-
+    return tags
 
 def getPoints(CO2Dat,ecoScore):
     """
@@ -219,7 +222,7 @@ def makeDictionaryConsistent(lib) ->dict:
         type dictionary
     """
     for x in range(0,len(lib)):
-        if str(list(lib.values())[x]) == "" or str(list(lib.values())[x]) == "unknown" or str(list(lib.values())[x]) == "['unknown']":
+        if str(list(lib.values())[x]) == "" or str(list(lib.values())[x]) == "unknown" or str(list(lib.values())[x]) == "['unknown']" or str(list(lib.values())[x]) == "not-applicable":
             lib[list(lib.keys())[x]] = "n/a"
     return lib
 
