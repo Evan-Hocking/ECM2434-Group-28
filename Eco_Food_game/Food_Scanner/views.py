@@ -129,7 +129,7 @@ def upload_barcode(request):
 
     #path = Path("../media/barcode_imgs/haribo_starmix_barcode.png/")
 
-    path = Path("../media/barcode_imgs/haribo_starmix_barcode.png")
+    path = Path("C:\\Users\evzy\\OneDrive\\Pictures\\Camera Roll\\WIN_20230322_21_01_57_Pro.jpg")
 
     #cur_path = 
 
