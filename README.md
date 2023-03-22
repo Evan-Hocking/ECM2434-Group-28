@@ -2,12 +2,10 @@
 ## About
 This application is designed to encourage Students to eat more sustainably when spending time on campus. The application asks users to scan their meals and they get scored on how sustainable they are eating.
 
-Users can Create accounts and scan their food to see basic nutritional information and how sustainable the product is. They can then compete against others to see who is the most sustainable on campus! They may also play against themselves, working to achieve a variety of goals.
-
 ## Installation Guide 
 ### Prerequisites
 To install all prerequisite modules:
-`pip install -r Eco_Food_game/requirements.txt`
+`pip install -r requirements.txt`
 
 ### Config
 1. Enter in the **Eco_Food_game** folder.
@@ -21,7 +19,6 @@ adminCode - Pin used to verify user is admin for zeroing score
 
 uni_lat - The latitude coordinate of the chosen campus
 uni_long - The longitude coordinate of the chosen campus
-range_km - The radius of allowed area to gain points (it's recommended this area is greater than the campus to account for geolocation inaccuracies)
 Geolocation_API_Key - Google Geolocation API key 
   Read more: https://developers.google.com/maps/documentation/geolocation/overview
 
@@ -33,17 +30,6 @@ emailPassword: The sign in with App Passwords
 
 Click the following link for the emailPassword setup instructions:
 https://support.google.com/accounts/answer/185833?visit_id=638132774297355194-3557485644&p=InvalidSecondFactor&rd=1
-
-## Launching Service
-
-From the Parent Directory (where this file is located) enter the command: 
-`python Eco_Food_game/manage.py runserver`
-
-## Clearing Score
-
-In the event it is thought a user is breaking rules enter the command: 
-`python Eco_Food_game/Food_Scanner/zero.py`
-
 
 ## Credits
 - [Evan Hocking](https://github.com/Evan-Hocking)
