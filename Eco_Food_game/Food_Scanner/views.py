@@ -78,28 +78,8 @@ def item(request):
 
     # If the barcode is in URL (meaning the user has not yet chosen to add points) then:
     else:
-<<<<<<< HEAD
-        lib = itemAttributesDict(fragment)
-
-    context = {
-        'title': "Item Page",
-        'name' : lib['itemName'],
-        'ecoRating' : lib['itemEcoR'],
-        'energy' : lib['itemEner'],
-        'nutri' : lib['itemNutr'],
-        'proc' : lib['itemProc'],
-        'imageLink' : lib['itemImg'],
-        'score' : lib['itemPoints'],
-        'isError' : lib['isError'],
-        'errorMsg' : lib['errorMsg'],
-        'isAdd' : lib['isAdd'],
-        'addPts' : lib['addPts'],
-    }
-    
-=======
         # Library of all attributes of an item
         context = itemAttributesDict(fragment)
->>>>>>> 7d25c6f08f8d1eccf6958e231b3436560c8b8a63
 
     return render(request, 'Food_Scanner/item.html', context)
 
