@@ -35,7 +35,7 @@ def itemAttributesDict(barcode) -> dict:
         itemImg = "N/A"
         itemCO2 = "N/A"
         itemPoints = 0
-        tag = "N/A"
+        tags = "N/A"
 
     # If there is an item for the barcode then its attributes/values
     # obtained from getProduct() are parsed and formatted.
@@ -47,7 +47,7 @@ def itemAttributesDict(barcode) -> dict:
         itemImg = itemDict['image']
         itemCO2 = itemDict['co2']
         itemPoints = itemDict['points']
-        tag = getCategory(itemDict)
+        tags = itemDict['tags']
     # Library of all values used in django templates
     lib = {
         'title': "Item page",
@@ -60,7 +60,7 @@ def itemAttributesDict(barcode) -> dict:
         'itemPoints': itemPoints,
         'isError': isError,
         'errorMsg': errorMsg,
-        'tags': tag,
+        'tags': tags,
         'isAdd': False,
     }
 
