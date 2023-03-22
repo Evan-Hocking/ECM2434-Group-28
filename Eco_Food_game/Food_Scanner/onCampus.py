@@ -65,6 +65,5 @@ def isOnCampus() -> bool:
     # Returns true if the two points are less than or equal to 0.75km otherwise false
     if dist <= config['range_km']:
         return True
-    else:
-        return True
+
 
