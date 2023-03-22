@@ -7,6 +7,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from Eco_Food_game.users.achievements import check25
 from Food_Scanner import models
 from users.models import Profile
 from .forms import addImage
@@ -16,6 +17,7 @@ from .scanner import barcodeReader
 from PIL import Image
 from pathlib import Path
 from .onCampus import isOnCampus
+
 
 
 
@@ -109,6 +111,7 @@ def item(request):
             context['spam'] = True
         # Adds points of object to users DB and item to history DB
         addPtsHistDB(request, int(context['addPts']), str(context['itemName']))
+        check25(request, context['addPts'])
         return render(request, 'Food_Scanner/item.html', context)
 
     # If the barcode is in URL (meaning the user has not yet chosen to add points) then:
