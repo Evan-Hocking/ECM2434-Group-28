@@ -8,7 +8,6 @@
 import sqlite3
 from datetime import date, datetime, timedelta
 from dateutil import parser
-import pytz
 from users.models import Profile, History
 
 
