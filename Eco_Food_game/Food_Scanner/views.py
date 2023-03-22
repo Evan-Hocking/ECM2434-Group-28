@@ -91,4 +91,8 @@ def item(request):
 def dashboard(request):
     user = Profile.objects.filter(user=request.user).first()
 
-    return render(request, 'Food_Scanner/dashboard.html', locals())
+    context = {
+        'user':user
+    }
+
+    return render(request, 'Food_Scanner/dashboard.html', context)

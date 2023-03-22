@@ -33,7 +33,7 @@
                 <a href ="{% url 'Food_Scanner-dashboard' %}">Dashboard</a>
                 <a class="right" style="float: right" href="{% url 'auth-logout' %}">Log out</a>
                 {% else %}
-                    <a class="right" href="{% url 'auth-login' %}">Log-In</a>
+                <a class="right" href="{% url 'auth-login' %}">Log-In</a>
                 {% endif %}
                 <a href="javascript:void(0);" class="icon" onclick="navBarResize()">
                     <i class="fa fa-bars"></i>
