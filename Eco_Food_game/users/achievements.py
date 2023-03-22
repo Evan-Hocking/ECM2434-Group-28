@@ -19,39 +19,40 @@ def checkAchievements(request):
             break
         Achievements.objects.create(Id_id = request.user.id)
  
-    if History.objects.raw(f"SELECT * FROM users_history WHERE userId_id={profile.id}"):
-        userAchievements.First_Scan = "True"
-        userAchievements.save()
+    if userAchievements:
+        if History.objects.raw(f"SELECT * FROM users_history WHERE userId_id={profile.id}"):
+            userAchievements.First_Scan = "True"
+            userAchievements.save()
 
-    if profile.score >= 50:
-        userAchievements.points_50 = "True"
-        userAchievements.save()
+        if profile.score >= 50:
+            userAchievements.points_50 = "True"
+            userAchievements.save()
 
-    if profile.score >= 250:
-        userAchievements.points_250 = "True"
-        userAchievements.save()
+        if profile.score >= 250:
+            userAchievements.points_250 = "True"
+            userAchievements.save()
 
-    if profile.score >= 500:
-        userAchievements.points_500 = "True"
-        userAchievements.save()
+        if profile.score >= 500:
+            userAchievements.points_500 = "True"
+            userAchievements.save()
 
-    rank = calcRank(request)
+        rank = calcRank(request)
 
-    if rank <= 10:
-        userAchievements.Top_10 = "True"
-        userAchievements.save()
+        if rank <= 10:
+            userAchievements.Top_10 = "True"
+            userAchievements.save()
 
-    if rank <= 5:
-        userAchievements.Top_5 = "True"
-        userAchievements.save()
+        if rank <= 5:
+            userAchievements.Top_5 = "True"
+            userAchievements.save()
 
-    if rank <= 3:
-        userAchievements.Top_3 = "True"
-        userAchievements.save()
+        if rank <= 3:
+            userAchievements.Top_3 = "True"
+            userAchievements.save()
 
-    if rank == 1:
-        userAchievements.Top_1 = "True"
-        userAchievements.save()
+        if rank == 1:
+            userAchievements.Top_1 = "True"
+            userAchievements.save()
 
     return
 
