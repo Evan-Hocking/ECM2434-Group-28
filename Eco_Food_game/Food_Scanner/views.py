@@ -2,7 +2,7 @@
 # Name: views.py
 # Purpose: Uses requests from web pages to generate data to populate the page with context
 #
-# Author: Ryan Gascoigne-Jones, Phil
+# Author: Ryan Gascoigne-Jones, Phil, Evan Hocking
 #--------------------------------------------------------------------------------------------
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse, JsonResponse
@@ -36,8 +36,10 @@ def home(request):
         if form.is_valid():
             # If the form is valid, Save it then redirect to the login page
             print("Form is saving and valid")
+            image_file = form.cleaned_data['image']
+            file_name = image_file.name
             form.save()
-            return redirect('Food_Scanner-upload_barcode')
+            return redirect(reverse('Food_Scanner-upload_barcode')+'?filename='+file_name)
     else:
         print("Form not valid")
         form = addImage()
@@ -126,10 +128,11 @@ def upload_barcode(request):
             'isBarcode': False
         }
     """
-
+    url = (request.get_full_path()).split("=")
+    fragment = url[1]
     #path = Path("../media/barcode_imgs/haribo_starmix_barcode.png/")
 
-    path = Path("C:\\Users\evzy\\OneDrive\\Pictures\\Camera Roll\\WIN_20230322_21_01_57_Pro.jpg")
+    path = Path("Eco_Food_game\\media\\barcode_imgs\\"+fragment)
 
     #cur_path = 
 
@@ -145,6 +148,6 @@ def upload_barcode(request):
         'isBarcode': barcodeData['isBarcode']
     }
 
-    #return redirect(reverse('item.html' + '?barcodeNumber=5012035952808'))
+    return redirect(reverse('Food_Scanner-item') + '?barcodeNumber='+barcodeData['barcodeNum'].decode('utf-8'))
 
-    return render(request, 'Food_Scanner/upload_barcode.html/', context)
+    #return render(request, 'Food_Scanner/item.html/?barcodeNumber=', context)

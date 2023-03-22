@@ -8,7 +8,7 @@ from pyzbar.pyzbar import decode
 def barcodeReader(image) -> dict:
 	
 	# read the image in numpy array using cv2
-	img = cv2.imread(image)
+	img = cv2.imread(str(image))
 	
 	# Decode the barcode image
 	detectedBarcodes = decode(img)
