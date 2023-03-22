@@ -65,9 +65,27 @@ def item(request):
     # and the rest of the URL, discards the rest of the url as it is not useful
     url = (request.get_full_path()).split("=")
     fragment = url[1]
-
+    u = Profile.objects.filter(user=request.user).first()
     # If the user has clicked add points button then:
     if isAdd(fragment):
+        lib = itemAttributesDict(fragment)
+        tags = lib['tags']
+        for i in tags:
+            if i == "snack":
+                u.Snack = u.Snack + 1
+                u.save()
+            elif i == "drink":
+                u.Drink = u.Drink + 1
+                u.save()
+            elif i == "fruit":
+                u.Fruit = u.Fruit + 1
+                u.save()
+            elif i == "vegetables":
+                u.Vegetable = u.Vegetable + 1
+                u.save()
+            elif i == "protein":
+                u.Protein = u.Protein + 1
+                u.save()
         # Breaks the url fragment down and returns a library of n/a except isAdd and addPts 
         context = showPts(fragment)
         if not isOnCampus():
