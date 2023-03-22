@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login_required
-from Eco_Food_game.users.achievements import check25
+#from Eco_Food_game.users.achievements import check25
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from .models import History, Profile, Achievements
 from .achievements import checkAchievements
