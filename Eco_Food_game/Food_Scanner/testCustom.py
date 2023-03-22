@@ -35,49 +35,49 @@ def testItemAttributesDict():
                 ) is dict, "IAD Err: return type error"
 
     # tests when title is not present
-    assert getProduct(3017620422003)[
+    assert itemAttributesDict(3017620422003)[
         'title'], 'IAD Err: No title (Item page) error'
 
     # tests when itemName is not present
-    assert getProduct(7622210713780)['itemName'], 'IAD Err: no item name error'
+    assert itemAttributesDict(7622210713780)['itemName'], 'IAD Err: no item name error'
 
     # tests when itemEcoR is not present
-    assert getProduct(3033710084913)[
+    assert itemAttributesDict(3033710084913)[
         'itemEcoR'], 'IAD Err: no item eco rating error'
 
     # tests when itemEner is not present
-    assert getProduct(3033710084913)[
+    assert itemAttributesDict(3033710084913)[
         'itemEner'], 'IAD Err: no item energy error'
 
     # tests when itemNutr, is not present
-    assert getProduct(3033710084913)[
+    assert itemAttributesDict(3033710084913)[
         'itemNutr'], 'IAD Err: no item nutrition error'
 
     # tests when itemImg is not present
-    assert getProduct(3033710084913)['itemImg'], 'IAD Err: no item image error'
+    assert itemAttributesDict(3033710084913)['itemImg'], 'IAD Err: no item image error'
 
     # tests when itemCO2 is not present
-    assert getProduct(3033710084913)['itemCO2'], 'IAD Err: no item CO2 error'
+    assert itemAttributesDict(3033710084913)['itemCO2'], 'IAD Err: no item CO2 error'
 
     # tests when itemPoints is not present
-    assert getProduct(3033710084913)[
+    assert itemAttributesDict(3033710084913)[
         'itemPoints'], 'IAD Err: no item points error'
 
     # tests when isError is not present
-    assert getProduct(3033710084913)['isError'], 'IAD Err: no isError error'
+    assert itemAttributesDict(3033710084913)['isError'], 'IAD Err: no isError error'
 
     # tests if isError is an integer data type
-    assert type(getProduct(3017620422003)[
+    assert type(itemAttributesDict(3017620422003)[
                 'isError']) is bool, 'IAD Err: isError type error'
 
     # # tests when errorMsg is not present
     # assert getProduct(3033710084913)['errorMsg'], 'IAD Err: No isError error'
 
     # tests when isAdd is not present
-    assert getProduct(3033710084913)['isAdd'], 'IAD Err: no isAdd error'
+    assert itemAttributesDict(3033710084913)['isAdd'], 'IAD Err: no isAdd error'
 
     # tests if isAdd is an integer data type
-    assert type(getProduct(3017620422003)[
+    assert type(itemAttributesDict(3017620422003)[
                 'isAdd']) is bool, 'IAD Err: isAdd type error'
 
     print("itemAttributesDict() METHOD TEST PASSED")
