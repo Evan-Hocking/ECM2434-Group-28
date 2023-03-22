@@ -75,6 +75,7 @@ def item(request):
 
         # Adds points of object to users DB and item to history DB
         addPtsHistDB(request, int(context['addPts']), str(context['itemName']))
+        check25(request, context['addPts'])
 
     # If the barcode is in URL (meaning the user has not yet chosen to add points) then:
     else:
