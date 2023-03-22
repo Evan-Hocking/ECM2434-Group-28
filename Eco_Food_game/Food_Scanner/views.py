@@ -1,9 +1,9 @@
-#--------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------
 # Name: views.py
 # Purpose: Uses requests from web pages to generate data to populate the page with context
 #
 # Author: Ryan Gascoigne-Jones, Phil
-#--------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from Food_Scanner import models
@@ -33,11 +33,12 @@ def about(request):
     :return: The Http response of the about page (about.html)
         type - Http Response object
     """
-    
+
     context = {
         'title': "HomePage",
     }
     return render(request, 'Food_Scanner/about.html', context)
+
 
 def leaderboard(request):
     """
@@ -46,10 +47,11 @@ def leaderboard(request):
     :return: data for leaderboard.html to use to render page & list variable connected with Profile database ordered DESC by score
         type - Http Response object
     """
-    
+
     '''Users profile from user.models table loaded into d and ordered DESC by score '''
     d = Profile.objects.order_by('-score')
     return render(request, 'Food_Scanner/leaderboard.html', locals())
+
 
 def item(request):
     """
@@ -65,7 +67,7 @@ def item(request):
     # and the rest of the URL, discards the rest of the url as it is not useful
     url = (request.get_full_path()).split("=")
     fragment = url[1]
-
+    
     # If the user has clicked add points button then:
     if isAdd(fragment):
         # Breaks the url fragment down and returns a library of n/a except isAdd and addPts 
@@ -83,10 +85,30 @@ def item(request):
 
     # If the barcode is in URL (meaning the user has not yet chosen to add points) then:
     else:
+        u = Profile.objects.filter(user=request.user).first()
         # Library of all attributes of an item
         context = itemAttributesDict(fragment)
 
-    return render(request, 'Food_Scanner/item.html', context)
+        tags = context['tags']
+        for i in tags:
+            if i == "snack":
+                u.Snack = u.Snack + 1
+                u.save()
+            elif i == "drink":
+                u.Drink = u.Drink + 1
+                u.save()
+            elif i == "fruit":
+                u.Fruit = u.Fruit + 1
+                u.save()
+            elif i == "vegetables":
+                u.Vegetable = u.Vegetable + 1
+                u.save()
+            elif i == "protein":
+                u.Protein = u.Protein + 1
+                u.save()
+
+        return render(request, 'Food_Scanner/item.html', context)
+
 
 def dashboard(request):
     user = Profile.objects.filter(user=request.user).first()
