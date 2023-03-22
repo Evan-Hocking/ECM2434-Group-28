@@ -31,3 +31,4 @@ class CronJob(CronJobBase):
             i.Vegetable = 0
             i.Protein = 0
             i.Snack = 0
+            i.save()
