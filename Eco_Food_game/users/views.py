@@ -43,7 +43,7 @@ def register(request):
 
 
 @login_required
-def profile(request) -> HttpRequest:
+def profile(request):
     """
     Pass the profile information to the correct webpage
     You need to be logged in to access webpage otherwise you will be redirected to Food_Scanner-home 

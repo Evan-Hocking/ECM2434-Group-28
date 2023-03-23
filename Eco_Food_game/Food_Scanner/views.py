@@ -7,7 +7,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from Eco_Food_game.users.achievements import check25
+from users.achievements import check25
 from Food_Scanner import models
 from users.models import Profile
 from .forms import addImage
