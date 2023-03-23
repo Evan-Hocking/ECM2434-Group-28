@@ -16,5 +16,7 @@ class UsersConfig(AppConfig):
     def ready(self):
         """
         Gets called when the app is ready
+        :param self: When the UsersConfig object is instantiated
+        :return: None
         """
         import users.signals  # Import the signal handlers defined in the users.signals module
