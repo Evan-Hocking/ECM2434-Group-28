@@ -140,6 +140,10 @@ def maxScans(request) -> bool:
     #get profile item history
     history = History.objects.raw(f'SELECT id, date_Added FROM users_history WHERE userId_id = {curProfile.id} ORDER BY date_Added DESC')
     
+    if not history[4]:
+        return True
+
+
     #converts date into string
     nowLong = str(history[0].date_Added)
     thenLong = str(history[4].date_Added)
