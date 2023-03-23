@@ -4,6 +4,7 @@
 #
 # Author: Ryan Gascoigne-Jones, Phil, Evan Hocking, Tom Sturgeon
 #--------------------------------------------------------------------------------------------
+from django.contrib import messages
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -169,8 +170,12 @@ def upload_barcode(request):
         'barcodeNum': barcodeData['barcodeNum'],
         'isBarcode': barcodeData['isBarcode']
     }
-
-    return redirect(reverse('Food_Scanner-item') + '?barcodeNumber='+barcodeData['barcodeNum'].decode('utf-8'))
+    try:
+        return redirect(reverse('Food_Scanner-item') + '?barcodeNumber='+str(barcodeData['barcodeNum'].decode('utf-8')))
+    except:
+        messages.success(
+                request, f'Try another image')
+        return redirect('Food_Scanner-home')
 
    
 
