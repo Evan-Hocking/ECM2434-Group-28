@@ -144,18 +144,11 @@ def item(request):
 def upload_barcode(request):
 
     """
-    if request.method == 'POST':
-        barcodeImg = request.IMAGE#POST.get('barcodeImage', 'default')
-
-        barcodeImgPar = Image.open(barcodeImg)
-
-        barcodeData = barcodeReader(barcodeImgPar)
-    else:
-        barcodeImg = "No-image"
-        barcodeData = {
-            'barcodeNum': 5,
-            'isBarcode': False
-        }
+    Takes image directory and applies barcodeReader function to it,
+    decoding the response to be used in the redirecting to item page
+    :param request: The http request from the html
+    :return: data for upload_barcode.html to render page 
+        type - Http Respone object
     """
     url = (request.get_full_path()).split("=")
     fragment = url[1]
