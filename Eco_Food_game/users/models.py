@@ -36,7 +36,7 @@ class Profile(models.Model):
         Display the table with the title of "usernams profile"
         When it calls itself, returns the usernames
         :param self: The instance of the object (Profile)
-            type - obj (Profile)
+            type - Profile
         :return: The usernames from the database
         """
         return f'{self.user.username} Profile'
@@ -45,15 +45,16 @@ class Profile(models.Model):
     def save(self, *args, **kwargs) -> None:
         """
         When an instance of the model is saved to the database resize the image to 300,300
-        :param self:
-        :param args:
+        :param self: The instance of Profile object
+        :param args: 
         :param kwargs:
+        :return: None
         """
         super().save()
 
         img = Image.open(self.image.path)
 
-        '''make image fit on web '''
+        '''make image fit on web'''
         if img.height > 300 or img.width > 300:
             outputSize = (300, 300)
             img.thumbnail(outputSize)
@@ -110,5 +111,9 @@ class Achievements(models.Model):
     Top_1 = models.BooleanField(default=False)
 
     def __Str__(self):
+        """
+        Gets the name of the profile
+        :return: The name of the user profile
+        """
         return f'{self.Profile.name}'
 
