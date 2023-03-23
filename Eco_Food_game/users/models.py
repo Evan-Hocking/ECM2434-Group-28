@@ -98,7 +98,7 @@ class Achievements(models.Model):
     """
     Create Achievements model with all the achievements in the database
     """
-    Id = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    Id = models.ForeignKey(Profile, on_delete=models.CASCADE)
     First_Scan = models.BooleanField(default=False)
     points_50 = models.BooleanField(default=False) 
     points_250 = models.BooleanField(default=False)
